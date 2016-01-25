@@ -24,4 +24,5 @@ How to ensure *next* time won't be like *last* time
    - You tell part of the story, not all.
 ** Own your party helps you to cool off
    - You are able to list all the things you did wrong.
-   - Purity `->` Clearity.
+   - Circle of blame. (as exercise).
+   - Purity ~->~ Clearity.

@@ -1,0 +1,71 @@
+* English mistakes
+
+** Grammar
+- I *had the intention to* discuss this *over* design decisions meeting, but we *run* out of time.
+  - I *wanted* to discuss this *during* the design decisions meeting, but we *ran* out of time.
+- neither *I* do
+  - neither do *I*
+- deal_ids for *whom messages* need to be replayed.
+  - deal_ids for *messages that* need to be replayed.
+- looking forward *for* having our *Friday's* discussion.
+  - looking forward *to* having our *Friday* discussion.
+- I can merge something else to see  if this time the deploy goes out,
+  my  only  concern is  that  somehow  you  will process  the  current
+  deployment in the future, so I'll ending up with two deployments
+  - ???
+- Even for me that *I am all day long*
+  - Even for me that *I have the chance of*
+- *Temporal* solution
+  - *Temporary* solution
+- to help FED Engineers *to* understand
+  - to help FED Engineers +to+ understand
+- make changes *anytime to them*
+  - make changes *to them anytime*
+- There is something leaking *in* your backpack
+  - There is something leaking *from* your backpack
+- This is the fastest query *in* the market
+  - This is the fastest query *on* the market
+- coddle
+  - ???
+- Why we *cannot* use something ..?
+  - Why *can* we *not* use something ..?
+- If you are *any time* in doubt
+  - If you are *ever* in doubt
+- That sentence is going *to be* straight into my english mistakes
+  - That sentence is going +to be+ straight into my english mistakes
+- Everybody is *capable to learn*
+  - Everybody is *capable of learning*
+- The most important *thing* of being a parent
+  - The most important *part* of being a parent
+- Trying *to explain me* two things
+  - Trying *to tell me* two things
+  - Trying *to explain* two things to *me*
+- The things that *it might be keeping us to become* parents
+  - The things that *might keep us from becoming* parents
+  - The things that *might be keeping us from becoming* parents
+- That thing really *take* a lot of time
+  - That thing really *takes* a lot of time
+- You have *to pay them* college
+  - You have *to pay for their* college
+- Now I *truly* understand that things have a cost
+  - Now I *really* understand that things have a cost
+- The structure of my sentences *is* more natural
+  - The structure of my sentences *are* more natural
+- It's *related with* the fact that I work with you guys
+  - It's *related to* the fact that I work with you guys
+- Thanks for showing off your *extense* vocabulary
+  - Thanks for showing off your *extensive* vocabulary
+
+** Pronunciation
+- dramati *cally*
+  - drama *d* i *c* +a+ *ly*
+- 15 *millions*
+  - 15 *million*
+- Watched
+  - ???
+- Washed
+  - ???
+- Buffet
+  - Buffay (ei)
+- Star *t* ed
+  - Star *d* ed
