@@ -1,6 +1,4 @@
-* English mistakes
-
-** Grammar
+* Grammar
 - I *had the intention to* discuss this *over* design decisions meeting, but we *run* out of time.
   - I *wanted* to discuss this *during* the design decisions meeting, but we *ran* out of time.
 - neither *I* do
@@ -25,8 +23,6 @@
   - There is something leaking *from* your backpack
 - This is the fastest query *in* the market
   - This is the fastest query *on* the market
-- coddle
-  - ???
 - Why we *cannot* use something ..?
   - Why *can* we *not* use something ..?
 - If you are *any time* in doubt
@@ -55,8 +51,33 @@
   - It's *related to* the fact that I work with you guys
 - Thanks for showing off your *extense* vocabulary
   - Thanks for showing off your *extensive* vocabulary
+- They do only the things that you tell them to do *it*
+  - They only do the things that you tell them to do *+it+*
+- Stove vs Oven vs Burners
+  - Cocina vs Horno vs Quemadores
+- Making *a* mental effort of *checking more my sentences* before I use them
+  - Making *the* mental effort of *checking my sentences more* before I use them
+- I feel more *confident of* taking more time before
+  - I feel more *comfortable* taking time before
+- Title
+  - Diploma
+- Imagine if  we were not together  and this had happened  to you, you
+  would not *have able* to appeal this.
+  - Imagine if we were not together  and this had happened to you, you
+    would not *have been able* to appeal this.
+- Careers
+  - Program
+- You cut out
+  - I could not hear you
+  - You cut off
+- It complicates more the situation
+  - It makes the situation more complicated
+  - It complicates the situation even more
+  - It complicates the situation more
+- She has done a lot of progress
+  - She has made a lot of progress
 
-** Pronunciation
+* Pronunciation
 - dramati *cally*
   - drama *d* i *c* +a+ *ly*
 - 15 *millions*
@@ -69,3 +90,119 @@
   - /bəˈfeɪ, bu-/
 - Star *t* ed
   - Star *d* ed
+
+* New words [0/107]
+- [ ] shattered
+- [ ] treasuring
+- [ ] seamstress
+- [ ] crumb
+- [ ] haste
+- [ ] scant
+- [ ] brazenly
+- [ ] helm
+- [ ] deprivations
+- [ ] fusty
+- [ ] hubbub
+- [ ] coddle
+- [ ] vantage point
+- [ ] clientele
+- [ ] pupils
+- [ ] destined
+- [ ] eternal
+- [ ] broth
+- [ ] ceaseless
+- [ ] cloaks
+- [ ] breathless
+- [ ] budding
+- [ ] butlers
+- [ ] bourgeois
+- [ ] feast
+- [ ] shifted
+- [ ] rutted
+- [ ] winding streets
+- [ ] puddles
+- [ ] rubbish
+- [ ] splattered
+- [ ] villagey
+- [ ] obliged
+- [ ] buckle down
+- [ ] fasteners
+- [ ] overcasting
+- [ ] backstitches
+- [ ] rush
+- [ ] hunched
+- [ ] chatterbox
+- [ ] keener
+- [ ] incongruous
+- [ ] mahogany
+- [ ] rags
+- [ ] rear
+- [ ] gynaeceum
+- [ ] hellish
+- [ ] humming
+- [ ] bust
+- [ ] cuff
+- [ ] collars
+- [ ] lapels
+- [ ] studded
+- [ ] blush
+- [ ] desires
+- [ ] unforeseen
+- [ ] riotous
+- [ ] crammed
+- [ ] lad
+- [ ] fate
+- [ ] stirred
+- [ ] sorrows
+- [ ] stridency
+- [ ] genial
+- [ ] tender
+- [ ] tame
+- [ ] feted
+- [ ] meager
+- [ ] mulberry
+- [ ] viaduct
+- [ ] rowed boats
+- [ ] swings
+- [ ] watchlike
+- [ ] overly bold
+- [ ] boundless
+- [ ] unsurpassable
+- [ ] instilled
+- [ ] apprehension
+- [ ] frantic
+- [ ] permeating
+- [ ] fringes
+- [ ] shirtless
+- [ ] dwindled
+- [ ] lit
+- [ ] brandished
+- [ ] lit
+- [ ] bullies
+- [ ] galore
+- [ ] drip
+- [ ] twiddling
+- [ ] sighing
+- [ ] amid
+- [ ] quake
+- [ ] advent
+- [ ] stifled
+- [ ] neighboring
+- [ ] toppling
+- [ ] deferred
+- [ ] cassock
+- [ ] parish
+- [ ] wits
+- [ ] sugar-plum
+- [ ] drudgery
+- [ ] suffrage
+- [ ] platoon
+- [ ] progeny
+- [ ] evoked
+
+
+* New expressions/sentences
+- The vantage point of the years gone by
+- He had never been around
+- I never felt much curiosity *about* him
+
