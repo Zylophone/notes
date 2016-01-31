@@ -97,7 +97,7 @@
 | shattered       | /ˈSHadərd/    |          |
 | treasuring      | /ˈtreZHər/    |          |
 | seamstress      | /ˈsēmstris/   |          |
-| crumb           |               |          |
+| crumb           | /krəm/        |          |
 | haste           |               |          |
 | scant           |               |          |
 | brazenly        |               |          |
