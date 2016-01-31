@@ -91,8 +91,7 @@
 - Star *t* ed
   - Star *d* ed
 
-* New words [0/107]
-
+* New words
 | word            | pronunciation | examples |
 |-----------------+---------------+----------|
 | shattered       | /ˈSHadərd/    |          |
