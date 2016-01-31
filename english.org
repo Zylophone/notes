@@ -92,6 +92,13 @@
   - Star *d* ed
 
 * New words [0/107]
+
+| word       | pronunciation | examples |
+|------------+---------------+----------|
+| shattered  | /ˈSHadərd/    |          |
+| treasuring | /ˈtreZHər/    |          |
+| seamstress | /ˈsēmstris/   |          |
+
 - [ ] shattered
 - [ ] treasuring
 - [ ] seamstress
