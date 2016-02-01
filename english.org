@@ -92,119 +92,118 @@
   - Star *d* ed
 
 * New words
-| word            | pronunciation | priority | examples |
-|-----------------+---------------+----------+----------|
-| shattered       | /ˈSHadərd/    |          |          |
-| treasuring      | /ˈtreZHər/    |          |          |
-| seamstress      | /ˈsēmstris/   |          |          |
-| crumb           | /krəm/        |          |          |
-| haste           |               |          |          |
-| scant           |               |          |          |
-| brazenly        |               |          |          |
-| helm            |               |          |          |
-| deprivations    |               |          |          |
-| fusty           |               |          |          |
-| hubbub          |               |          |          |
-| coddle          |               |          |          |
-| vantage point   |               |          |          |
-| clientele       |               |          |          |
-| pupils          |               |          |          |
-| destined        |               |          |          |
-| eternal         |               |          |          |
-| broth           |               |          |          |
-| ceaseless       |               |          |          |
-| cloaks          |               |          |          |
-| breathless      |               |          |          |
-| budding         |               |          |          |
-| butlers         |               |          |          |
-| bourgeois       |               |          |          |
-| feast           |               |          |          |
-| shifted         |               |          |          |
-| rutted          |               |          |          |
-| winding streets |               |          |          |
-| puddles         |               |          |          |
-| rubbish         |               |          |          |
-| splattered      |               |          |          |
-| villagey        |               |          |          |
-| obliged         |               |          |          |
-| buckle down     |               |          |          |
-| fasteners       |               |          |          |
-| overcasting     |               |          |          |
-| backstitches    |               |          |          |
-| rush            |               |          |          |
-| hunched         |               |          |          |
-| chatterbox      |               |          |          |
-| keener          |               |          |          |
-| incongruous     |               |          |          |
-| mahogany        |               |          |          |
-| rags            |               |          |          |
-| rear            |               |          |          |
-| gynaeceum       |               |          |          |
-| hellish         |               |          |          |
-| humming         |               |          |          |
-| bust            |               |          |          |
-| cuff            |               |          |          |
-| collars         |               |          |          |
-| lapels          |               |          |          |
-| studded         |               |          |          |
-| blush           |               |          |          |
-| desires         |               |          |          |
-| unforeseen      |               |          |          |
-| riotous         |               |          |          |
-| crammed         |               |          |          |
-| lad             |               |          |          |
-| fate            |               |          |          |
-| stirred         |               |          |          |
-| sorrows         |               |          |          |
-| stridency       |               |          |          |
-| genial          |               |          |          |
-| tender          |               |          |          |
-| tame            |               |          |          |
-| feted           |               |          |          |
-| meager          |               |          |          |
-| mulberry        |               |          |          |
-| viaduct         |               |          |          |
-| rowed boats     |               |          |          |
-| swings          |               |          |          |
-| watchlike       |               |          |          |
-| overly bold     |               |          |          |
-| boundless       |               |          |          |
-| unsurpassable   |               |          |          |
-| instilled       |               |          |          |
-| apprehension    |               |          |          |
-| frantic         |               |          |          |
-| permeating      |               |          |          |
-| fringes         |               |          |          |
-| shirtless       |               |          |          |
-| dwindled        |               |          |          |
-| lit             |               |          |          |
-| brandished      |               |          |          |
-| lit             |               |          |          |
-| bullies         |               |          |          |
-| galore          |               |          |          |
-| drip            |               |          |          |
-| twiddling       |               |          |          |
-| sighing         |               |          |          |
-| amid            |               |          |          |
-| quake           |               |          |          |
-| advent          |               |          |          |
-| stifled         |               |          |          |
-| neighboring     |               |          |          |
-| toppling        |               |          |          |
-| deferred        |               |          |          |
-| cassock         |               |          |          |
-| parish          |               |          |          |
-| wits            |               |          |          |
-| sugar-plum      |               |          |          |
-| drudgery        |               |          |          |
-| suffrage        |               |          |          |
-| platoon         |               |          |          |
-| progeny         |               |          |          |
-| evoked          |               |          |          |
+| word            | pronunciation | priority | examples | notes                             |
+|-----------------+---------------+----------+----------+-----------------------------------|
+| shifted         |               |          |          |                                   |
+| rush            |               |          |          |                                   |
+| crumb           | /krəm/        |          |          |                                   |
+| drip            |               |          |          |                                   |
+| rags            |               |          |          |                                   |
+| rear            |               |          |          |                                   |
+| puddles         |               |          |          |                                   |
+| winding streets |               |          |          | can refer to anything line-shaped |
+| overly bold     |               |          |          |                                   |
+| humming         |               |          |          |                                   |
+| sighing         |               |          |          |                                   |
+| unforeseen      |               |          |          |                                   |
+| eternal         |               |          |          |                                   |
+| lit             |               |          |          |                                   |
+| helm            |               |          |          |                                   |
+| deferred        |               |          |          |                                   |
+| broth           |               |          |          |                                   |
+| stirred         |               |          |          |                                   |
+| drudgery        |               |          |          |                                   |
+| suffrage        |               |          |          |                                   |
+| crammed         |               |          |          |                                   |
+| collars         |               |          |          |                                   |
+| neighboring     |               |          |          |                                   |
+| bullies         |               |          |          |                                   |
+| apprehension    |               |          |          |                                   |
+| obliged         |               |          |          |                                   |
+| breathless      |               |          |          |                                   |
+| ceaseless       |               |          |          |                                   |
+| fringes         |               |          |          |                                   |
+| toppling        |               |          |          |                                   |
+| evoked          |               |          |          |                                   |
+| frantic         |               |          |          |                                   |
+| feast           |               |          |          |                                   |
+| desires         |               |          |          |                                   |
+| destined        |               |          |          |                                   |
+| stifled         |               |          |          |                                   |
+| instilled       |               |          |          |                                   |
+| permeating      |               |          |          |                                   |
+| twiddling       |               |          |          |                                   |
+| shattered       | /ˈSHadərd/    |          |          |                                   |
+| galore          |               |          |          | very strange grammar              |
+| splattered      |               |          |          |                                   |
+| rubbish         |               |          |          |                                   |
+| tame            |               |          |          |                                   |
+| buckle down     |               |          |          |                                   |
+| dwindled        |               |          |          |                                   |
+| swings          |               |          |          |                                   |
+| fasteners       |               |          |          |                                   |
+| budding         |               |          |          |                                   |
+| rowed boats     |               |          |          |                                   |
+| shirtless       |               |          |          |                                   |
+| quake           |               |          |          |                                   |
+| hunched         |               |          |          |                                   |
+| progeny         |               |          |          |                                   |
+| pupils          |               |          |          |                                   |
+| coddle          |               |          |          |                                   |
+| unsurpassable   |               |          |          |                                   |
+| platoon         |               |          |          |                                   |
+| cloaks          |               |          |          |                                   |
+| wits            |               |          |          |                                   |
+| advent          |               |          |          |                                   |
+| blush           |               |          |          |                                   |
+| tender          |               |          |          |                                   |
+| boundless       |               |          |          |                                   |
+| amid            |               |          |          |                                   |
+| brandished      |               |          |          |                                   |
+| sorrows         |               |          |          |                                   |
+| bust            |               |          |          |                                   |
+| cuff            |               |          |          |                                   |
+| scant           |               |          |          |                                   |
+| riotous         |               |          |          |                                   |
+| hellish         |               |          |          |                                   |
+| fate            |               |          |          |                                   |
+| parish          |               |          |          |                                   |
+| sugar-plum      |               |          |          |                                   |
+| mulberry        |               |          |          |                                   |
+| vantage point   |               |          |          |                                   |
+| chatterbox      |               |          |          |                                   |
+| bourgeois       |               |          |          |                                   |
+| meager          |               |          |          |                                   |
+| treasuring      | /ˈtreZHər/    |          |          |                                   |
+| haste           |               |          |          |                                   |
+| clientele       |               |          |          |                                   |
+| deprivations    |               |          |          | related to "deprive"              |
+| keener          |               |          |          |                                   |
+| hubbub          |               |          |          |                                   |
+| brazenly        |               |          |          |                                   |
+| viaduct         |               |          |          |                                   |
+| overcasting     |               |          |          |                                   |
+| lapels          |               |          |          |                                   |
+| studded         |               |          |          |                                   |
+| mahogany        |               |          |          |                                   |
+| watchlike       |               |          |          |                                   |
+| lad             |               |          |          | antiquated                        |
+| seamstress      | /ˈsēmstris/   |          |          | historical                        |
+| butlers         |               |          |          | historical                        |
+| incongruous     |               |          |          | Gary doesn't know what it means   |
+| stridency       |               |          |          | Gary doesn't know what it means   |
+| genial          |               |          |          | Gary doesn't know what it means   |
+| cassock         |               |          |          | Gary doesn't know what it means   |
+| fusty           |               |          |          | Gary hasn't heard it              |
+| rutted          |               |          |          | Gary hasn't heard it              |
+| villagey        |               |          |          | Gary hasn't heard it              |
+| backstitches    |               |          |          | Gary hasn't heard it              |
+| gynaeceum       |               |          |          | Gary hasn't heard it              |
+| feted           |               |          |          | Gary hasn't heard it              |
+
 
 
 * New expressions/sentences
 - The vantage point of the years gone by
 - He had never been around
 - I never felt much curiosity *about* him
-
