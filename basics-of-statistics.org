@@ -1,0 +1,12 @@
+* Basics of Statistics
+
+  1.- Descriptive vs Inferential:  Descriptive is about to summarize data, drawing conclusions about something with relative few data.
+
+** Data and visualization
+
+** Cases, variables and levels of measurement
+| type                  | examples                    |
+|-----------------------+-----------------------------|
+| variables             | age, total number of goals  |
+| cases                 | individual football players |
+| levels of measurement |                             |
