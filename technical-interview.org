@@ -1,0 +1,33 @@
+* Array and Strings [0/1]
+  - [ ] Is Unique: Implement an algorithm to determine if a string has
+    all unique  characters.  What  if you  cannot use  additional data
+    structures?
+    1. This solution is ~O(len(string) + len(letters.values))~,
+      thus ~O(n)~.   I am making  the assumption that hash  access is
+      constant.
+       #+BEGIN_SRC ruby
+       def is_unique?(string)
+         letters = Hash.new(0)
+	 string.each_char do |char|
+	   letters[char] += 1
+	 end
+	 letters.values.select{|counter| counter > 1}.empty?
+       end
+     #+END_SRC
+    2. This solution is  ~O(n * log(n) + n)~, thus ~O(n  * log n)~.  I
+       am assuming that I cannot use an additional data structure.
+       #+BEGIN_SRC ruby
+       def is_unique?(string)
+         sorted_string = string.split(//).sort
+	 next_index = 1
+	 result = true
+	 sorted_string[0..-2].each do |char|
+	   if char == sorted_string[next_index]
+	     result = false
+	     break
+	   end
+	   next_index += 1
+	 end
+	 result
+       end
+       #+END_SRC

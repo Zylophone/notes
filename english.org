@@ -91,7 +91,7 @@
 - Star *t* ed
   - Star *d* ed
 
-* New words
+* New words (High priority)
 | word            | pronunciation | priority | examples | notes                             |
 |-----------------+---------------+----------+----------+-----------------------------------|
 | shifted         |               |          |          |                                   |
@@ -127,6 +127,10 @@
 | evoked          |               |          |          |                                   |
 | frantic         |               |          |          |                                   |
 | feast           |               |          |          |                                   |
+
+* New words (Low priority)
+| word            | pronunciation | priority | examples | notes                             |
+|-----------------+---------------+----------+----------+-----------------------------------|
 | desires         |               |          |          |                                   |
 | destined        |               |          |          |                                   |
 | stifled         |               |          |          |                                   |
@@ -200,8 +204,6 @@
 | backstitches    |               |          |          | Gary hasn't heard it              |
 | gynaeceum       |               |          |          | Gary hasn't heard it              |
 | feted           |               |          |          | Gary hasn't heard it              |
-
-
 
 * New expressions/sentences
 - The vantage point of the years gone by
