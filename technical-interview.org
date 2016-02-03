@@ -1,11 +1,11 @@
-* Array and Strings [0/1]
-  - [ ] Is Unique: Implement an algorithm to determine if a string has
+* Array and Strings [1/2]
+  - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
     structures?
-    1. This solution is ~O(len(string) + len(letters.values))~,
-      thus ~O(n)~.   I am making  the assumption that hash  access is
-      constant.
-     #+BEGIN_SRC ruby
+    1. This  solution is ~O(len(string) +  len(letters.values))~, thus
+       ~O(n)~.   I  am  making  the assumption  that  hash  access  is
+       constant.
+      #+BEGIN_SRC ruby
   def is_unique?(string)
     letters = Hash.new(0)
     string.each_char do |char|
@@ -14,8 +14,8 @@
     letters.values.select{|counter| counter > 1}.empty?
   end
      #+END_SRC
-    2. This solution is  ~O(n * log(n) + n)~, thus ~O(n  * log n)~.  I
-       am assuming that I cannot use an additional data structure.
+    2. This solution is ~O(n * log(n) + n)~, thus ~O(n * log n)~.  I am
+       assuming that I cannot use an additional data structure.
        #+BEGIN_SRC ruby
   def is_unique?(string)
     sorted_string = string.split(//).sort
@@ -31,3 +31,19 @@
     result
   end
        #+END_SRC
+
+  - [ ] *Check permutation*
+
+  - [ ] *URLify*
+
+  - [ ] *Palindrome Permutation*
+
+  - [ ] *One Away*
+
+  - [ ] *String Compression*
+
+  - [ ] *Rotate Matrix*
+
+  - [ ] *Zero Matrix*
+
+  - [ ] *String Rotation*
