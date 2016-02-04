@@ -5,8 +5,18 @@
 ** Data and visualization
 
 ** Cases, variables and levels of measurement
-| type                  | examples                    |
-|-----------------------+-----------------------------|
-| variables             | age, total number of goals  |
-| cases                 | individual football players |
-| levels of measurement |                             |
+| type      | definition                   | examples                    |
+|-----------+------------------------------+-----------------------------|
+| cases     | subject                      | individual football players |
+| variables | characteristics of a subject | age, total number of goals  |
+|-----------+------------------------------+-----------------------------|
+
+Levels of measurement
+|                         |          | Difference | Order | Similar Intervals | meaningful zero point | example                           |
+|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+|                         | nominal  | √          | X     | X                 | X                     | nationality, gender               |
+| categorical             | ordinal  | √          | √     | X                 | X                     | order in football competition     |
+|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+| quantitative            | interval | √          | √     | √                 | X                     | age "differs" - similar intervals |
+| (discrete - continuous) | ratio    | √          | √     | √                 | √                     | body height                       |
+|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
