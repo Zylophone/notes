@@ -1,4 +1,4 @@
-* Array and Strings [2/9]
+* Array and Strings [4/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
     structures?
@@ -32,7 +32,27 @@
   end
        #+END_SRC
 
-  - [ ] *Check permutation*
+  - [X] *Check permutation* Given two strings write a method to decide
+    if one is a permutation of the other.
+    #+BEGIN_SRC ruby
+    def permutation(s1, s2)
+      new_s1 = s1.split(//)
+      new_s2 = s2.split(//)
+      store = {}
+      new_s2.each do |char|
+        store[char] = true
+      end
+
+      result = true
+      new_s1.each do |char|
+        if !store.has_key?(char)
+          result = false
+	  break
+	end
+      end
+      result
+    end
+    #+END_SRC
 
   - [X] *URLify*
     The solution is ~O(n + n)~, this ~O(n)~.
@@ -67,7 +87,29 @@ end
 
   - [ ] *One Away*
 
-  - [ ] *String Compression*
+  - [X] *String Compression*
+    aabcccccaaa `->` a2b1c5a3
+    #+BEGIN_SRC ruby
+def compress(string)
+  normalized_string = string.split(//)
+  repetitions = 0
+  previous = normalized_string[0]
+  new_string = ""
+  normalized_string.each do |char|
+    if (char == previous)
+      repetitions += 1
+    else
+      new_string += "#{previous}#{repetitions}"
+      previous = char
+      repetitions = 1
+    end
+  end
+  if normalized_string[-1] == previous
+    new_string += "#{previous}#{repetitions}"
+  end
+  new_string
+end
+    #+END_SRC
 
   - [ ] *Rotate Matrix*
 

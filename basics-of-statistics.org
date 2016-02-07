@@ -4,19 +4,62 @@
 
 ** Data and visualization
 
-** Cases, variables and levels of measurement
-| type      | definition                   | examples                    |
-|-----------+------------------------------+-----------------------------|
-| cases     | subject                      | individual football players |
-| variables | characteristics of a subject | age, total number of goals  |
-|-----------+------------------------------+-----------------------------|
+*** Cases, variables and levels of measurement
+ | type      | definition                   | examples                    |
+ |-----------+------------------------------+-----------------------------|
+ | cases     | subject                      | individual football players |
+ | variables | characteristics of a subject | age, total number of goals  |
+ |-----------+------------------------------+-----------------------------|
 
-Levels of measurement
-|                         |          | Difference | Order | Similar Intervals | meaningful zero point | example                           |
-|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
-|                         | nominal  | √          | X     | X                 | X                     | nationality, gender               |
-| categorical             | ordinal  | √          | √     | X                 | X                     | order in football competition     |
-|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
-| quantitative            | interval | √          | √     | √                 | X                     | age "differs" - similar intervals |
-| (discrete - continuous) | ratio    | √          | √     | √                 | √                     | body height                       |
-|-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+ Levels of measurement
+ |                         |          | Difference | Order | Similar Intervals | meaningful zero point | example                           |
+ |-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+ |                         | nominal  | √          | X     | X                 | X                     | nationality, gender               |
+ | categorical             | ordinal  | √          | √     | X                 | X                     | order in football competition     |
+ |-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+ | quantitative            | interval | √          | √     | √                 | X                     | age "differs" - similar intervals |
+ | (discrete - continuous) | ratio    | √          | √     | √                 | √                     | body height                       |
+ |-------------------------+----------+------------+-------+-------------------+-----------------------+-----------------------------------|
+
+*** Data matrix and frequency table
+
+    - Data matrix  is an  overview of cases and variables.   You don't
+      present  a data  matrix to  others, you  rather use  a frequency
+      table.
+      | Data matrix | Age | Weight | Goals scored | Hair color |
+      |-------------+-----+--------+--------------+------------|
+      | Player 1    |  39 |   76.9 |            3 | brown      |
+      | ...         |     |        |              |            |
+
+    - Frequency table shows how the values are distributed over the
+      cases.  This basically summarize the data matrix
+      | Hair color (nominal) | Frequency | Percentage |
+      |----------------------+-----------+------------|
+      | blond                |        76 | 30%        |
+      | brown                |       154 | 70%        |
+      |----------------------+-----------+------------|
+      | Total                |       230 | 100%       |
+
+      Weight is a quantitative (ratio)  variable that is recoded into an
+      ordinal variable
+      | Weight (ratio -> ordinal) | Frequency | Percentage |
+      |---------------------------+-----------+------------|
+      | less than 60              |        76 |        30% |
+      | 60 - 69.9                 |       154 |        70% |
+      |---------------------------+-----------+------------|
+      | Total                     |       230 |       100% |
+
+
+*** Graphs and shapes of distributions
+    - Graphs for categorical variables
+      - Pie chart  is good  when you have  less categories.   Good for
+        percentages.
+      - Bar graph is good when you have high number of categories.
+    - Graphs for quantitative variables
+      - Dot plot useful when you have a couple of observations.
+      - Histogram, bars touch each other.
+    - Shapes of distributions (unimodal, bimodal)
+      - bell shaped
+      - skewed to the right (annual income football players)
+      - skewed to the left
+      - two peaks

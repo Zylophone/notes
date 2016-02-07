@@ -70,12 +70,26 @@
 - You cut out
   - I could not hear you
   - You cut off
-- It complicates more the situation
+- It complicates *more* the situation
   - It makes the situation more complicated
   - It complicates the situation even more
-  - It complicates the situation more
-- She has done a lot of progress
-  - She has made a lot of progress
+  - It complicates the situation *more*
+- She has *done* a lot of progress
+  - She has *made* a lot of progress
+- I feel very lucky of having that kind of relationship
+  - I feel very lucky to have that kind of relationship
+- The funny *stuff* is that ...
+  - The funny *thing* is that ...
+- Why don't we *discuss about* other stuff
+  - Why don't we *talk about* other stuff
+  - Why don't we *discuss* other stuff
+- My parents were very open to *discuss* with me
+  - My parents were very open to *discussing* with me
+- A feeling that was eating *myself* from the inside out
+  - A feeling that was eating *me* from the inside out
+- I'm very grateful *of* being able to *learn* your mistakes
+  - I'm very grateful *for* being able to *see* your mistakes
+
 
 * Pronunciation
 - dramati *cally*
