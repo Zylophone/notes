@@ -104,6 +104,8 @@
   - /bəˈfeɪ, bu-/
 - Star *t* ed
   - Star *d* ed
+- private
+  - /ˈpraɪvət/
 
 * New words (High priority)
 | word            | pronunciation | priority | examples | notes                             |

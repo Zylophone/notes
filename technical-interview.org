@@ -1,4 +1,4 @@
-* Array and Strings [4/9]
+* Array and Strings [7/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
     structures?
@@ -85,7 +85,34 @@ end
 
   - [ ] *Palindrome Permutation*
 
-  - [ ] *One Away*
+  - [X] *One Away*
+    Given two strings, write a function to check if they are one edit (or zero edits) away.
+    #+BEGIN_SRC ruby
+def is_one_away?(s1, s2)
+  longest, shortest = s1.size > s2.size ? [s1, s2] : [s2, s1]
+  counter = 0
+  shortest_index = 0
+  longest.split(//).each_with_index do |char, index|
+    if char == shortest[shortest_index]
+      shortest_index += 1
+      next
+    end
+
+    if longest[index+1] == shortest[shortest_index]
+      counter += 1
+    elsif longest[index+1] == shortest[shortest_index+1]
+      counter += 1
+      shortest_index += 1
+    end
+  end
+  counter <= 1 ? true : false
+end
+
+is_one_away?("pale", "ple") == true
+is_one_away?("pales", "pale") == true
+is_one_away?("pale", "bale") == true
+is_one_away?("pale", "bake") == false
+    #+END_SRC
 
   - [X] *String Compression*
     aabcccccaaa `->` a2b1c5a3
@@ -113,6 +140,40 @@ end
 
   - [ ] *Rotate Matrix*
 
-  - [ ] *Zero Matrix*
+  - [X] *Zero Matrix* Given a MxN matrix, write an algorithm such that
+    if an element is 0, its entire row and columns are set to 0.
+    #+BEGIN_SRC ruby
+def zero_matrix(matrix, row_count, column_count)
+  rows = []
+  columns = []
+  matrix.each_with_index do |row, row_index|
+    row.each_with_index do |element, column_index|
+      if element == 0
+        rows << row_index
+        columns << column_index
+      end
+    end
+  end
+  rows.uniq.each do |row_index|
+    matrix[row_index] = column_count.times.map{|c| 0}
+  end
+  columns.uniq.each do |column_index|
+    matrix.each do |row|
+      row[column_index] = 0
+    end
+  end
+  matrix
+end
 
-  - [ ] *String Rotation*
+zero_matrix([[1, 2], [3, 4], [5, 0]], 3, 2) == [[1, 0], [3, 0], [0, 0]]
+    #+END_SRC
+
+  - [X] *String Rotation*
+    "waterbottle" is a rotation of "erbottlewat"
+    #+BEGIN_SRC ruby
+def is_rotation(s1, s2)
+  "#{s2}#{s2}".include?(s1)
+end
+
+is_rotation("waterbottle", "erbottlewat") == true
+    #+END_SRC
