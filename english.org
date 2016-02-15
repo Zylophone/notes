@@ -89,7 +89,8 @@
   - A feeling that was eating *me* from the inside out
 - I'm very grateful *of* being able to *learn* your mistakes
   - I'm very grateful *for* being able to *see* your mistakes
-
+- You should take a step back and really think about what the *important things* in life are.
+  - You should take a step back and really think about what the *fundamentals* in life are.
 
 * Pronunciation
 - dramati *cally*
@@ -108,41 +109,76 @@
   - /ˈpraɪvət/
 
 * New words (High priority)
-| word            | pronunciation | priority | examples | notes                             |
-|-----------------+---------------+----------+----------+-----------------------------------|
-| shifted         |               |          |          |                                   |
-| rush            |               |          |          |                                   |
-| crumb           | /krəm/        |          |          |                                   |
-| drip            |               |          |          |                                   |
-| rags            |               |          |          |                                   |
-| rear            |               |          |          |                                   |
-| puddles         |               |          |          |                                   |
-| winding streets |               |          |          | can refer to anything line-shaped |
-| overly bold     |               |          |          |                                   |
-| humming         |               |          |          |                                   |
-| sighing         |               |          |          |                                   |
-| unforeseen      |               |          |          |                                   |
-| eternal         |               |          |          |                                   |
-| lit             |               |          |          |                                   |
-| helm            |               |          |          |                                   |
-| deferred        |               |          |          |                                   |
-| broth           |               |          |          |                                   |
-| stirred         |               |          |          |                                   |
-| drudgery        |               |          |          |                                   |
-| suffrage        |               |          |          |                                   |
-| crammed         |               |          |          |                                   |
-| collars         |               |          |          |                                   |
-| neighboring     |               |          |          |                                   |
-| bullies         |               |          |          |                                   |
-| apprehension    |               |          |          |                                   |
-| obliged         |               |          |          |                                   |
-| breathless      |               |          |          |                                   |
-| ceaseless       |               |          |          |                                   |
-| fringes         |               |          |          |                                   |
-| toppling        |               |          |          |                                   |
-| evoked          |               |          |          |                                   |
-| frantic         |               |          |          |                                   |
-| feast           |               |          |          |                                   |
+| word                | pronunciation | priority | examples | notes                             |
+|---------------------+---------------+----------+----------+-----------------------------------|
+| shifted             |               |          |          |                                   |
+| rush                |               |          |          |                                   |
+| crumb               | /krəm/        |          |          |                                   |
+| drip                |               |          |          |                                   |
+| rags                |               |          |          |                                   |
+| rear                |               |          |          |                                   |
+| puddles             |               |          |          |                                   |
+| winding streets     |               |          |          | can refer to anything line-shaped |
+| overly bold         |               |          |          |                                   |
+| humming             |               |          |          |                                   |
+| sighing             |               |          |          |                                   |
+| unforeseen          |               |          |          |                                   |
+| eternal             |               |          |          |                                   |
+| lit                 |               |          |          |                                   |
+| helm                |               |          |          |                                   |
+| deferred            |               |          |          |                                   |
+| broth               |               |          |          |                                   |
+| stirred             |               |          |          |                                   |
+| drudgery            |               |          |          |                                   |
+| suffrage            |               |          |          |                                   |
+| crammed             |               |          |          |                                   |
+| collars             |               |          |          |                                   |
+| neighboring         |               |          |          |                                   |
+| bullies             |               |          |          |                                   |
+| apprehension        |               |          |          |                                   |
+| obliged             |               |          |          |                                   |
+| breathless          |               |          |          |                                   |
+| ceaseless           |               |          |          |                                   |
+| fringes             |               |          |          |                                   |
+| toppling            |               |          |          |                                   |
+| evoked              |               |          |          |                                   |
+| frantic             |               |          |          |                                   |
+| feast               |               |          |          |                                   |
+|---------------------+---------------+----------+----------+-----------------------------------|
+| laden               |               |          |          |                                   |
+| rocking chair       |               |          |          |                                   |
+| bore                |               |          |          |                                   |
+| feigned             |               |          |          |                                   |
+| bluntness           |               |          |          |                                   |
+| stews               |               |          |          |                                   |
+| strength of a gale  |               |          |          |                                   |
+| garging             |               |          |          |                                   |
+| unwillingly         |               |          |          |                                   |
+| silhouette          |               |          |          |                                   |
+| breeze              |               |          |          |                                   |
+| slaughter house     |               |          |          |                                   |
+| edge of the abyss   |               |          |          |                                   |
+| shrugged            |               |          |          |                                   |
+| smudge              |               |          |          |                                   |
+| hubbub              |               |          |          |                                   |
+| upright             |               |          |          |                                   |
+| scythe              |               |          |          |                                   |
+| reckless            |               |          |          |                                   |
+| haste               |               |          |          |                                   |
+| trotted down        |               |          |          |                                   |
+| expats              |               |          |          |                                   |
+| jumble              |               |          |          |                                   |
+| indeterminate       |               |          |          |                                   |
+| hoarse              |               |          |          |                                   |
+| resting on the heap |               |          |          |                                   |
+| open up             |               |          |          |                                   |
+| velvet              |               |          |          |                                   |
+| pawn                |               |          |          |                                   |
+| gut-feeling         |               |          |          |                                   |
+| heir                |               |          |          |                                   |
+| parted              |               |          |          |                                   |
+| devour              |               |          |          |                                   |
+| pond                |               |          |          |                                   |
 
 * New words (Low priority)
 | word            | pronunciation | priority | examples | notes                             |
@@ -225,3 +261,15 @@
 - The vantage point of the years gone by
 - He had never been around
 - I never felt much curiosity *about* him
+- if that's not too forward a question?
+- As as daughter of mine
+  - as my daughter
+- does not lack for anything
+- my mother ahead, me behind
+- closer to them and farther from me
+- as though
+- I transformed into his shadow
+- went on and on about
+- everywhere they need qualified staff who know typing
+- is yet to come
+- answering back
