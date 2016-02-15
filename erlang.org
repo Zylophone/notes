@@ -1,0 +1,8 @@
+* gen_fsm OTP behavior
+  - states
+  - global events
+  - is it possible to combine this solution by having a gen_server and
+    a gen_fsm?
+  - Use a gen_server  when you want a long lived  process which reacts
+    to  events.   Use a  gen_fsm  to  implement state  machines.   See
+    http://en.wikipedia.org/wiki/Finite_state_machine
