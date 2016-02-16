@@ -1,4 +1,4 @@
-* Array and Strings [7/9]
+* Array and Strings [8/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
     structures?
@@ -83,7 +83,56 @@ def urilify(string_array, size)
 end
     #+END_SRC
 
-  - [ ] *Palindrome Permutation*
+  - [X]  *Palindrome  Permutation*  Given  a  string,  check  if  any
+    permutation of  it is a palindrome.   The solution I came  up is a
+    recursive  solution,  and I'm  pretty  sure  that is  exponential.
+    However I don't know how to prove that.
+    #+BEGIN_SRC ruby
+def remaining_array(init, array)
+  size = array.count
+  size.times.map do |index|
+    i = (init + index) % size
+    array[i]
+  end[1..-1]
+end
+
+
+def permutation(array)
+  return array if array.empty?
+  return [array] if array.count == 1
+  results = []
+  array.each_with_index do |e, index|
+    permutation(remaining_array(index, array)).each do |a|
+      results << [e].concat(a)
+    end
+  end
+  results
+end
+
+def palindrome?(array)
+  left_index = 0
+  right_index = -1
+  flag = true
+  limit = (array.size/2.to_f).ceil
+  array.size.times do |index|
+    if right_index.abs > limit
+      break
+    end
+
+    if array[index] != array[right_index] && (!array[index].blank? && !array[right_index].blank?)
+      flag = false
+      break
+    end
+    right_index -= 1
+  end
+  flag
+end
+
+def is_palindrome(s1)
+  array = s1.split(//)
+  permutation(array).select{|a| palindrome?(a) == true}.any?
+end
+    #+END_SRC
 
   - [X] *One Away*
     Given two strings, write a function to check if they are one edit (or zero edits) away.
