@@ -83,7 +83,7 @@ def urilify(string_array, size)
 end
     #+END_SRC
 
-  - [X]  *Palindrome  Permutation*  Given  a  string,  check  if  any
+  - [X] *Palindrome  Permutation*  Given  a  string,  check  if  any
     permutation of  it is a palindrome.   The solution I came  up is a
     recursive  solution,  and I'm  pretty  sure  that is  exponential.
     However I don't know how to prove that.
