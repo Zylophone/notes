@@ -1,4 +1,5 @@
-* Array and Strings [8/9]
+* Array and String
+** Exercises [8/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
     structures?
@@ -226,3 +227,21 @@ end
 
 is_rotation("waterbottle", "erbottlewat") == true
     #+END_SRC
+** Implementations
+*** Hash Table
+    - Compute key's hash code
+    - Map the key's hash code to an index in the array
+    - In that position we need to store the key and value
+      - use a linked list
+    - Is it possible to use a binary search tree?
+
+*** ArrayList & Resizable Arrays
+    - Create an array with a fixed amount of elements
+    - Insert data
+    - When full expand it to the double
+
+*** String Builder
+    - sentence =  sentence + w -->  will create a new  string instance
+      each time
+    - StringBuilder uses an arraylist and concatenate all the elements
+      at the end building a string
