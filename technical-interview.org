@@ -235,6 +235,84 @@ is_rotation("waterbottle", "erbottlewat") == true
       - use a linked list
     - Is it possible to use a binary search tree?
 
+      This implementation uses a linked list and a fixed size array
+      #+BEGIN_SRC ruby
+class Node
+  attr_accessor :key, :value, :next_node
+  def initialize(key, value, next_node = nil)
+    self.key = key
+    self.value = value
+    self.next_node = next_node
+  end
+end
+
+class EmptyNode
+  attr_accessor :key, :value, :next_node
+end
+
+class LinkedList
+  attr_accessor :first_node, :size
+
+  def initialize(node = nil)
+    node = node ? node : EmptyNode.new()
+    self.first_node = node
+    self.size = 1
+  end
+
+  def add(key, value)
+    node = Node.new(key, value, self.first_node)
+    self.first_node = node
+    self.size += 1
+    self
+  end
+
+  def find
+    return if !block_given?
+
+    current = self.first_node
+    found = false
+    self.size.times.each do
+      found = yield current
+      break if found
+      current = current.next_node
+    end
+    current if found
+  end
+end
+
+class MyHash
+  attr_accessor :array, :size
+  def initialize(size = nil)
+    self.size = 50
+    self.array = self.size.times.map do
+      LinkedList.new()
+    end
+  end
+
+  def add(key, value)
+    hash_value = hash_for(key)
+    array_index = hash_value % self.size
+    self.array[array_index].add(key, value)
+    self
+  end
+
+  def value(key)
+    hash_value = hash_for(key)
+    array_index = hash_value % self.size
+    node = self.array[array_index].find do |node|
+      node.key == key
+    end
+    node.value if node
+  end
+
+  private
+  def hash_for(key)
+    md5 = Digest::MD5.new
+    md5.update(key.to_s).hexdigest.to_i
+  end
+end
+      #+END_SRC
+
 *** ArrayList & Resizable Arrays
     - Create an array with a fixed amount of elements
     - Insert data
