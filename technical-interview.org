@@ -313,8 +313,8 @@ class MyHash
 end
       #+END_SRC
 
-    This implementation is using BST
-    #+BEGIN_SRC ruby
+      This implementation is using BST
+      #+BEGIN_SRC ruby
 class TreeNode
   attr_accessor :key, :value, :left_node, :right_node
   def initialize(key, value, left_node = EmptyTreeNode.new, right_node = EmptyTreeNode.new)
