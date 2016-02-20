@@ -313,6 +313,78 @@ class MyHash
 end
       #+END_SRC
 
+    This implementation is using BST
+    #+BEGIN_SRC ruby
+class TreeNode
+  attr_accessor :key, :value, :left_node, :right_node
+  def initialize(key, value, left_node = EmptyTreeNode.new, right_node = EmptyTreeNode.new)
+    self.key = key
+    self.value = value
+    self.left_node = left_node
+    self.right_node = right_node
+  end
+
+  def add(key, value)
+    left_node = self.left_node
+    right_node = self.right_node
+    if key > self.key
+      right_node = self.right_node.add(key, value)
+    else
+      left_node = self.left_node.add(key, value)
+    end
+    TreeNode.new(self.key, self.value, left_node, right_node)
+  end
+
+  def find_by(key)
+    return self if key == self.key
+
+    if key > self.key
+      self.right_node.find_by(key)
+    else
+      self.left_node.find_by(key)
+    end
+  end
+end
+
+class EmptyTreeNode
+  def add(key, value)
+    TreeNode.new(key, value)
+  end
+
+  def find_by(key)
+    self
+  end
+
+  def value
+    nil
+  end
+end
+
+class MyHashUsingBST
+  attr_accessor :tree
+  def initialize()
+    self.tree = EmptyTreeNode.new
+  end
+
+  def add(key, value)
+    self.tree = self.tree.add(key, value)
+  end
+
+  def value(key)
+    self.tree.find_by(key).value
+  end
+end
+
+m = MyHashUsingBST.new
+m.add(:milton, 5)
+m.add(:ivania, 10)
+m.value(:milton)
+m.value(:ivania)
+    #+END_SRC
+
+
+
+
 *** ArrayList & Resizable Arrays
     - Create an array with a fixed amount of elements
     - Insert data
