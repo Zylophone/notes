@@ -1,0 +1,72 @@
+* Frank Pfenning Lecture 1 - OPLSS 2015
+
+** Harmony -- How to define a logic
+*** Papers
+    - Gentzen 35
+    - Dummett 76
+    - Martin-löf 83
+
+*** What's logic
+    Logic studies the laws governing valid inference.
+
+*** Examples
+    | Concrete                   | Formal language           | Logic            |
+    |----------------------------+---------------------------+------------------|
+    | Helen is a woman           | woman(helen)              | P(x)             |
+    | All woman are mortal       | ∀x. woman(x) => mortal(x) | ∀x. P(x) => Q(x) |
+    |----------------------------+---------------------------+------------------|
+    | Therefore, Helen is mortal | mortal(helen)             | Q(x)             |
+    Are we allowed to conclude this?  P and Q are predicates.
+
+*** What determine the meaning of proposition? by Martin Löf
+    The meaning of a proposition is determined by what counts as a verification of it.
+    ~A and B true~:
+    - A is a proposition,
+    - B is a proposition,
+    - A and B is a proposition,
+    - A and B true is a judgment.
+
+*** Notes
+    - An introduction rule is a definition.
+    - When you use elimination those are things you can conclude.
+    - Local soundness:
+      - The elimination rules don't introduce nothing new. They can by
+        justified because I already have evidence(D proof) of A.
+    - Local reduction: I assembled evidence for the conclusion from
+      somewhere else that I already have.
+    - Local completeness:
+      - You first need to have a proof D of ~A and B~
+      - Then you can copy that proof as many times you want to use
+        when applying the elimination rules.
+      - Once you have all the pieces of information you need, the
+        introduction rules should be used to get ~A and B~.
+    - Local expansion: start with a small proof and ended up with one
+      that is bigger.
+    - The introduction rules and elimination rules are in ~Harmony~
+
+*** Terminolgy
+    - Premise?
+      - A premise is an assumption that something is true (you have evidence that something is true)
+    - Propositions?
+    - Judgment?
+    - Inference rules?
+      - They have a name
+      - An Inference rule is a function that takes premises as input and returns a conclusion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
