@@ -45,13 +45,14 @@
     - The introduction rules and elimination rules are in ~Harmony~
 
 *** Terminolgy
-    - Premise?
+    - Premise
       - A premise is an assumption that something is true (you have evidence that something is true)
+    - Inference
+      - The process of deriving the strict logical consequences of assumed premises.
+    - Inference rules
+      - An Inference rule is a function that takes premises as input and returns a conclusion
     - Propositions?
     - Judgment?
-    - Inference rules?
-      - They have a name
-      - An Inference rule is a function that takes premises as input and returns a conclusion
 
 
 
