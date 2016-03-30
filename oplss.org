@@ -13,7 +13,7 @@
     | Concrete                   | Formal language           | Logic            |
     |----------------------------+---------------------------+------------------|
     | Helen is a woman           | woman(helen)              | P(x)             |
-    | All woman are mortal       | ∀x. woman(x) => mortal(x) | ∀x. P(x) => Q(x) |
+    | All women are mortal       | ∀x. women(x) => mortal(x) | ∀x. P(x) => Q(x) |
     |----------------------------+---------------------------+------------------|
     | Therefore, Helen is mortal | mortal(helen)             | Q(x)             |
     Are we allowed to conclude this?  P and Q are predicates.
