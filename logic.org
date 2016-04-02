@@ -2,9 +2,11 @@
 ** First Lecture
    - Logical Operators operate on *propositions* and *propositional functions*
    - Logical Laws -- ~rules of inference~ -- operate on *assertions/judgements*
+#+BEGIN_SRC LaTeX
 \[
 \hat{F}(\nu) = \frac{G(\nu)}{H(\nu)}.
 \]
+#+END_SRC
 ** Second Lecture
 ** Third Lecture
 * Concepts
