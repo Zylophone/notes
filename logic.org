@@ -29,6 +29,14 @@
 ----------------------------
         |- A or B
        #+END_SRC
+   - What is a judgment?
+     - Act of knowing
+     - What is judge is a piece or object of knowledge
+     - Act of judging == Act of knowing
+   - Enunciation vs Proposition
+     - Enunciation is a not proven proposition --old definition
+     - Since a new definition is being introduced, the definition of enunciation doesn't make sense anymore.
+     - TODO: read more about this.
 
 ** Second Lecture
 ** Third Lecture
