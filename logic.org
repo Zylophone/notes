@@ -2,10 +2,13 @@
 ** First Lecture
    - Logical Operators operate on *propositions* and *propositional functions*
    - Logical Laws -- ~rules of inference~ -- operate on *assertions/judgements*
-#+BEGIN_SRC LaTeX
-[
-hat{F}(\nu) = \frac{G(\nu)}{H(\nu)}.
-]
+   - Here ~A~, ~B~, and ~A & B~ are affirmations not propositions.  Therefore,
+     the affirmation of ~A~ and the affirmation of ~B~ takes us to the
+     affirmation of ~A & B~.
+     #+BEGIN_SRC LaTeX
+ |- A    |- B
+--------------
+  |- A & B
 #+END_SRC
 ** Second Lecture
 ** Third Lecture
