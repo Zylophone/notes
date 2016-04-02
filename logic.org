@@ -9,7 +9,7 @@
  |- A    |- B
 --------------
   |- A & B
-#+END_SRC
+     #+END_SRC
 ** Second Lecture
 ** Third Lecture
 * Concepts
