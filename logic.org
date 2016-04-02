@@ -23,6 +23,12 @@
 --------------
   |- A or B    ;; |- A or B is a judgment, and the conclusion
        #+END_SRC
+     - But ~A~ and ~B~ has to be propositions, therefore
+       #+BEGIN_SRC LaTex
+ |- A prop  |- B prop  |- A  ;; |- A prop ~> A is a proposition
+----------------------------
+        |- A or B
+       #+END_SRC
 
 ** Second Lecture
 ** Third Lecture
