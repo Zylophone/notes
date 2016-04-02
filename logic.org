@@ -5,11 +5,25 @@
    - Here ~A~, ~B~, and ~A & B~ are *affirmations* not *propositions*.
      Therefore, the affirmation of ~A~ and the affirmation of ~B~ takes us
      to the affirmation of ~A & B~.
-     #+BEGIN_SRC LaTeX
+     #+BEGIN_SRC LaTex
  |- A    |- B
 --------------
   |- A & B
      #+END_SRC
+   - Assertion != Proposition
+   - Propositions
+     - Old definition: Propositions are the things we prove.
+     - Propositions are used by logical operators.
+     - Propositions are always represented by complete expressions.
+     - Kant introduced the word *Judgment* for that.
+       - *Premises* and *Conclusions* of a logical inference are always called *Judgements*.
+     - ~A~ is a proposition ~->~ new way of judgement.
+       #+BEGIN_SRC LaTex
+     |- A      ;; |- A is a judgement, and a premise
+--------------
+  |- A or B    ;; |- A or B is a judgment, and the conclusion
+       #+END_SRC
+
 ** Second Lecture
 ** Third Lecture
 * Concepts
