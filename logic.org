@@ -1,0 +1,17 @@
+* On the Meanings of the Logical Constants and the Justifications of the Logical Laws
+** First Lecture
+   - Logical Operators operate on *propositions* and *propositional functions*
+   - Logical Laws -- ~rules of inference~ -- operate on *assertions/judgements*
+\[
+\hat{F}(\nu) = \frac{G(\nu)}{H(\nu)}.
+\]
+** Second Lecture
+** Third Lecture
+* Concepts
+  - Assertions / Judgements
+  - Propositions
+  - Premises
+  - Inference Rules
+  - Logical Inference
+  - Logical Operators
+  - Enunciation vs Propositions
