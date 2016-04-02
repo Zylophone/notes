@@ -2,9 +2,9 @@
 ** First Lecture
    - Logical Operators operate on *propositions* and *propositional functions*
    - Logical Laws -- ~rules of inference~ -- operate on *assertions/judgements*
-   - Here ~A~, ~B~, and ~A & B~ are affirmations not propositions.  Therefore,
-     the affirmation of ~A~ and the affirmation of ~B~ takes us to the
-     affirmation of ~A & B~.
+   - Here ~A~, ~B~, and ~A & B~ are *affirmations* not *propositions*.
+   Therefore, the affirmation of ~A~ and the affirmation of ~B~ takes us
+   to the affirmation of ~A & B~.
      #+BEGIN_SRC LaTeX
  |- A    |- B
 --------------
