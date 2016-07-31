@@ -221,11 +221,11 @@ zero_matrix([[1, 2], [3, 4], [5, 0]], 3, 2) == [[1, 0], [3, 0], [0, 0]]
   - [X] *String Rotation*
     "waterbottle" is a rotation of "erbottlewat"
     #+BEGIN_SRC ruby
-def is_rotation(s1, s2)
-  "#{s2}#{s2}".include?(s1)
-end
+    def is_rotation(s1, s2)
+      "#{s2}#{s2}".include?(s1)
+    end
 
-is_rotation("waterbottle", "erbottlewat") == true
+    is_rotation("waterbottle", "erbottlewat") == true
     #+END_SRC
 ** Implementations
 *** Hash Table
@@ -382,9 +382,6 @@ m.value(:milton)
 m.value(:ivania)
     #+END_SRC
 
-
-
-
 *** ArrayList & Resizable Arrays
     - Create an array with a fixed amount of elements
     - Insert data
@@ -395,3 +392,26 @@ m.value(:ivania)
       each time
     - StringBuilder uses an arraylist and concatenate all the elements
       at the end building a string
+
+* Breadth Tree Traversal
+  #+BEGIN_SRC ruby
+  class Node < Struct.new(:data, :left, :right)
+    def initialize(data, left, right)
+      self.data = data
+      self.left = left
+      self.right = right
+    end
+
+    def breadth(acc = "")
+      queue = Queue.new
+      queue << self
+      while !queue.empty? do
+        current = queue.pop
+	acc += "#{current.data}-"
+	queue << current.left if current.left
+	queue << current.right if current.right
+      end
+      puts acc
+    end
+  end
+  #+END_SRC
