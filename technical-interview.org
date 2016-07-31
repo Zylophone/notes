@@ -396,12 +396,6 @@ m.value(:ivania)
 * Breadth Tree Traversal
   #+BEGIN_SRC ruby
   class Node < Struct.new(:data, :left, :right)
-    def initialize(data, left, right)
-      self.data = data
-      self.left = left
-      self.right = right
-    end
-
     def breadth(acc = "")
       queue = Queue.new
       queue << self
