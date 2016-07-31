@@ -408,4 +408,8 @@ m.value(:ivania)
       puts acc
     end
   end
+
+  r = Node.new(:a, Node.new(:b, Node.new(:d, nil, nil), Node.new(:e, nil, nil)), Node.new(:c, Node.new(:f, nil, nil), nil))
+  > r.breadth
+  a-b-c-d-e-f-
   #+END_SRC
