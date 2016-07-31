@@ -409,7 +409,10 @@ m.value(:ivania)
     end
   end
 
-  r = Node.new(:a, Node.new(:b, Node.new(:d, nil, nil), Node.new(:e, nil, nil)), Node.new(:c, Node.new(:f, nil, nil), nil))
+  #         :a
+  #    :b        :c
+  # :d    :e  :f
+  r = Node.new(:a, Node.new(:b, Node.new(:d), Node.new(:e)), Node.new(:c, Node.new(:f)))
   > r.breadth
   a-b-c-d-e-f-
   #+END_SRC
