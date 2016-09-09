@@ -9,8 +9,9 @@
 * TODO Thinking in Patterns
   - Can the explanation about patterns be more clear?
   - What about baby steps?
-    - First without patterns
     - Then we can use patterns to destructure
+    - First without patterns
+  - It's not explain guards in this section
 * TODO weird way to use guards
   #+BEGIN_SRC erlang
     here(LocationName, #location{name = LocationName}) -> true;
@@ -21,4 +22,5 @@
            ((location-name (match-place name location-name)) 'true)
 	   ((_ _) 'false))
   #+END_SRC
-
+* TODO https://lfe.gitbooks.io/casting-spels/content/book/part6/1-walking.html
+  - Code formatting seems off to me

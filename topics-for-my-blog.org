@@ -1,0 +1,18 @@
+* TODO Heap vs Stack
+* TODO Data Structure vs Data Type
+* TODO Idempotence to the rescue
+* TODO Happiest thought in a long time
+** I don't need to be attending school to keep learning stuff
+* TODO Data Type vs Processes in Erlang
+** Core language, Second language
+* TODO Updating your data:  how that will affect others?
+* TODO Write about my thesis
+* TODO Write about extending ABC compiler?
+** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-ja-exts/src-jpi/abc/ja/jpi/jrag/
+** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-testing/ajc-harness/tests/abctests/jpi/
+* TODO Transient vs Real Errors
+* TODO A model to represent errors (MessageError - HIE)
+* TODO How you communicate with the rest of your team
+** use examples
+* TODO Write about Nubox integration
+* TODO Write about printing documents in an old printer
