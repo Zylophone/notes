@@ -1,18 +1,24 @@
 * TODO Heap vs Stack
+** https://docs.google.com/document/d/1eQX9Qeq5wWKwO7J_lBhtaKfZs1mIrP_iIM7TXXvkYTo/edit#
 * TODO Data Structure vs Data Type
-* TODO Idempotence to the rescue
-* TODO Happiest thought in a long time
-** I don't need to be attending school to keep learning stuff
 * TODO Data Type vs Processes in Erlang
 ** Core language, Second language
+* TODO Idempotence to the rescue
+* TODO Transient vs Real Errors
+* TODO Ticket dispenser (rewrite)
+* TODO Write about Nubox integration
+* TODO Happiest thought in a long time
+** I don't need to be attending school to keep learning stuff
 * TODO Updating your data:  how that will affect others?
 * TODO Write about my thesis
 * TODO Write about extending ABC compiler?
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-ja-exts/src-jpi/abc/ja/jpi/jrag/
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-testing/ajc-harness/tests/abctests/jpi/
-* TODO Transient vs Real Errors
 * TODO A model to represent errors (MessageError - HIE)
 * TODO How you communicate with the rest of your team
 ** use examples
-* TODO Write about Nubox integration
 * TODO Write about printing documents in an old printer
+* TODO single threaded vs concurrency vs parallelism
+* TODO what you know, what you know you don't know, what you don't know you don't know
+* TODO Design a Train System in ELF
+* TODO Nobody trains software developers to be prepared for disasters.  That's why I love Erlang.
