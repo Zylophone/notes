@@ -1,0 +1,21 @@
+* You are having a conversation with goals
+** Would I love to work with this person
+** Would you love to work at this company
+** Tell me about your biggest mistake
+** How do you go about fixing bugs in production
+** Iterate on something
+** Is this person creative?
+** I'm not here to make you fail
+** Don't hire assholes
+** Good questions (algorithm/coding skills)
+** Good detail feedback writing up
+*** I had to hint the candidate
+*** I didn't need to hint the candidate
+*** Did the candidate felt comfortable writing on the whitboard
+*** Culture
+* Basic structure
+** 8~10 minutes to introduce yourself
+** 40 minutes to work in a problem
+** 5 minutes for final QA about the problem
+** 5 minutes for final questions about the team
+* Being Prepared

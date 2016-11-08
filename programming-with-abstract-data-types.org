@@ -1,0 +1,19 @@
+* Introduction
+** typos
+ - page 4, para 2: "whatreliable"
+ - page 8, para 1: "pup up"
+
+** Mathematics is used to build "models" of ADT called algebras
+** Logic is used to formally specify ADT and to prove properties about them
+** Formal verification is better than writing tests
+** ADT are used once a formal specification is developed.
+** ADT methodological principles:
+*** Abstraction, implementation details are avoided
+*** Modularization, programming task is divided in small manageable pieces
+** Proofs as programs
+*** formula === data type
+*** constructive proof of formula A === program of data type A
+
+* Logic (chapter 3)
+** syntax and semantics of many-sorted first-order predicate logic
+

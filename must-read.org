@@ -1,0 +1,2 @@
+* TODO Non Random Hash Functions
+** http://stackoverflow.com/questions/8669946/application-vulnerability-due-to-non-random-hash-functions

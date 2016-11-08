@@ -22,3 +22,28 @@
 * TODO what you know, what you know you don't know, what you don't know you don't know
 * TODO Design a Train System in ELF
 * TODO Nobody trains software developers to be prepared for disasters.  That's why I love Erlang.
+* TODO What are the things you do when creating a ruby console?
+** ActiveRecord::Base.logger.level = 1
+** conf.echo = false
+* TODO Functional Programming First Principles
+** https://www.youtube.com/watch?v=a-RAltgH8tw
+** Functional Programming is all about functions
+** Mutation is needed
+** Composition between functions
+** An interface is needed!
+* TODO Interface-based design
+** https://www.youtube.com/watch?v=JMP6gI5mLHc
+** Joachim ??
+** Programming against an interface
+** Category, Objects, Morphisms, Exponentials, Functor
+** Category: Programming Language
+** Objects: Types
+** Morphisms: Static Methods
+** Category Theory == Interface-based Modelling
+** Objects does not represent real objects
+* TODO Programming and Scaling (video)
+** https://www.youtube.com/watch?v=YyIQKBzIuBY
+** Bob Barton
+*** A new approach to the functional design of a digital computer
+** What's science? It's a representation of
+** Problem Oriented Language
