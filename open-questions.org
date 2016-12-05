@@ -1,0 +1,4 @@
+* How to degrade client experience?
+* How to know the limits and load of the database?
+** Connection pool
+* GAPI == Lazlo?

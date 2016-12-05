@@ -1,0 +1,46 @@
+* Develop a Workable Plan
+** setup some goals
+| Items      | $ Needed  | When     |
+|------------+-----------+----------|
+| Vacations  | 2,000     | yearly   |
+| New car    | 15,000    | 5 years  |
+| 1st House  | 20,000    | 7 years  |
+| Retirement | 1,000,000 | 25 years |
+
+** Invest money that I need in 1~5 years in a bank
+*** Money Market Fund or Bank Certificate of Deposit
+** Invest money that I need in 10+ years in stocks and bonds
+*** Stocks and Bonds
+
+* Invest early and often
+** Compound interest and the importance of start investing earlier
+
+* Never bear too much or too little risk
+** Ration of stocks and bonds is important
+
+* Use index funds when possible
+** they key is to get the average return of the market
+** it's almost impossible to know which funds will outperform the market
+
+* Keep costs low
+** Sales Charges
+** Deferred Load
+** Operating Expense (Expense Ratio)
+** Income Taxes
+
+* Minimize taxes
+** Not all income is taxed the same
+** Bonds in tax-advantaged accounts
+** Stocks in taxable accounts
+** Put the stock index fund with the highest expected return in a tax-free account
+** Sell the highest cost stock first
+
+* Invest with simplicity
+** Write a plan containing
+   - Goals
+   - Saving: 5% for short term, 10% long term
+   - Investment Policy: all-market-index strategies, low cost
+   - Asset Allocation: 60% stocks and 40% bonds
+   - Funds & Accounts: Bonds in 401K or IRA, Stocks in taxable account or Roth IRA
+   - Target Allocation: breakdown of the allocations
+   - Other: Automate contributions whenever possible
