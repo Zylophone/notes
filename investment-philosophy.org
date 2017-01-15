@@ -42,5 +42,8 @@
    - Investment Policy: all-market-index strategies, low cost
    - Asset Allocation: 60% stocks and 40% bonds
    - Funds & Accounts: Bonds in 401K or IRA, Stocks in taxable account or Roth IRA
+     - Stocks in Tax-free account is because I don't need to pay taxes over the profit.
+     - Stocks in Taxable accounts is because if I hold the stock more than a year, I can pay less taxes.
+     - Bonds in a retirement account --> why?
    - Target Allocation: breakdown of the allocations
    - Other: Automate contributions whenever possible

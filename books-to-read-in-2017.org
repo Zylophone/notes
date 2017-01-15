@@ -1,0 +1,20 @@
+- The Golden Ticket: P, NP, and the Search for the Impossible
+  - https://www.amazon.com/gp/product/0691156492/ref=ox_sc_sfl_title_1?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- Letters to a Young Mathematician (Art of Mentoring)
+  - https://www.amazon.com/gp/product/0465082319/ref=ox_sc_sfl_title_3?ie=UTF8&psc=1&smid=AFJSFHKSHU1G7
+- The Art of Computer Programming, Volumes 1-4A Boxed Set
+  - https://www.amazon.com/gp/product/0321751043/ref=ox_sc_sfl_title_12?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- Introduction to the Theory of Computation
+  - https://www.amazon.com/gp/product/113318779X/ref=ox_sc_sfl_title_2?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- Concepts of Modern Mathematics (Dover Books on Mathematics)
+  - https://www.amazon.com/gp/product/0486284247/ref=ox_sc_sfl_title_4?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- From Here to Infinity
+  - https://www.amazon.com/gp/product/0192832026/ref=ox_sc_sfl_title_5?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- What Is Mathematics? An Elementary Approach to Ideas and Methods
+  - https://www.amazon.com/gp/product/0195105192/ref=ox_sc_sfl_title_6?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- Nature's Numbers: The Unreal Reality Of Mathematics (Science Masters Series)
+  - https://www.amazon.com/gp/product/0465072747/ref=ox_sc_sfl_title_7?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- The Princeton Companion to Mathematics
+  - https://www.amazon.com/gp/product/0691118809/ref=ox_sc_sfl_title_9?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
+- Learn You a Haskell for Great Good!: A Beginner's Guide
+  - https://www.amazon.com/gp/product/1593272839/ref=ox_sc_sfl_title_18?ie=UTF8&psc=1&smid=ATVPDKIKX0DER
