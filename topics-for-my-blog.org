@@ -1,23 +1,36 @@
-* TODO Heap vs Stack
-** https://docs.google.com/document/d/1eQX9Qeq5wWKwO7J_lBhtaKfZs1mIrP_iIM7TXXvkYTo/edit#
-* TODO Data Structure vs Data Type
-* TODO Data Type vs Processes in Erlang
-** Core language, Second language
-* TODO Idempotence to the rescue
-* TODO Transient vs Real Errors
-* TODO Ticket dispenser (rewrite)
-* TODO Write about Nubox integration
-* TODO Happiest thought in a long time
-** I don't need to be attending school to keep learning stuff
-* TODO Updating your data:  how that will affect others?
+* DONE [Blog] Heap vs Stack
+* DONE [Blog] Data Structure vs Data Type
+* QA [Blog] Transient vs Real Errors
+  - A model to represent errors (MessageError - HIE)
+* TODO [Projects] Write about printing documents in an old printer
+* TODO [Projects] Write about Nubox integration
+  - Explain the idea behind the library
+  - Show the code by giving the GitHub Repo
+* TODO [Blog] Core language, Second language
+  - Functional Language, Concurrent Oriented Language
+  - Ticket dispenser (Data Type vs Processes in Erlang)
+    - http://erlang.org/pipermail/erlang-questions/2004-August/012905.html
+    - http://erlang.org/pipermail/erlang-questions/2004-August/012914.html
+    - http://erlang.org/pipermail/erlang-questions/2004-August/012928.html
+    - http://erlang.org/pipermail/erlang-questions/2004-August/012932.html
+    - http://erlang.org/workshop/2004/jaynelson.pdf
+* TODO [Blog] Idempotence to the rescue
+  https://pdfs.semanticscholar.org/4b6d/da7fe75b51e1c543a87ca7b3b322fbf55614.pdf
+* TODO [Blog] Happiest thought in a long time
+  - I don't need to be attending school to keep learning stuff
+* TODO Updating your data:  How Does That could Affect Down Stream Systems?
 * TODO Write about my thesis
 * TODO Write about extending ABC compiler?
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-ja-exts/src-jpi/abc/ja/jpi/jrag/
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-testing/ajc-harness/tests/abctests/jpi/
-* TODO A model to represent errors (MessageError - HIE)
-* TODO How you communicate with the rest of your team
-** use examples
-* TODO Write about printing documents in an old printer
+* TODO How Do you communicate with the rest of your team
+  - Prepare myself
+  - Communicate my ideas by using:
+    - Documents
+    - Whiteboard
+    - A diagram
+  - Ask for help
+  - Let your colleague that you need her for a fixed amount of time to do X
 * TODO single threaded vs concurrency vs parallelism
 * TODO what you know, what you know you don't know, what you don't know you don't know
 * TODO Design a Train System in ELF
@@ -47,3 +60,8 @@
 *** A new approach to the functional design of a digital computer
 ** What's science? It's a representation of
 ** Problem Oriented Language
+* TODO Poolmachine
+  - https://github.com/minostro/poolmachine
+  - https://github.com/minostro/poolmachine_example
+* TODO Work on this for a bit:
+  - https://booking.riddles.io/
