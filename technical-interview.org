@@ -1,4 +1,1372 @@
-* Array and String
+* Data Structures
+** Linear
+*** Array
+Stores homogeneous elements at contiguous locations. Size of an array must be provided before storing data.
+**** Unsorted Array
+***** Search
+#+BEGIN_SRC ruby
+def search(arr, element)
+  exists = false
+  arr.each do |ele|
+    if ele == element
+      exists = true
+      break
+    end
+  end
+  exists
+end
+#+END_SRC
+***** Insert
+#+BEGIN_SRC ruby
+def insert(arr, index, element, capacity)
+  if index == capacity
+    index
+  else
+    arr[index] = element
+    index + 1
+  end
+end
+
+def main(array_size)
+  arr = Array.new(array_size)
+  current_index = 0
+  (1.. (array_size + 100)).each do |element|
+    current_index = insert(arr, current_index, element, array_size)
+  end
+  arr
+end
+#+END_SRC
+***** Delete
+#+BEGIN_SRC ruby
+def search(arr, size, key)
+  position = -1
+  (0..(size - 1)).each do |index|
+    if arr[index] == key
+      position = index
+    end
+  end
+  position
+end
+
+def my_print(arr, current_index)
+  (0..current_index.each do |index|
+    puts arr[index]
+  end
+end
+
+def delete(arr, size, element)
+  index = search(arr, size, element)
+  return size if index == -1
+
+  #this is equivalent to for(i=index, i < n -1, i++)
+  (index..(size - 2)).each do |current_index|
+    arr[current_index] = arr[current_index + 1]
+  end
+  size - 1
+end
+#+END_SRC
+
+**** Sorted Array
+***** Search
+If array is sorted, binary search can be used to find the key
+#+BEGIN_SRC ruby
+def binary_search(arr, low, high, key)
+  return -1 if low > high
+  mid = low + (high - low)/2
+  if arr[mid] == key
+    return mid
+  end
+  if key < arr[mid]
+    binary_search(arr, low, mid - 1, key)
+  else
+    binary_search(arr, mid + 1, high, key)
+  end
+end
+#+END_SRC
+***** Insert
+Can I do it better? I started from start to end. What would happen if I start from end to start?
+#+BEGIN_SRC ruby
+def insert(arr, current_index, capacity, key)
+  return current_index if current_index == capacity
+  position = -1
+  (0..current_index).each do |index|
+    if arr[index] > key
+      position = index
+      break
+    end
+  end
+  return current_index if position == -1
+  (position..current_index + 1).each do |index|
+    old = arr[index]
+    arr[index] = key
+    key = old
+  end
+  current_index + 1
+end
+#+END_SRC
+***** Delete
+#+BEGIN_SRC ruby
+def delete(arr, current_index, capacity, key)
+  position = binary_search(arr, 0, current_index,  key)
+  return current_index if position == -1
+  (position..current_index-1).each do |index|
+    arr[index] = arr[index+1]
+  end
+  current_index - 1
+end
+
+#+END_SRC
+*** LinkedList
+Elements are not stored at contiguous location; the elements are linked using pointers
+**** Advantages over Array
+  - Dynamic Size; no need to know the size in advance
+  - Ease of insertion/deletion
+**** Disavantages
+  - Random Access is not allowed; binary search is not possible
+  - Extra memory space for storing the pointer
+**** Structure
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :data, :next
+  def initialize(data, next_node = nil)
+    self.data = data
+    self.next = next_node
+  end
+end
+
+class LinkedList
+  attr_accessor :head
+  def initialize(head = nil)
+    self.head = head
+  end
+end
+#+END_SRC
+**** Traversal
+#+BEGIN_SRC ruby
+def my_print(linked_list)
+  current = linked_list.head
+  while current != nil
+    puts current.data
+    current = current.next
+  end
+end
+#+END_SRC
+**** Insertion
+#+BEGIN_SRC ruby
+class LinkedList
+  def push(element)
+    node = Node.new(element, self.head)
+    self.head = node
+  end
+
+  def insert_after(current_node, element)
+    node = Node.new(element, current_node.next)
+    current_node.next = node
+  end
+
+  def append(element)
+    node = Node.new(element)
+    prev = nil
+    current = self.head
+    while current != nil
+      prev = current
+      current = current.next
+    end
+    if self.head.nil?
+      self.head = node
+    else
+      prev.next = node
+    end
+  end
+end
+#+END_SRC
+**** Deletion
+#+BEGIN_SRC ruby
+class LinkedList
+  def deleteNode(key)
+    current = self.head
+    while current.next != nil
+      if current.next.data == key
+        current.next = current.next.next
+        break
+      end
+      current = current.next
+    end
+  end
+
+  def deleteNodeByPosition(position)
+    return if self.head == nil
+
+    if position == 0
+      self.head = self.head.next
+      return
+    end
+
+    index = 0
+    current = self.head
+    while current.next != nil
+      if index + 1 == position
+        current.next = current.next.next
+        break
+      end
+      current = current.next
+      index = index + 1
+    end
+  end
+end
+#+END_SRC
+**** Exercises
+***** Length
+#+BEGIN_SRC ruby
+class LinkedList
+  def length
+    current = self.head
+    counter = 0
+    while current != nil
+      counter = counter + 1
+      current = current.next
+    end
+    counter
+  end
+end
+#+END_SRC
+***** Search an Element
+#+BEGIN_SRC ruby
+class LinkedList
+  def search_iterative(key)
+    current = self.head
+    found = false
+    while current != nil
+      if key == current.data
+        found = true
+        break
+      end
+      current = current.next
+    end
+    found
+  end
+
+  def search_recursive(key, current=self.head)
+    if current == nil
+      false
+    else
+       if key == current.data
+         true
+       else
+         search_recursive(key, current.next)
+       end
+    end
+  end
+end
+#+END_SRC
+***** DeleteFirst
+#+BEGIN_SRC ruby
+class LinkedList
+  def delete_first
+    return if self.head.nil?
+
+    head = self.head
+    new_head = head.next
+    self.head = new_head
+    head = nil
+  end
+end
+#+END_SRC
+
+***** Swap Nodes
+#+BEGIN_SRC ruby
+class LinkedList
+  def swap(x, y)
+    #Cases:
+    #1. x or y can be head
+    #2. x and y can be adjacents nodes
+    #3. x and y are not adjacents nodes
+    current = self.head
+    prevX = currentX = prevY = currentY = nil
+    while current != nil
+      if current.data == x
+        currentX = current
+      elsif current.data == y
+        currentY = current
+      end
+      if currentX.nil?
+        prevX = current
+      end
+      if currentY.nil?
+        prevY = current
+      end
+      break if [currentX, currentY].compact.size == 2
+      current = current.next
+    end
+    return if [currentX, currentY].compact.size != 2
+
+    newNextY = currentX.next
+    newNextX = currentY.next
+    if currentY == newNextY
+      currentY.next = currentX
+    else
+      currentY.next = newNextY
+    end
+    currentX.next = newNextX
+    if prevX.nil?
+      self.head = currentY
+    else
+      prevX.next = currentY
+    end
+    if prevY != currentX
+      prevY.next = currentX
+    end
+  end
+end
+#+END_SRC
+***** Get nth element
+#+BEGIN_SRC ruby
+class LinkedList
+  def nth(key_index)
+    index = 1
+    current = self.head
+    while current != nil
+      if index == key_index
+        break
+      else
+        index = index + 1
+        current = current.next
+      end
+    end
+    current.data if current
+  end
+end
+#+END_SRC
+***** (16) Reverse
+#+BEGIN_SRC ruby
+class LinkedList
+  def reverse
+    current = self.head
+    next_node = nil
+    while current != nil
+      prev = current.next
+      current.next = next_node
+      next_node = current
+      current = prev
+      prev = prev.next if prev
+    end
+    self.head = next_node
+  end
+end
+#+END_SRC
+***** (17) Detect Loop
+****** Modifiying Node
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :visited
+end
+
+class LinkedList
+  def loop?
+    loop = false
+    current = self.head
+    while current != nil
+      if !current.visited
+        current.visited = true
+      else
+        loop = true
+        break
+      end
+      current = current.next
+    end
+    loop
+  end
+end
+#+END_SRC
+****** Using Hash
+#+BEGIN_SRC ruby
+class LinkedList
+  def loop_hash?
+    loop = false
+    node_hash = {}
+    current = self.head
+    while current != nil
+      if node_hash.has_key?(current)
+        loop = true
+        break
+      else
+        node_hash[current] = true
+      end
+      current = current.next
+    end
+    loop
+  end
+end
+#+END_SRC
+****** Using Floyd's Cycle-Finding Algorithm
+#+BEGIN_SRC ruby
+class LinkedList
+  def loop_floyd?
+    loop = false
+    current = self.head
+    slow = current
+    fast = current
+    while current != nil and slow != nil and fast != nil
+      slow = current.next
+      fast = current.next.next
+      if slow == fast
+        loop = true
+        break
+      end
+      current = current.next
+    end
+    loop
+  end
+end
+#+END_SRC
+***** (18) Merge Two Sorted Lists
+#+BEGIN_SRC ruby
+class LinkedList
+  #HINT: This method builds new nodes.
+  #TODO: Implement a method that reuses nodes.
+  def merge_sorted(other)
+    new_list = LinkedList.new
+    current_other = other.head
+    current_this = self.head
+    while current_other != nil and current_this != nil
+      if current_this.data < current_other.data
+        new_list.append(current_this.data)
+        current_this = current_this.next
+      else
+        new_list.append(current_other.data)
+        current_other = current_other.next
+      end
+    end
+    if current_other
+      while current_other != nil
+        new_list.append(current_other.data)
+        current_other = current_other.next
+      end
+    end
+    if current_this
+      while current_this != nil
+        new_list.append(current_this.data)
+        current_this = current_this.next
+      end
+    end
+    new_list
+  end
+end
+#+END_SRC
+***** (20) Insert value in a sorted way
+start: 9:57
+end: 10:09
+#+BEGIN_SRC ruby
+class LinkedList
+  def insert_ordered(key)
+    node = Node.new(key)
+    prev = nil
+    current = self.head
+    while current != nil
+      if current.data > key
+        if current == self.head
+          node.next = current
+          self.head = node
+        else
+          prev.next = node
+          node.next = current
+        end
+        break
+      end
+      prev = current
+      current = current.next
+    end
+    if current.nil? and prev.nil?
+      self.head = node
+    elsif current.nil? and !prev.nil?
+      prev.next = node
+    end
+  end
+end
+#+END_SRC 
+***** (21) Delete a given node
+start: 10:09
+end: 10:26
+#+BEGIN_SRC ruby
+class LinkedList
+  def delete_ordered(node)
+    prev = nil
+    current = self.head
+    while current != nil
+      if current == node
+        if current == self.head
+          self.head = current.next
+        else
+          prev.next = current.next
+        end
+        current = nil
+        break
+      end
+      prev = current
+      current = current.next
+    end
+  end
+end
+#+END_SRC
+#+BEGIN_SRC ruby
+#TODO: Talk to Manoj about this
+class LinkedList
+  def delete_node(node)
+    if node.next.nil?
+      node = nil
+    else
+      node.data = node.next.data
+      node.next = node.next.next
+    end
+  end
+end
+#+END_SRC
+***** (22) Check if list is palindrome
+start: 10:27
+end: 10:35
+#+BEGIN_SRC ruby
+class LinkedList
+  def palindrome?
+    stack = []
+    current = self.head
+    while current != nil
+      stack.push current.data
+      current = current.next
+    end
+    return false if stack.empty?
+
+    current = self.head
+    palindrome = true
+    while !stack.empty?
+      value = stack.pop
+      if current.data != value
+        palindrome = false
+        break
+      end
+      current = current.next
+    end
+    palindrome
+  end
+end
+#+END_SRC
+
+start: 10:40
+end: 11:33
+#+BEGIN_SRC ruby
+class LinkedList
+  def size
+    current = self.head
+    counter = 0
+    while current != nil
+      counter = counter + 1
+      current = current.next
+    end
+    counter
+  end
+
+  def reverse_from(key_index)
+    prev = nil
+    next_node = nil
+    current = self.head
+    index = 0
+    while index != key_index - 1
+      index = index + 1
+      current = current.next
+    end
+    head = current
+    prev = current
+    current = current.next
+    while current != nil
+      next_node = current.next
+      if head == prev
+        current.next = nil
+      else
+        current.next = prev
+      end
+      prev = current
+      current = next_node
+    end
+    head.next = prev
+  end
+
+  def palindrome_wo_stack?
+    return false if size < 2
+
+    mid = (size/2.to_f).ceil
+    reverse_from mid
+    second_current = self.head
+    index = 0
+    while index != mid
+      index = index + 1
+      second_current = second_current.next
+    end
+    palindrome = true
+    current = self.head
+    while second_current != nil
+      if current.data != second_current.data
+        palindrome = false
+        break
+      end
+      second_current = second_current.next
+      current = current.next
+    end
+    palindrome
+  end
+end
+#+END_SRC
+
+***** (23) Intersection Point of two lists
+start: 11:35
+end: 11:44
+#+BEGIN_SRC ruby
+#TODO: Discuss about a better way of implementing this
+class LinkedList
+  def intersection_point(other)
+    nodes = {}
+    current = self.head
+    while current != nil
+      nodes[current] = true
+      current = current.next
+    end
+    current = other.head
+    while current != nil
+      if nodes.has_key?(current)
+        break
+      end
+      nodes[current] = true
+      current = current.next
+    end
+    current
+  end
+end
+#+END_SRC
+***** (24) Print Reverse
+start: 12:25
+end: 12:28
+#+BEGIN_SRC ruby
+class LinkedList
+  def print_reverse(current = self.head)
+    if current != nil
+      print_reverse(current.next)
+      puts current.data
+    end
+  end
+end
+#+END_SRC
+***** (25) Remove duplicates sorted lists
+start: 12:29
+end: 12:40
+#+BEGIN_SRC ruby
+class LinkedList
+  def remove_duplicates_sorted
+    current = self.head
+    next_node = nil
+    while current != nil and current.next != nil
+      next_node = current.next
+      if current.data == next_node.data
+        current.next = next_node.next
+        next_node = nil
+      else
+        current = current.next
+      end
+    end
+  end
+end
+#+END_SRC
+***** (26) Remove duplicates unsorted lists
+start: 12:42
+end: 12:50
+#+BEGIN_SRC ruby
+class LinkedList
+  def remove_duplicates_unsorted
+    prev = nil
+    current = self.head
+    values = {}
+    while current != nil
+      next_node = current.next
+      if values.has_key?(current.data)
+        prev.next = current.next
+      else
+        values[current.data] = true
+        prev = current
+      end
+      current = prev.next
+    end
+  end
+end
+#+END_SRC
+***** (27) Pairwise swap elements
+start: 3:46
+end: 4:11
+#+BEGIN_SRC ruby
+class LinkedList
+  def pairwise
+    prev = nil
+    next_node = nil
+    current = self.head
+    while current != nil and current.next != nil
+      next_node = current.next
+      current.next = next_node.next
+      next_node.next = current
+      if prev.nil?
+        self.head = next_node
+      else
+        prev.next = next_node
+      end
+      prev = current
+      current = current.next
+    end
+  end
+end
+#+END_SRC
+***** (28) Practice questions about recursion
+  - 1 -> prints the list in reverse order
+  - 2 -> prints the elements of the list that are in an even position; it prints the elements twice.
+***** (29) Move last element to the front
+start: 4:19
+end: 4:23
+#+BEGIN_SRC ruby
+class LinkedList
+  def move_last_ele_to_the_front
+    return if self.head.nil? || self.head.next.nil?
+
+    prev = nil
+    current = self.head
+    while current.next != nil
+      prev = current
+      current = current.next
+    end
+    prev.next = nil
+    current.next = self.head
+    self.head = current
+  end
+end
+#+END_SRC
+***** (30) Intersection set of two lists
+start: 4:24
+end: 4:41
+#+BEGIN_SRC ruby
+class LinkedList
+  def intersection_set(other)
+    new_list = LinkedList.new
+    first = self.head
+    second = other.head
+    while first != nil and second != nil
+      if first.data == second.data
+        new_list.append(first.data)
+        first = first.next
+        second = second.next
+      elsif first.data < second.data
+        first = first.next
+      else
+        second = second.next
+      end
+    end
+    new_list
+  end
+end
+#+END_SRC
+***** (31) Delete Alternate Nodes
+start: 4:44
+end: 4:50
+#+BEGIN_SRC ruby
+class LinkedList
+  def alternate_nodes
+    current = self.head
+    while current != nil and current.next != nil
+      tmp = current.next
+      current.next = tmp.next
+      tmp = nil
+      current = current.next
+    end
+  end
+end
+#+END_SRC
+***** (32) Alternating Split
+start: 4:50
+end: 5:00
+#+BEGIN_SRC ruby
+class LinkedList
+  def alternating_split
+    first_list = LinkedList.new
+    second_list = LinkedList.new
+    if self.head.next == nil
+      return [first_list.append(self.head), second_list]
+    end
+
+    first = self.head
+    second = self.head.next
+    while second != nil
+      first_list.append(first.data)
+      second_list.append(second.data)
+      first = second.next
+      second = first.next
+    end
+    if first
+      first_list.append(first.data)
+    end
+    [first_list, second_list]
+  end
+end
+#+END_SRC
+***** (33) Identical Lists
+start: 5:01
+end: 5:06
+#+BEGIN_SRC ruby
+class LinkedList
+  def identical?(other)
+    identical = true
+    first = self.head
+    second = other.head
+    while first != nil and second != nil
+      if first.data != second.data
+        identical = false
+        break
+      end
+      first = first.next
+      second = second.next
+    end
+    first.nil? and second.nil? ? identical : !identical
+  end
+end
+#+END_SRC
+***** (34) Merge Sort for Linked Lists
+start: 5:11
+end: 5:39
+#+BEGIN_SRC ruby
+class LinkedList
+  def mid_node(first, last)
+    slower = first
+    faster = first
+    while faster != last and faster.next != last
+      slower = slower.next
+      faster = faster.next.next
+    end
+    slower
+  end
+
+  def merge_sort(first, last)
+    return LinkedList.new(Node.new(first.data)) if first == last
+
+    middle_point = mid_node(first, last)
+    left = merge_sort(first, middle_point).head
+    right = merge_sort(middle_point.next, last).head
+    new_list = LinkedList.new
+    while left != nil or right != nil
+      if left and right
+        if left.data < right.data
+          new_list.append(left.data)
+          left = left.next
+        else
+          new_list.append(right.data)
+          right = right.next
+        end
+      elsif left
+        new_list.append(left.data)
+        left = left.next
+      elsif right
+        new_list.append(right.data)
+        right = right.next
+      end
+    end
+    new_list
+  end
+end
+#+END_SRC
+***** (35) Reverse Linked List in groups of given size
+start: 5:41
+end: 7:05
+#+BEGIN_SRC ruby
+class LinkedList
+  def reverse(prev_node, start_node, next_to_end_node)
+    prev = prev_node
+    current = start_node
+    while current != next_to_end_node
+      next_node = current.next
+      current.next = prev
+      prev = current
+      current = next_node
+    end
+    start_node.next = next_to_end_node
+  end
+
+class LinkedList
+  def reverse_groups(group_size)
+    start_node = self.head
+    end_node = start_node
+    next_node = nil
+    prev = nil
+    while start_node != nil && start_node.next != nil
+      current_size = 1
+      while current_size != group_size and end_node != nil
+        end_node = end_node.next
+        current_size = current_size + 1
+      end
+      break if end_node.nil?
+
+      next_node = end_node.next
+
+      tmp_current = start_node
+      tmp_next_node = nil
+      tmp_prev = prev
+      while tmp_current != next_node
+        tmp_next_node = tmp_current.next
+        tmp_current.next = tmp_prev
+        tmp_prev = tmp_current
+        tmp_current = tmp_next_node
+      end
+      start_node.next = next_node
+
+      if prev.nil?
+        self.head = end_node
+      else
+         prev.next = end_node
+      end
+      prev = start_node
+      start_node = next_node
+      end_node = next_node
+    end
+  end
+end
+#+END_SRC
+***** 51
+***** 69
+***** 15
+***** 29
+***** 15
+***** 60
+
+*** Circular Linked List
+Elements are connected to form a circle
+**** Advantages
+- Any node can be the starting point
+- Queue can be implemented by using CircularLinkedList
+  - Front can be always be reached from the next of the last node added
+- It's useful if you have to go repeatedly over the list
+**** Traversal
+#+BEGIN_SRC ruby
+def print_list(node)
+  current = node
+  loop do
+    print current.data
+    current = current.next
+    break if current == node
+  end
+end
+[1]->[2]->[3]--|
+ ^             |
+ |=============|
+#+END_SRC
+*** Doubly Linked List
+**** Advantages
+  - It can be traversed both ways
+  - Delete operation is more efficient if pointer to the node is given
+**** Disavantages over LinkedList
+  - An extra pointer is needed
+  - prev pointer needs to be maintain
+**** Structure
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :data, :prev, :next
+  def initialize(data, next_node=nil, prev=nil)
+    self.data = data
+    self.next = next_node
+    self.prev = prev
+  end
+end
+
+class DoublyLinkedList
+  attr_accessor :head
+  def initialize(node)
+    self.head = node
+  end
+end
+#+END_SRC
+**** Insertion
+#+BEGIN_SRC ruby
+class DoublyLinkedList
+  def push(data)
+    node = Node.new(data, self.head)
+    self.head.prev = node
+    self.head = node
+  end
+
+  def append(data)
+    current = self.head
+    while current.next != nil
+      current = current.next
+    end
+    node = Node.new(data)
+    node.prev = current
+    current.next = node
+  end
+
+  def insertAfter(data, node)
+    new_node = Node.new(data, node.next, node)
+    node.next.prev = new_node
+    node.next = new_node
+  end
+
+  def insertBefore(data, node)
+    new_node = Node.new(data, node, node.prev)
+    node.prev.next = new_node
+    node.prev = new_node
+  end
+
+  def printAll
+    current = self.head
+    while current != nil
+      puts current.data
+      current = current.next
+    end
+  end
+end
+#+END_SRC
+**** Reverse
+#+BEGIN_SRC ruby
+class DoublyLinkedList
+  def reverse
+    current = self.head
+    temp = nil
+    loop do
+      temp = current.prev
+      current.prev = current.next
+      current.next = temp
+      current = current.prev
+      break if current == nil
+    end
+    if temp != nil
+      self.head = temp.prev
+    end
+  end
+end
+H
+| -> ->
+V
+1  2  3
+ <- <-
+      H
+ <- <-|
+      V
+1  2  3
+ -> ->
+
+nil <- 1 -> 2
+2   <- 1 -> nil
+
+#+END_SRC
+*** Stack
+Stack can be implemented by an array or linked list.
+**** Purpose
+  - Mantaining Function Calls
+  - Recursion can be removed by using stacks
+  - Reversing words
+  - Balanced parenthesis
+  - Undo operations (last operation)
+  - Implement back functionality in a browser
+**** Exercises
+***** (3) Evaluate a postfix expresion
+#+BEGIN_SRC ruby
+#2 3 1 * + 9 -
+def eval_postfix(postfix_str)
+  stack = []
+  postfix_str.split(" ").each do |char|
+     if char =~ /[0-9]+/
+       stack.push char.to_i
+     else
+       second = stack.pop
+       first = stack.pop
+       stack.push first.public_send(char, second)
+     end
+  end
+  stack.pop
+end
+#+END_SRC
+***** (4) Reverse a string
+#+BEGIN_SRC ruby
+def reverse(str)
+  stack = []
+  str.split("").each do |char|
+    stack.push char
+  end
+  acc = ""
+  while !stack.empty?
+    acc = acc + stack.pop
+  end
+  acc
+end
+#+END_SRC
+***** (5) Implement Two stacks in an Array
+start: 7:00
+end: 7:22
+#+BEGIN_SRC ruby
+class TwoStacks
+  attr_accessor :arr, :indexes, :max_size
+  def initialize(max_size=50)
+    self.arr = Array.new(max_size)
+    self.indexes = [-1, max_size]
+    self.max_size = max_size
+  end
+
+  def _push(ele, left, right, op1, op2)
+    return if self.indexes[left] == self.indexes[right].send(op1, 1)
+    self.indexes[left] = self.indexes[left].send(op2, 1)
+    self.arr[self.indexes[left]] = ele
+  end
+
+  def push1(ele)
+    _push(ele, 0, 1, '-', '+')
+  end
+
+  def push2(ele)
+    _push(ele, 1, 0, '+', '-')
+  end
+
+  def _pop(index, lower_boundary)
+    return if self.indexes[index] == lower_boundary
+    ele = self.arr[self.indexes[index]]
+    self.arr[self.indexes[index]] = nil
+    self.indexes[index] = self.indexes[index] - 1
+    ele
+  end
+
+  def pop1
+    _pop(0, -1)
+  end
+
+  def pop2
+    _pop(1, self.max_size)
+  end
+end
+#+END_SRC
+***** (6) Balanced Parentheses
+start: 7:47
+end: 7:54
+#+BEGIN_SRC ruby
+def balanced_parentheses?(str)
+  stack = []
+  str.split("").each do |char|
+    case char
+      when "]"
+        top = stack.pop
+        break if top != "["
+      when ")"
+        top = stack.pop
+        break if top != "("
+      when "}"
+        top = stack.pop
+        break if top != "{"
+      else
+        stack.push(char)
+    end
+  end
+  stack.empty?
+end
+#+END_SRC
+***** (7) Next Greater Element
+start: 7:55
+end: 9:32
+#+BEGIN_SRC ruby
+def next_greater2(numbers)
+  stack = []
+  numbers.each do |number|
+    if stack.empty?
+      stack.push [number, -1]
+    else
+      top_ele, top_greater = stack[-1]
+      if number > top_ele
+        aux_stack = []
+        loop do
+          ele, greater = stack[-1]
+          break if greater != -1 or ele > number
+          ele, greater = stack.pop
+          aux_stack.push [ele, number]
+        end
+        while !aux_stack.empty?
+          stack.push aux_stack.pop
+        end
+      end
+      stack.push [number, -1]
+    end
+  end
+  while !stack.empty?
+    ele, greater = stack.pop
+    puts "#{ele}, #{greater}"
+  end
+end
+#+END_SRC
+***** (8) Reverse a stack using recursion
+start: 4:38 5:02
+end: 
+#+BEGIN_SRC ruby
+def reverse_stack(stack, result=[])
+  if stack.empty?
+    return result
+  end
+  result.push stack.pop
+  reverse_stack(stack, result)
+end
+#+END_SRC
+***** (9) Sort a stack using recursion
+start: 5:03
+end: 5:30
+#+BEGIN_SRC ruby
+def main(stack)
+  repeat(stack.size, 0, stack)
+end
+
+def repeat(times, index, sorted_stack)
+  return sorted_stack if times == index
+  sorted_stack = sort_stack_recursion(sorted_stack)
+  repeat(times, index+1, sorted_stack)
+end
+
+def sort_stack_recursion(stack)
+  return stack if stack.size == 1
+  tmp = stack.pop
+  sorted_stack = sort_stack_recursion(stack)
+  if tmp < sorted_stack[-1]
+    ele = sorted_stack.pop
+    sorted_stack.push tmp
+    sorted_stack.push ele
+  else
+    sorted_stack.push tmp
+  end
+  sorted_stack
+end
+#+END_SRC
+***** (10) Stock Span Problem
+start: 5:32
+end: 5:46
+https://www.youtube.com/watch?v=LvQzYMXEANs
+#+BEGIN_SRC ruby
+def WRONG_stock_span(prices)
+  stack = [prices.first]
+  results = [1]
+  index = 1
+  prices[1..-1].each do |price|
+    tmp_stack = []
+    counter = 1
+    while !stack.empty?
+      ele = stack.pop
+      if price >= ele
+        counter = counter + 1
+      end
+      tmp_stack.push ele
+    end
+    while !tmp_stack.empty?
+      stack.push tmp_stack.pop
+    end
+    results[index] = counter
+    index = index + 1
+    stack.push price
+  end
+  results
+end
+
+def stock_span(prices)
+  stack = [0]
+  spans = [1]
+  index = 1
+  max = prices.size
+  while index != max
+    while !stack.empty? && prices[index] > prices[stack[-1]]
+      stack.pop
+    end
+    if stack.empty?
+      h = -1
+    else
+      h = stack[-1]
+    end
+    spans[index] = index - h
+    stack.push index
+    index = index + 1
+  end
+  spans
+end
+#+END_SRC
+***** (11) Design and Implement Special Stack
+start: 7:11
+end: 7:29
+#+BEGIN_SRC ruby
+class SpecialStack
+  attr_accessor :elements, :mins, :capacity, :current_size
+  def initialize(capacity)
+    self.elements = []
+    self.mins = []
+    self.capacity = capacity
+    self.current_size = 0
+  end
+
+  def push(ele)
+    return if isFull
+    self.elements.push ele
+    if self.mins.empty?
+      self.mins.push ele
+    elsif ele < self.mins[-1]
+      self.mins.push ele
+    end
+    self.current_size += 1
+  end
+
+  def pop
+    return if isEmpty
+    ele = self.elements.pop
+    if ele == self.mins[-1]
+      self.mins.pop
+    end
+    ele
+  end
+
+  def isEmpty
+    self.current_size == 0
+  end
+
+  def isFull
+   self.capacity == self.current_size
+  end
+
+  def getMin
+    self.mins[-1]
+  end
+end
+#+END_SRC
+***** (12) Implement a Stack by using queue
+start: 7:30
+end:
+#+BEGIN_SRC ruby
+class MyStack
+  attr_accessor :front, :bottom
+  def initialize
+    self.front = Queue.new
+    self.bottom = Queue.new
+  end
+
+  def push(ele)
+    if self.front.empty?
+      self.front.enq ele
+    else
+      front = self.front.pop
+      self.bottom.enq front
+      self.front.enq ele
+    end
+  end
+
+  def pop
+    if self.front.size == 1
+      self.front.pop
+    elsif self.front.empty?
+      while self.bottom.size > 1
+        self.front.enq self.bottom.pop
+      end
+      self.bottom.pop
+    end
+  end
+end
+#+END_SRC
+*** Queue
+* Exercises
+** Array and String
 ** Exercises [8/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
     all unique  characters.  What  if you  cannot use  additional data
@@ -393,7 +1761,7 @@ m.value(:ivania)
     - StringBuilder uses an arraylist and concatenate all the elements
       at the end building a string
 
-* Breadth Tree Traversal
+** Breadth Tree Traversal
   #+BEGIN_SRC ruby
   class Node < Struct.new(:data, :left, :right)
     def breadth(acc = "")
@@ -416,3 +1784,22 @@ m.value(:ivania)
   > r.breadth
   a-b-c-d-e-f-
   #+END_SRC
+
+* Learnings
+  - Use paper and pencil or whiteboard
+  - Make sure to have an example of expected input and output
+  - Make sure you have different examples
+  - Think about arguments and return type
+  - Come up with a quick solution
+  - Think about edge cases
+  - Worry about runtime complexity
+  - Worry about space complexity
+  - Define everything in just one function if you are using Ruby + LinkedLists
+  - Remember that you can modify a data structure
+  - Do you need to collect the data or just print it?
+  - You can delete elements of the set of the solution when they are not useful anymore
+    - Stack: (7)
+  - Swapping name of data structures when necessary
+    - Stack: (12)
+  - Visualize in a better way the solutions; ask you if you already have the answer
+  - Use the API of the data structure when extra space is not allowed

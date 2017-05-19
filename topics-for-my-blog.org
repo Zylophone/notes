@@ -33,7 +33,6 @@
   - Let your colleague that you need her for a fixed amount of time to do X
 * TODO single threaded vs concurrency vs parallelism
 * TODO what you know, what you know you don't know, what you don't know you don't know
-* TODO Design a Train System in ELF
 * TODO Nobody trains software developers to be prepared for disasters.  That's why I love Erlang.
 * TODO What are the things you do when creating a ruby console?
 ** ActiveRecord::Base.logger.level = 1
@@ -65,3 +64,6 @@
   - https://github.com/minostro/poolmachine_example
 * TODO Work on this for a bit:
   - https://booking.riddles.io/
+* TODO Design a Train System in ELF
+* TODO Talk about RemuneX
+* TODO bus-lines-admin - Django Project
