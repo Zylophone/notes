@@ -1364,6 +1364,246 @@ class MyStack
   end
 end
 #+END_SRC
+***** (13) Stack with operations in the middle
+start: 5:20
+end: 5:54
+start_2: 8:40
+end_2: 9:37
+#+BEGIN_SRC ruby
+#array cannot be used
+class WRONG_ArrayStackMiddle
+  attr_accessor :array, :size
+  def initialize
+    self.array = []
+    self.size = 0
+  end
+
+  def push(ele)
+    self.array.push ele
+    self.size = self.size + 1
+  end
+
+  def pop()
+    if !self.array.empty?
+      while self.array[-1] ! nil
+        self.array.pop
+      end
+      self.size = self.size - 1
+      self.array.pop
+    end
+  end
+
+  def middle()
+    (self.size / 2.to_f).floor
+  end
+
+  def find_middle()
+    self.array[self.middle]
+  end
+
+  def delete_middle()
+    self.array[self.middle] = nil
+  end
+end
+
+class Node
+  attr_accessor :data, :next, :prev
+  def initialize(data)
+    self.data = data
+  end
+end
+
+class DoublyLinkedListStack
+  attr_accessor :head, :middle_node, :size, :middle_index
+  def initialize
+    self.head = self.middle_node = nil
+    self.size = self.middle_index = 0
+  end
+
+  def push(ele)
+    node = Node.new(ele)
+    self.size = self.size + 1
+    if !self.head.nil?
+      node.next = self.head
+      self.head.prev = node
+    end
+    self.head = node
+    #START: move middle
+    if self.head.next.nil?
+      self.middle_node = self.head
+      self.middle_index = self.size
+    else
+      new_middle_index = (self.size / 2.to_f).ceil
+      return if self.middle_index == new_middle_index
+      if new_middle_index > self.middle_index
+        self.middle_index = new_middle_index
+        self.middle_node = self.middle_node.prev
+      end
+    end
+    #END: move middle
+  end
+
+  def pop()
+    return if self.head.nil?
+
+    data = self.head.data
+    new_head = self.head.next
+    new_head.prev = nil if new_head
+    self.head.next = nil
+    self.head = new_head
+    self.size = self.size - 1
+    #START: move middle
+    new_middle_index = (self.size / 2.to_f).ceil
+    if self.middle_index == new_middle_index
+      self.middle_node = self.middle_node.prev
+    elsif new_middle_index < self.middle_index
+      self.middle_index = new_middle_index
+      self.middle_node = self.middle_node.next
+    end
+    #END: move middle
+    data
+  end
+
+  def find_middle()
+    self.middle_node.data if self.middle_node
+  end
+
+  def delete_middle()
+    return if self.middle_node.nil?
+    self.size = self.size - 1
+    if self.middle_node.prev
+      self.middle_node.prev.next = self.middle_node.next
+    end
+    if self.middle_node.next
+      self.middle_node.next.prev = self.middle_node.prev
+    end
+
+    return if self.head.nil?
+    #START: move middle
+    new_middle_index = (self.size / 2.to_f).ceil
+    if self.middle_index == new_middle_index
+      self.middle_node = self.middle_node.prev
+    elsif new_middle_index < self.middle_index
+      self.middle_index = new_middle_index
+      self.middle_node = self.middle_node.next
+    end
+    #END: move middle
+  end
+end
+#+END_SRC
+***** (14) How to efficiently implement k stacks in a single array
+start: 3:30
+end: 4:30
+
+top always refers to two positions:
+  - arr; if top points to 8, then arr[8] contains the element
+  - next; if top points to 8, then next[8] contains the *index* to the next node.
+
+#+BEGIN_SRC ruby
+class KArrayStack
+  attr_accessor :arr, :top_arr, :next_arr, :free
+  def initialize(k, capacity = 6)
+    self.arr = Array.new(capacity)
+    self.top_arr = Array.new(k, -1)
+    self.next_arr = Array.new(capacity, -1)
+    (0..capacity-2).each do |index|
+      self.next_arr[index] = index + 1
+    end
+    self.free = 0
+  end
+
+  def push(ele, k)
+    return if self.free == -1
+    i = self.free
+    self.free = self.next_arr[i]
+    self.next_arr[i] = self.top_arr[k]
+    self.top_arr[k] = i
+    self.arr[i] = ele
+  end
+
+  def pop(k)
+    return if self.top_arr[k] == -1
+
+    ele = self.arr[self.top_arr[k]]
+    self.arr[self.top_arr[k]] = nil
+    i = self.free
+    self.free = self.top_arr[k]
+    self.top_arr[k] = self.next_arr[self.free]
+    self.next_arr[self.free] = i
+    ele
+  end
+end
+#+END_SRC
+***** (16) Length of the longest valid substring
+start: 4:38
+end: 4:47
+#+BEGIN_SRC ruby
+#HINT: Discuss this with Manoj
+def length_longest_substring(str)
+  stack = []
+  counter = 0
+  str.split("").each do |char|
+    if char == ')' && stack[-1] == '('
+      counter = counter + 2
+      stack.pop
+    else
+      stack.push char
+    end
+  end
+  counter
+end
+#+END_SRC
+***** (17) Find maximum of minimum for every window size in a given array
+start: 6:26
+end: 7:12
+#+BEGIN_SRC ruby
+def max_of_the_min_window_o_n3(numbers)
+  size = 1
+  super_group = []
+  while size != numbers.size + 1
+    groups = []
+    index = 0
+    while index != numbers.size
+      sub_index = index
+      group = []
+      while group.size != size && sub_index != numbers.size
+        group << numbers[sub_index]
+        sub_index = sub_index + 1
+      end
+      groups << group if group.size == size
+      index = index + 1
+    end
+    super_group << groups.map{|group| group.min}.max
+    size = size + 1
+  end
+  super_group
+end
+
+def max_of_the_min_window(numbers)
+  groups = []
+  index = 0
+  while index != numbers.size
+    groups << []
+    index = index + 1
+  end
+  index = 0
+  while index != numbers.size
+    sub_index = 0
+    while sub_index != index + 1
+      groups[sub_index] << numbers[(index - sub_index)..index]
+      sub_index = sub_index + 1
+    end
+    index = index + 1
+  end
+  groups.map{|group| group.map{|sub| sub.min}.max}
+end
+
+numbers = [10, 20, 30, 50, 10, 70, 30] * 10000;1
+Benchmark.bm do |x|
+  x.report { max_of_the_min_window numbers }
+  x.report { max_of_the_min_window_o_n3 numbers }
+end
+#+END_SRC
 *** Queue
 * Exercises
 ** Array and String
@@ -1803,3 +2043,5 @@ m.value(:ivania)
     - Stack: (12)
   - Visualize in a better way the solutions; ask you if you already have the answer
   - Use the API of the data structure when extra space is not allowed
+  - Check what happen with the Data Structure after performing an operation. Work with real life examples.
+  - When calculating the middle keep in mind even and odd results
