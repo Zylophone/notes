@@ -1,7 +1,79 @@
+* Big O Notation
+** Definition
+How time scales with respect to the data input
+** Different Steps Get Added
+#+BEGIN_SRC ruby
+a = Array.new(n)
+b = Array.new(m)
+a.each do |element|
+  ...
+end
+b.each do |element|
+  ...
+end
+#+END_SRC
+
+The runtime complexity of this algorithm is `O(n + m)`
+** Drop Constants
+You are interested on describing the relationship between the input data and how time scales. Constants
+won't change the type of the curve.
+** Different Inputs, Different Variables
+If data is coming from different inputs, use different variables to describe them.
+** Drop non-dominant terms
+`O(n + log n)` ~ `O(n)`; `O(n^2 + n)` ~ `O(n)`
+** Types of Runtime Complexity
+| Type      | Name             | Description                                      | Example                                                      |
+|-----------+------------------+--------------------------------------------------+--------------------------------------------------------------|
+| O(1)      | Constant Time    | Operation does not depend on the input size      |                                                              |
+| O(lg n)   | Logaritmic Time  | n is the size of the input; lg is base of 2      | Binary Search. It always drops half of the data in each step |
+| O(n)      | Linear Time      | Direct proportion with respect of the input size | Insert elements in a sorted array                            |
+| O(n lg n) |                  | Divide and Conquer                               | Merge Sort, Heap Sort                                        |
+| O(n^2)    | Cuadratic Time   | Pair of nested loops; Fast growth rate           | Matrix Multiplication, Bubble sort.                          |
+| O(n^3)    | Cubic Time       | 3 nested loops                                   |                                                              |
+| O(2^n)    | Exponential Time | Dynamic Programming                              |                                                              |
+** Rules
+  - Additional constants might need to be dropped
+  - Smaller order are not significant
+  - Constant multiplication is not significant
+** Case Analysis
+*** Best Case
+Little contribution
+*** Worst Case
+Upper bound
+*** Average Case
+Relies on Probability
+*** Space Analysis
+How much extra space a solution needs
 * Data Structures
 ** Linear
 *** Array
-Stores homogeneous elements at contiguous locations. Size of an array must be provided before storing data.
+- Elements can be accessed by using an index
+  - 0 <= index <= n - 1
+  - 0    : lower bound
+  - n -1 : upper bound
+- Size of an array must be provided at compile time.
+- Stores homogeneous elements at contiguous locations.
+  - Depending on the type of the elements, index may be affected
+  - base address + (index * size of the element)
+**** Advantages
+  - Possible single variable
+  - Direct Access
+  - Easy to construct and use arrays
+  - They are indispensable on implementing iterative algorithms
+  - Multiple Dimensional Array facilitates organizing data in a hierarchical way
+**** Drawbacks
+  - Memory allocated of the array cannot be released until program execution is finished
+    - is this because array is stored on the heap(?)
+  - Array size cannot be increased or decreased during runtime
+    - This is a problem when dealing with unpredictable large dataset size
+  - Variable large strings cannot be stored in arrays
+  - Insertion/Deletion --> not performant
+  - Allocated out of the memory namespace of the program
+  - `c`,`c++` do not perform range checks at runtime
+**** Operations
+  - search
+  - insert : shift elements to the right (ordered array)
+  - delete : shift to the left; does not free any memory
 **** Unsorted Array
 ***** Search
 #+BEGIN_SRC ruby
@@ -116,6 +188,44 @@ def delete(arr, current_index, capacity, key)
 end
 
 #+END_SRC
+*** Multiple Dimensional Array
+  - Represent a smaller groups of elements within another group
+  - rows and columns
+  - two indexes: one for rows another one for columns
+  - base address is again important(!!), because it helps us to traverse the array
+**** 2 dimensional Array
+  - Suppose that we want to store the grades of all the classes for a given student
+| class0, grade0 | class0, grade1 |
+| class1, grade0 | class1, grade1 |
+  - rows represent classes
+  - columns represent grades
+  - You can think of this as a grouping per grades at the *class* level *or* a grouping per class at the *grade* level.
+**** 3 dimensional Array
+  - It's compose by 1 dimensional array plus a 2 dimensional array
+  - Suppose that we want to store the grades of all the classes for a given group of students
+| student0 |
+| student1 |
+  - In each "student" position, there will be stored a 2 dimensional array
+  - You can think about this as a grouping per of grades and classes at the *student* level.
+**** String Arrays
+  - String is a sequence of chars with the last element being `\0` (empty string)
+  - Having an array of string is useful when processing words (text processor)
+  - Because of the nature of string their size is not fixed, but arrays need to have a fixed size, thus `\0` string is needed
+**** Applications
+  - Used in Graphs
+  - Used in Imaging Processing
+  - Solve Equations
+  - Square Matrix: n, m; m = n
+  - Symmetric Matrix: elements below and above the diagonal are the same
+    - Distances from city a -> b and b -> a
+  - Sparse Matrix
+    - Majority of the values are zeros.
+  - Triggenal Matrix
+    - This type of matrixes can be stored in an array. All the elements above the diagonal are zeros.
+**** Operations
+  - Addition
+  - Multiplication
+    - PLEASE, PLEASE, PLEASE, watch Matrix Multiplication videos!!!
 *** LinkedList
 Elements are not stored at contiguous location; the elements are linked using pointers
 **** Advantages over Array
@@ -2553,7 +2663,6 @@ m.value(:ivania)
   > r.breadth
   a-b-c-d-e-f-
   #+END_SRC
-
 * Learnings
   - Use paper and pencil or whiteboard
   - Make sure to have an example of expected input and output
