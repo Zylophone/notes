@@ -1,25 +1,29 @@
-* DONE [Blog] Heap vs Stack
-* DONE [Blog] Data Structure vs Data Type
-* QA [Blog] Transient vs Real Errors
-  - A model to represent errors (MessageError - HIE)
-* TODO [Projects] Write about printing documents in an old printer
-* TODO [Projects] Write about Nubox integration
+* TODO Write about my thesis                                                    :projects:
+  - Extension of AspectBench compiler to implement Join Point Interfaces
+* TODO Write about printing documents in an old printer                         :projects:
+* TODO Write about Nubox integration                                            :projects:
   - Explain the idea behind the library
   - Show the code by giving the GitHub Repo
-* TODO [Blog] Core language, Second language
+* TODO Poolmachine                                                              :projects:
+  - https://github.com/minostro/poolmachine
+  - https://github.com/minostro/poolmachine_example
+* TODO bus-lines-admin - Django Project                                         :projects:
+* HOLD Transient vs Real Errors                                                 :blog:
+  - A model to represent errors (MessageError - HIE)
+* TODO Core language, Second language                                           :blog:
   - Functional Language, Concurrent Oriented Language
+  - sync and async, when and why
   - Ticket dispenser (Data Type vs Processes in Erlang)
     - http://erlang.org/pipermail/erlang-questions/2004-August/012905.html
     - http://erlang.org/pipermail/erlang-questions/2004-August/012914.html
     - http://erlang.org/pipermail/erlang-questions/2004-August/012928.html
     - http://erlang.org/pipermail/erlang-questions/2004-August/012932.html
     - http://erlang.org/workshop/2004/jaynelson.pdf
-* TODO [Blog] Idempotence to the rescue
+* TODO Idempotence to the rescue                                                :blog:
   https://pdfs.semanticscholar.org/4b6d/da7fe75b51e1c543a87ca7b3b322fbf55614.pdf
-* TODO [Blog] Happiest thought in a long time
+* TODO Happiest thought in a long time                                          :blog:
   - I don't need to be attending school to keep learning stuff
 * TODO Updating your data:  How Does That could Affect Down Stream Systems?
-* TODO Write about my thesis
 * TODO Write about extending ABC compiler?
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-ja-exts/src-jpi/abc/ja/jpi/jrag/
 ** https://svn.sable.mcgill.ca/abc/trunk/aop/abc-testing/ajc-harness/tests/abctests/jpi/
@@ -59,11 +63,26 @@
 *** A new approach to the functional design of a digital computer
 ** What's science? It's a representation of
 ** Problem Oriented Language
-* TODO Poolmachine
-  - https://github.com/minostro/poolmachine
-  - https://github.com/minostro/poolmachine_example
 * TODO Work on this for a bit:
   - https://booking.riddles.io/
 * TODO Design a Train System in ELF
-* TODO Talk about RemuneX
-* TODO bus-lines-admin - Django Project
+* DONE Meaculpa's Central & Sucursal                                            :projects:
+  CLOSED: [2017-05-29 Mon 16:18]
+  :LOGBOOK:
+  - State "DONE"       from "TODO"       [2017-05-29 Mon 16:18]
+  :END:
+  - Physical Diagram
+  - Data Model
+  - Synchronization Mechanism
+* DONE AlyMoly                                                                  :projects:
+  CLOSED: [2017-05-27 Sat 20:39]
+  :LOGBOOK:
+  - State "DONE"       from ""           [2017-05-27 Sat 20:39]
+  :END:
+* DONE Heap vs Stack                                                            :blog:
+* DONE Data Structure vs Data Type                                              :blog:
+* DONE Talk about RemuneX                                                       :projects:
+  CLOSED: [2017-05-27 Sat 20:27]
+  :LOGBOOK:
+  - State "DONE"       from "TODO"       [2017-05-27 Sat 20:27]
+  :END:

@@ -1605,6 +1605,535 @@ Benchmark.bm do |x|
 end
 #+END_SRC
 *** Queue
+Queue can be implemented by an array or linked list.
+**** Purpose
+  - Collection of Elements First In, First Out
+  - Operations
+    - enqueue -> element added to the "rear"
+    - dequeue -> element removed from the "front"
+  - When data is transferred asynchronously
+    - IO Buffers, Pipes, File IO
+  - Breadth-First Search
+  - CPU Scheduling, Disk Scheduling
+**** Exercises
+***** (1) Implement a Queue by using an Array
+start: 7:25
+end: 7:51
+#+BEGIN_SRC ruby
+class ArrayQueue
+  attr_accessor :arr, :top, :free, :capacity
+  def initialize(capacity = 50)
+    self.arr = Array.new(capacity, nil)
+    self.top = -1
+    self.free = 0
+    self.capacity = capacity
+  end
+
+  def front
+    return if self.top == -1
+    self.arr[self.top]
+  end
+
+  def enqueue(ele)
+    return if self.top == self.free
+
+    self.arr[self.free] = ele
+    if self.top == -1
+      self.top = self.free
+    end
+    self.free = (self.free + 1) % self.capacity
+  end
+
+  def dequeue
+    return if self.top == -1
+
+    ele = self.arr[self.top]
+    self.arr[self.top] = nil
+    self.top = (self.top + 1) % self.capacity
+    if self.top == self.free
+      self.top = -1
+    end
+    ele
+  end
+end
+#+END_SRC
+***** (2) Implement a Queue by using a LinkedList
+start: 7:54
+end: 8:06
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :data, :next
+  def initialize(data, next_node=nil)
+    self.data = data
+    self.next = next_node
+  end
+end
+
+class LinkedListQueue
+  attr_accessor :front, :rear
+  def initialize
+    self.front = self.rear = nil
+  end
+
+  def enqueue(ele)
+    node = Node.new(ele)
+    if self.front.nil?
+      self.front = node
+      self.rear = node
+    else
+      self.rear.next = node
+      self.rear = node
+    end
+  end
+
+  def dequeue
+    return if self.front.nil?
+    node = self.front
+    self.front = self.front.next
+    data = node.data
+    node = nil
+    data
+  end
+end
+#+END_SRC
+***** (3) Applications of Queue Data Structure
+No exercises
+***** (4) Priority Queue Implementation
+  - Every item has a priority
+  - Element with high priority is dequeued before an element with low priority
+  - If two elements have the same priority, they are served according to their order in the queue
+  - Applications
+    - CPU Scheduling
+    - All queue applications where priority is involved
+***** (5) Deque or Double Ended Queue
+  - Implementations
+    - Doubly Linked List
+    - Circular Array
+***** (6) [READ AGAIN]Implementation of Deque using Circular Array
+start: 5:15
+end: 6:21
+#+BEGIN_SRC ruby
+class DequeCircularArray
+  attr_accessor :arr, :front, :rear, :capacity
+  def initialize(capacity)
+    self.capacity = capacity
+    self.arr = Array.new(self.capacity, nil)
+    self.front = 0
+    self.rear = 0
+  end
+
+  def insert_front(ele)
+    return if is_full?
+    if is_empty?
+      self.arr[self.front] = ele
+    else
+      self.front = (self.front - 1) % self.capacity
+      self.arr[self.front] = ele
+    end
+  end
+
+  def insert_rear(ele)
+    return if is_full?
+    if is_empty?
+      self.front = self.rear = 0
+      self.arr[self.front] = ele
+    else
+      self.rear = (self.rear + 1) % self.capacity
+      self.arr[self.rear] = ele
+    end
+  end
+
+  def delete_front
+    return if is_empty?
+    self.arr[self.front] = nil
+    if self.front == self.rear
+      self.front = (self.front + 1) % self.capacity
+      self.rear = self.front
+    else
+      self.front = (self.front + 1) % self.capacity
+    end
+  end
+
+  def delete_rear
+    return if is_empty?
+    self.arr[self.rear] = nil
+    if self.rear == self.front
+      self.rear = (self.rear - 1) % self.capacity
+      self.front = self.rear
+    else
+      self.rear = (self.rear - 1) % self.capacity
+    end
+  end
+
+  def get_front
+    return if is_empty?
+    self.arr[self.front]
+  end
+
+  def get_rear
+    return if is_empty?
+    self.arr[self.rear]
+  end
+
+  def is_empty?
+    self.arr[self.front].nil? && self.arr[self.rear].nil?
+  end
+
+  def is_full?
+    (self.front - 1) % self.capacity == self.rear
+  end
+end
+#+END_SRC
+***** (7) [READ AGAIN]Implement Queue Using Stacks
+start: 8:22
+end: 8:29
+#+BEGIN_SRC ruby
+class QueueStacks
+  attr_accessor :front_stack, :rear_stack
+  def initialize
+    self.front_stack = []
+    self.rear_stack = []
+  end
+
+  def enqueue(ele)
+    if self.front_stack.empty? && self.rear_stack.empty?
+      self.front_stack.push ele
+    else
+      self.rear_stack.push ele
+    end
+  end
+
+  def dequeue
+    if !self.front_stack.empty?
+      ele = self.front_stack.pop
+    else
+      while !self.rear_stack.empty?
+        self.front_stack.push self.rear_stack.pop
+      end
+      ele = self.front_stack.pop
+    end
+    ele
+  end
+end
+#+END_SRC
+***** (8) [READ AGAIN]Check whether a binary tree is complete or not
+start: 6:03
+end: 7:45
+#+BEGIN_SRC ruby
+#HINT: I used the concept of levels, but that complicated things *a lot*
+#Using the concept of Full Node(right && left != null) simplifies everything!
+class MyNode
+  attr_accessor :data, :left, :right
+  def initialize(data, left=nil, right=nil)
+    self.data = data
+    self.left = left
+    self.right = right
+  end
+end
+
+def is_complete?(binary_tree)
+  queue = []
+  current_level = 0
+  next_level = nil
+  queue.push [binary_tree, 0]
+  current_total = 0
+  complete = true
+  more_children_allowed = true
+  while !queue.empty? do
+    expected_total = 2**current_level
+    current_total = 0
+    next_level = current_level + 1
+    while !queue.empty? && queue[0][1] != next_level do
+      current_total = current_total + 1
+      ele, current_level = queue.shift
+      puts "#{!ele.right.nil?}, #{ele.left.nil?}"
+      if !ele.right.nil? && ele.left.nil?
+        complete = false
+        break
+      end
+      if current_total == 1 && ele.left.nil?
+        more_children_allowed = false
+      end
+      if (ele.right || ele.left) && !more_children_allowed
+        complete = false
+        break
+      end
+      queue.push [ele.left, next_level] if ele.left
+      queue.push [ele.right, next_level] if ele.right
+    end
+    current_level = next_level
+    break if complete == false
+    if current_total != expected_total && more_children_allowed == true
+      complete = false
+      break
+    end
+  end
+  complete
+end
+#+END_SRC
+***** (10) [IMPLEMENT IT AGAIN]Find the first circular tour that visits all petrol pumps
+runtime complexity: O(n)
+extra space: O(n);;it should be posible O(1)
+#+BEGIN_SRC ruby
+class PetrolPump
+  attr_accessor :petrol, :distance
+  def initialize(petrol, distance)
+    self.petrol = petrol
+    self.distance = distance
+  end
+end
+
+def circular_tour(pumps)
+  good_pumps = []
+  bad_pumps = []
+  gas = 0
+  current = 0
+  while current < pumps.size
+    if gas + pumps[current].petrol - pumps[current].distance > 0
+      good_pumps.append current
+      gas = gas + pumps[current].petrol - pumps[current].distance
+    else
+      while !good_pumps.empty?
+        bad_pumps.append good_pumps.shift
+      end
+      bad_pumps.append current
+    end
+    current = current + 1
+  end
+  found = true
+  while !bad_pumps.empty?
+    current = bad_pumps.shift
+    if gas + pumps[current].petrol - pumps[current].distance > 0
+      good_pumps.append current
+      gas = gas + pumps[current].petrol - pumps[current].distance
+    else
+      found = false
+      break
+    end
+  end
+  if found
+    good_pumps[0]
+  else
+    -1
+  end
+end
+#+END_SRC
+***** (11) Sliding Window Maximum (Maximum of all subarrays of size k)
+#+BEGIN_SRC ruby
+def sliding_window_maximum(arr, k)
+  deque = []
+  (0..k-1).each do |index|
+    while !deque.empty? && arr[index] > deque[-1]
+      deque.pop
+    end
+    deque.push(index)
+  end
+  index = k
+  while index != arr.size
+    puts arr[deque[0]]
+    while !deque.empty? && deque[0] <= index - k
+      deque.shift
+    end
+    while !deque.empty? && arr[index] > arr[deque[-1]]
+      deque.pop
+    end
+    deque.append(index)
+    index = index + 1
+  end
+  puts arr[deque[0]]
+end
+#+END_SRC
+
+** Tree Based
+*** Binary Search Tree
+**** Structure
+#+BEGIN_SRC r
+uby
+class Node
+  attr_accessor :data, :left, :right
+  def initialize(data, left=nil, right=nil)
+    self.data = data
+    self.left = left
+    self.right = right
+  end
+end
+
+class BinarySearchTree
+  attr_accessor :root, :prev, :side
+  def initialize(root=nil)
+    self.root = root
+    self.prev = nil
+    self.side = nil
+  end
+end
+#+END_SRC
+**** Operations
+***** Node Deletion
+Three Cases:
+  1. Node to be deleted is a leaf
+  2. Node to be deleted has a right children
+  3. Node to be deleted has a left children but does not have a right children
+
+- For (1); Free the pointer to the node. Done.
+- For (2); Keep a reference to the node that will be deleted; Find the minimum element that belongs to the *right* subtree; Once you find the minimum node, interchange the values; call delete method again but now pass the reference to the minimum node.
+- For (3); Keep a reference to the node that will be deleted; Find the maximum element that belongs to the *left* subtree; Once you find the minimum node, interchange the values; call delete method again but now pass the reference to the maximum node.
+#+BEGIN_SRC ruby
+class BinarySearchTree
+  def find_node(key)
+    current = self.root
+    self.prev = nil
+    node = nil
+    while !current.nil?
+      if current.data == key
+        node = current
+        break
+      elsif key > current.data
+        self.prev = current
+        self.side = :right
+        current = current.right
+      else
+        self.prev = current
+        self.side = :left
+        current = current.left
+      end
+    end
+    node
+  end
+
+  def delete_node(key)
+    current = self.find_node(key)
+    while !current.nil?
+      if current.data == key && current.right.nil? && current.left.nil?
+        self.prev.send("#{self.side}=", nil)
+        break
+      elsif current.data == key && !current.right.nil?
+        minimum = self.find_minimum(current.right)
+        self.prev = current
+        self.side = :right
+        current.data = minimum.data
+        current = minimum
+        key = minimum.data
+      else
+        maximum = self.find_maximum(current.left)
+        self.prev = current
+        self.side = :left
+        current.data = maximum.data
+        current = maximum
+        key = maximum.data
+      end
+    end
+  end
+
+  def find_minimum(node)
+    self.prev = nil
+    self.side = nil
+    current = node
+    while !current.nil? && !current.left.nil?
+      self.prev = current
+      self.side = :left
+      current = current.left
+    end
+    current
+  end
+
+  def find_maximum(node)
+    self.prev = nil
+    self.side = nil
+    current = node
+    while !current.nil? && !current.right.nil?
+      self.prev = current
+      self.side = :right
+      current = current.right
+    end
+    current
+  end
+end
+#+END_SRC
+
+*** Heap
+**** Properties
+In the binary tree implementation the following properties must be observed:
+- It's a complete tree (all levels are filled except the last)
+- Leaves are allocated as left as possible
+- Min heap and Max heap can be efficiently implemented by using a binary tree
+- If Min Heap, the root is the smallest element in the collection. This applies to all subtrees
+- If Max Heap, the root is the greates element in the collection. This applies to all subtrees
+**** Structure
+It's observed that a complete tree can be implemented by using an array:
+| root | parent node | left node | right node |
+|------+-------------+-----------+------------|
+|    0 | i/2         | 2*i + 1   | 2*i + 2    |
+#+BEGIN_SRC ruby
+class MinHeap
+  attr_accessor :max, :index, :tree
+  def initialize(max=10)
+    self.index = 0
+    self.max = max + 1
+    self.tree = Array.new(self.max)
+  end
+end
+#+END_SRC
+**** Operations
+***** Addition
+Inserts the new element at the end; if the element is greater than its parent interchange them; done otherwise
+#+BEGIN_SRC ruby
+class MinHeap
+  def add(element)
+    return if self.index == self.max - 1
+    self.index = self.index + 1
+    self.tree[self.index] = element
+    heapify_up
+  end
+
+  def heapify_up
+    index = self.index
+    while index > 1
+      parent_node = index/2
+      break if self.tree[index] > self.tree[parent_node]
+
+      tmp = self.tree[parent_node]
+      self.tree[parent_node] = self.tree[index]
+      self.tree[index] = tmp
+      index = parent_node
+    end
+  end
+end
+#+END_SRC
+***** Deletion
+Override the value of root with the last value of the tree; check that root is the smallest element in the tree;
+if not, rotate from with the smallest; keep doing that until the condition is false.
+#+BEGIN_SRC ruby
+class MinHeap
+  def delete
+    return if self.index == 0
+    top = self.tree[1]
+    self.tree[1] = self.tree[self.index]
+    self.index = self.index - 1
+    heapify_down
+    top
+  end
+
+  def heapify_down
+    index = 1
+    while index < self.index - 1
+      break if self.tree[index] < self.tree[2*index]
+      tmp = self.tree[index]
+      if self.tree[2*index] > self.tree[2*index + 1]
+        self.tree[index] = self.tree[2*index + 1]
+        self.tree[2*index + 1] = tmp
+        index = 2*index + 1
+      else
+        self.tree[index] = self.tree[2*index]
+        self.tree[2*index] = tmp
+        index = 2*index
+      end
+    end
+  end
+end
+#+END_SRC
+**** Application
+- Heap Sort
+- Priority Queue
 * Exercises
 ** Array and String
 ** Exercises [8/9]
@@ -2045,3 +2574,8 @@ m.value(:ivania)
   - Use the API of the data structure when extra space is not allowed
   - Check what happen with the Data Structure after performing an operation. Work with real life examples.
   - When calculating the middle keep in mind even and odd results
+  - Circular indexes can go negative or around an array
+
+* Resources
+Big O notation: 36:02
+https://www.youtube.com/watch?v=YWnBbNj_G-U
