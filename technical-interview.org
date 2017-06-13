@@ -544,6 +544,27 @@ nil <- 1 -> 2
   - Array: Circular Array
   - Linked List:
 ** Tree Based
+*** Tree
+  - Hierarchical Relationship
+  - Collection of nodes such that:
+    - There is a root
+    - Nodes are connected through edges
+    - One path from one node to another
+    - Nodes are connected from top to bottom
+**** Definitions and Terminology
+  - Parent Node
+  - Root Node has not parent
+  - Child Node
+  - Siblings
+    - Children which have a common parent are collectively known as siblings
+  - Ancestors
+    - All nodes that appear on the path to the root
+  - Descendants
+  - Subtree
+  - Tree Level
+  0 -->       (A)
+  1 -->   (B)     (C)
+  2 --> (D) (E) (F) (G)
 *** Binary Search Tree
 **** Structure
 #+BEGIN_SRC r
