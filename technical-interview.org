@@ -487,556 +487,31 @@ nil <- 1 -> 2
 *** Multi List                                                                  :TODO:
   - I think this is a form of 3 dimensional array
 *** Stack
-Stack can be implemented by an array or linked list.
+  - Stack can be implemented by an array or linked list.
+  - Use for infix, postfix, and prefix notation
+  - Subprogram calls (representation of a call stack)
+  - Can represent piles of tree, bundles of office files, arrangement of envelops
 **** Purpose
   - Mantaining Function Calls
   - Recursion can be removed by using stacks
   - Reversing words
   - Balanced parenthesis
+    - Grouped Statements
   - Undo operations (last operation)
   - Implement back functionality in a browser
-**** Exercises
-***** (3) Evaluate a postfix expresion
-#+BEGIN_SRC ruby
-#2 3 1 * + 9 -
-def eval_postfix(postfix_str)
-  stack = []
-  postfix_str.split(" ").each do |char|
-     if char =~ /[0-9]+/
-       stack.push char.to_i
-     else
-       second = stack.pop
-       first = stack.pop
-       stack.push first.public_send(char, second)
-     end
-  end
-  stack.pop
-end
-#+END_SRC
-***** (4) Reverse a string
-#+BEGIN_SRC ruby
-def reverse(str)
-  stack = []
-  str.split("").each do |char|
-    stack.push char
-  end
-  acc = ""
-  while !stack.empty?
-    acc = acc + stack.pop
-  end
-  acc
-end
-#+END_SRC
-***** (5) Implement Two stacks in an Array
-start: 7:00
-end: 7:22
-#+BEGIN_SRC ruby
-class TwoStacks
-  attr_accessor :arr, :indexes, :max_size
-  def initialize(max_size=50)
-    self.arr = Array.new(max_size)
-    self.indexes = [-1, max_size]
-    self.max_size = max_size
-  end
-
-  def _push(ele, left, right, op1, op2)
-    return if self.indexes[left] == self.indexes[right].send(op1, 1)
-    self.indexes[left] = self.indexes[left].send(op2, 1)
-    self.arr[self.indexes[left]] = ele
-  end
-
-  def push1(ele)
-    _push(ele, 0, 1, '-', '+')
-  end
-
-  def push2(ele)
-    _push(ele, 1, 0, '+', '-')
-  end
-
-  def _pop(index, lower_boundary)
-    return if self.indexes[index] == lower_boundary
-    ele = self.arr[self.indexes[index]]
-    self.arr[self.indexes[index]] = nil
-    self.indexes[index] = self.indexes[index] - 1
-    ele
-  end
-
-  def pop1
-    _pop(0, -1)
-  end
-
-  def pop2
-    _pop(1, self.max_size)
-  end
-end
-#+END_SRC
-***** (6) Balanced Parentheses
-start: 7:47
-end: 7:54
-#+BEGIN_SRC ruby
-def balanced_parentheses?(str)
-  stack = []
-  str.split("").each do |char|
-    case char
-      when "]"
-        top = stack.pop
-        break if top != "["
-      when ")"
-        top = stack.pop
-        break if top != "("
-      when "}"
-        top = stack.pop
-        break if top != "{"
-      else
-        stack.push(char)
-    end
-  end
-  stack.empty?
-end
-#+END_SRC
-***** (7) Next Greater Element
-start: 7:55
-end: 9:32
-#+BEGIN_SRC ruby
-def next_greater2(numbers)
-  stack = []
-  numbers.each do |number|
-    if stack.empty?
-      stack.push [number, -1]
-    else
-      top_ele, top_greater = stack[-1]
-      if number > top_ele
-        aux_stack = []
-        loop do
-          ele, greater = stack[-1]
-          break if greater != -1 or ele > number
-          ele, greater = stack.pop
-          aux_stack.push [ele, number]
-        end
-        while !aux_stack.empty?
-          stack.push aux_stack.pop
-        end
-      end
-      stack.push [number, -1]
-    end
-  end
-  while !stack.empty?
-    ele, greater = stack.pop
-    puts "#{ele}, #{greater}"
-  end
-end
-#+END_SRC
-***** (8) Reverse a stack using recursion
-start: 4:38 5:02
-end: 
-#+BEGIN_SRC ruby
-def reverse_stack(stack, result=[])
-  if stack.empty?
-    return result
-  end
-  result.push stack.pop
-  reverse_stack(stack, result)
-end
-#+END_SRC
-***** (9) Sort a stack using recursion
-start: 5:03
-end: 5:30
-#+BEGIN_SRC ruby
-def main(stack)
-  repeat(stack.size, 0, stack)
-end
-
-def repeat(times, index, sorted_stack)
-  return sorted_stack if times == index
-  sorted_stack = sort_stack_recursion(sorted_stack)
-  repeat(times, index+1, sorted_stack)
-end
-
-def sort_stack_recursion(stack)
-  return stack if stack.size == 1
-  tmp = stack.pop
-  sorted_stack = sort_stack_recursion(stack)
-  if tmp < sorted_stack[-1]
-    ele = sorted_stack.pop
-    sorted_stack.push tmp
-    sorted_stack.push ele
-  else
-    sorted_stack.push tmp
-  end
-  sorted_stack
-end
-#+END_SRC
-***** (10) Stock Span Problem
-start: 5:32
-end: 5:46
-https://www.youtube.com/watch?v=LvQzYMXEANs
-#+BEGIN_SRC ruby
-def WRONG_stock_span(prices)
-  stack = [prices.first]
-  results = [1]
-  index = 1
-  prices[1..-1].each do |price|
-    tmp_stack = []
-    counter = 1
-    while !stack.empty?
-      ele = stack.pop
-      if price >= ele
-        counter = counter + 1
-      end
-      tmp_stack.push ele
-    end
-    while !tmp_stack.empty?
-      stack.push tmp_stack.pop
-    end
-    results[index] = counter
-    index = index + 1
-    stack.push price
-  end
-  results
-end
-
-def stock_span(prices)
-  stack = [0]
-  spans = [1]
-  index = 1
-  max = prices.size
-  while index != max
-    while !stack.empty? && prices[index] > prices[stack[-1]]
-      stack.pop
-    end
-    if stack.empty?
-      h = -1
-    else
-      h = stack[-1]
-    end
-    spans[index] = index - h
-    stack.push index
-    index = index + 1
-  end
-  spans
-end
-#+END_SRC
-***** (11) Design and Implement Special Stack
-start: 7:11
-end: 7:29
-#+BEGIN_SRC ruby
-class SpecialStack
-  attr_accessor :elements, :mins, :capacity, :current_size
-  def initialize(capacity)
-    self.elements = []
-    self.mins = []
-    self.capacity = capacity
-    self.current_size = 0
-  end
-
-  def push(ele)
-    return if isFull
-    self.elements.push ele
-    if self.mins.empty?
-      self.mins.push ele
-    elsif ele < self.mins[-1]
-      self.mins.push ele
-    end
-    self.current_size += 1
-  end
-
-  def pop
-    return if isEmpty
-    ele = self.elements.pop
-    if ele == self.mins[-1]
-      self.mins.pop
-    end
-    ele
-  end
-
-  def isEmpty
-    self.current_size == 0
-  end
-
-  def isFull
-   self.capacity == self.current_size
-  end
-
-  def getMin
-    self.mins[-1]
-  end
-end
-#+END_SRC
-***** (12) Implement a Stack by using queue
-start: 7:30
-end:
-#+BEGIN_SRC ruby
-class MyStack
-  attr_accessor :front, :bottom
-  def initialize
-    self.front = Queue.new
-    self.bottom = Queue.new
-  end
-
-  def push(ele)
-    if self.front.empty?
-      self.front.enq ele
-    else
-      front = self.front.pop
-      self.bottom.enq front
-      self.front.enq ele
-    end
-  end
-
-  def pop
-    if self.front.size == 1
-      self.front.pop
-    elsif self.front.empty?
-      while self.bottom.size > 1
-        self.front.enq self.bottom.pop
-      end
-      self.bottom.pop
-    end
-  end
-end
-#+END_SRC
-***** (13) Stack with operations in the middle
-start: 5:20
-end: 5:54
-start_2: 8:40
-end_2: 9:37
-#+BEGIN_SRC ruby
-#array cannot be used
-class WRONG_ArrayStackMiddle
-  attr_accessor :array, :size
-  def initialize
-    self.array = []
-    self.size = 0
-  end
-
-  def push(ele)
-    self.array.push ele
-    self.size = self.size + 1
-  end
-
-  def pop()
-    if !self.array.empty?
-      while self.array[-1] ! nil
-        self.array.pop
-      end
-      self.size = self.size - 1
-      self.array.pop
-    end
-  end
-
-  def middle()
-    (self.size / 2.to_f).floor
-  end
-
-  def find_middle()
-    self.array[self.middle]
-  end
-
-  def delete_middle()
-    self.array[self.middle] = nil
-  end
-end
-
-class Node
-  attr_accessor :data, :next, :prev
-  def initialize(data)
-    self.data = data
-  end
-end
-
-class DoublyLinkedListStack
-  attr_accessor :head, :middle_node, :size, :middle_index
-  def initialize
-    self.head = self.middle_node = nil
-    self.size = self.middle_index = 0
-  end
-
-  def push(ele)
-    node = Node.new(ele)
-    self.size = self.size + 1
-    if !self.head.nil?
-      node.next = self.head
-      self.head.prev = node
-    end
-    self.head = node
-    #START: move middle
-    if self.head.next.nil?
-      self.middle_node = self.head
-      self.middle_index = self.size
-    else
-      new_middle_index = (self.size / 2.to_f).ceil
-      return if self.middle_index == new_middle_index
-      if new_middle_index > self.middle_index
-        self.middle_index = new_middle_index
-        self.middle_node = self.middle_node.prev
-      end
-    end
-    #END: move middle
-  end
-
-  def pop()
-    return if self.head.nil?
-
-    data = self.head.data
-    new_head = self.head.next
-    new_head.prev = nil if new_head
-    self.head.next = nil
-    self.head = new_head
-    self.size = self.size - 1
-    #START: move middle
-    new_middle_index = (self.size / 2.to_f).ceil
-    if self.middle_index == new_middle_index
-      self.middle_node = self.middle_node.prev
-    elsif new_middle_index < self.middle_index
-      self.middle_index = new_middle_index
-      self.middle_node = self.middle_node.next
-    end
-    #END: move middle
-    data
-  end
-
-  def find_middle()
-    self.middle_node.data if self.middle_node
-  end
-
-  def delete_middle()
-    return if self.middle_node.nil?
-    self.size = self.size - 1
-    if self.middle_node.prev
-      self.middle_node.prev.next = self.middle_node.next
-    end
-    if self.middle_node.next
-      self.middle_node.next.prev = self.middle_node.prev
-    end
-
-    return if self.head.nil?
-    #START: move middle
-    new_middle_index = (self.size / 2.to_f).ceil
-    if self.middle_index == new_middle_index
-      self.middle_node = self.middle_node.prev
-    elsif new_middle_index < self.middle_index
-      self.middle_index = new_middle_index
-      self.middle_node = self.middle_node.next
-    end
-    #END: move middle
-  end
-end
-#+END_SRC
-***** (14) How to efficiently implement k stacks in a single array
-start: 3:30
-end: 4:30
-
-top always refers to two positions:
-  - arr; if top points to 8, then arr[8] contains the element
-  - next; if top points to 8, then next[8] contains the *index* to the next node.
-
-#+BEGIN_SRC ruby
-class KArrayStack
-  attr_accessor :arr, :top_arr, :next_arr, :free
-  def initialize(k, capacity = 6)
-    self.arr = Array.new(capacity)
-    self.top_arr = Array.new(k, -1)
-    self.next_arr = Array.new(capacity, -1)
-    (0..capacity-2).each do |index|
-      self.next_arr[index] = index + 1
-    end
-    self.free = 0
-  end
-
-  def push(ele, k)
-    return if self.free == -1
-    i = self.free
-    self.free = self.next_arr[i]
-    self.next_arr[i] = self.top_arr[k]
-    self.top_arr[k] = i
-    self.arr[i] = ele
-  end
-
-  def pop(k)
-    return if self.top_arr[k] == -1
-
-    ele = self.arr[self.top_arr[k]]
-    self.arr[self.top_arr[k]] = nil
-    i = self.free
-    self.free = self.top_arr[k]
-    self.top_arr[k] = self.next_arr[self.free]
-    self.next_arr[self.free] = i
-    ele
-  end
-end
-#+END_SRC
-***** (16) Length of the longest valid substring
-start: 4:38
-end: 4:47
-#+BEGIN_SRC ruby
-#HINT: Discuss this with Manoj
-def length_longest_substring(str)
-  stack = []
-  counter = 0
-  str.split("").each do |char|
-    if char == ')' && stack[-1] == '('
-      counter = counter + 2
-      stack.pop
-    else
-      stack.push char
-    end
-  end
-  counter
-end
-#+END_SRC
-***** (17) Find maximum of minimum for every window size in a given array
-start: 6:26
-end: 7:12
-#+BEGIN_SRC ruby
-def max_of_the_min_window_o_n3(numbers)
-  size = 1
-  super_group = []
-  while size != numbers.size + 1
-    groups = []
-    index = 0
-    while index != numbers.size
-      sub_index = index
-      group = []
-      while group.size != size && sub_index != numbers.size
-        group << numbers[sub_index]
-        sub_index = sub_index + 1
-      end
-      groups << group if group.size == size
-      index = index + 1
-    end
-    super_group << groups.map{|group| group.min}.max
-    size = size + 1
-  end
-  super_group
-end
-
-def max_of_the_min_window(numbers)
-  groups = []
-  index = 0
-  while index != numbers.size
-    groups << []
-    index = index + 1
-  end
-  index = 0
-  while index != numbers.size
-    sub_index = 0
-    while sub_index != index + 1
-      groups[sub_index] << numbers[(index - sub_index)..index]
-      sub_index = sub_index + 1
-    end
-    index = index + 1
-  end
-  groups.map{|group| group.map{|sub| sub.min}.max}
-end
-
-numbers = [10, 20, 30, 50, 10, 70, 30] * 10000;1
-Benchmark.bm do |x|
-  x.report { max_of_the_min_window numbers }
-  x.report { max_of_the_min_window_o_n3 numbers }
-end
-#+END_SRC
+  - Implementing search and traversal (iterative approach) ~~ Backtracking
+  - Infix to Postfix notation
+**** Using stacks in function calls
+  - Stack holds the history of calls
+  - Each call is saved in the stack by using a data structure called stack frame
+    - Function Arguments
+    - Return Address
+    - Local Variables
 *** Queue
-Queue can be implemented by an array or linked list.
+  - Queue can be implemented by an array or linked list.
+  - Collection of Homogeneous elements
+  - Rear  <-- push
+  - Front <-- pop
 **** Purpose
   - Collection of Elements First In, First Out
   - Operations
@@ -1046,335 +521,28 @@ Queue can be implemented by an array or linked list.
     - IO Buffers, Pipes, File IO
   - Breadth-First Search
   - CPU Scheduling, Disk Scheduling
-**** Exercises
-***** (1) Implement a Queue by using an Array
-start: 7:25
-end: 7:51
-#+BEGIN_SRC ruby
-class ArrayQueue
-  attr_accessor :arr, :top, :free, :capacity
-  def initialize(capacity = 50)
-    self.arr = Array.new(capacity, nil)
-    self.top = -1
-    self.free = 0
-    self.capacity = capacity
-  end
+**** Implementation
+  - Array: The problem is with unused positions. Front moves to the right always.
+  - Linked List:
 
-  def front
-    return if self.top == -1
-    self.arr[self.top]
-  end
+*** Circular Queues
+  - Useful when using array implementation
+  - Used in scheduling
+*** Priority Queues
+  - Elements are sorted by priority
+  - It's useful when managing processes
+**** Implementation
+  - Heap design O(lg N)
+  - Array based O(N)
+  - Linked Based O(N)
 
-  def enqueue(ele)
-    return if self.top == self.free
-
-    self.arr[self.free] = ele
-    if self.top == -1
-      self.top = self.free
-    end
-    self.free = (self.free + 1) % self.capacity
-  end
-
-  def dequeue
-    return if self.top == -1
-
-    ele = self.arr[self.top]
-    self.arr[self.top] = nil
-    self.top = (self.top + 1) % self.capacity
-    if self.top == self.free
-      self.top = -1
-    end
-    ele
-  end
-end
-#+END_SRC
-***** (2) Implement a Queue by using a LinkedList
-start: 7:54
-end: 8:06
-#+BEGIN_SRC ruby
-class Node
-  attr_accessor :data, :next
-  def initialize(data, next_node=nil)
-    self.data = data
-    self.next = next_node
-  end
-end
-
-class LinkedListQueue
-  attr_accessor :front, :rear
-  def initialize
-    self.front = self.rear = nil
-  end
-
-  def enqueue(ele)
-    node = Node.new(ele)
-    if self.front.nil?
-      self.front = node
-      self.rear = node
-    else
-      self.rear.next = node
-      self.rear = node
-    end
-  end
-
-  def dequeue
-    return if self.front.nil?
-    node = self.front
-    self.front = self.front.next
-    data = node.data
-    node = nil
-    data
-  end
-end
-#+END_SRC
-***** (3) Applications of Queue Data Structure
-No exercises
-***** (4) Priority Queue Implementation
-  - Every item has a priority
-  - Element with high priority is dequeued before an element with low priority
-  - If two elements have the same priority, they are served according to their order in the queue
-  - Applications
-    - CPU Scheduling
-    - All queue applications where priority is involved
-***** (5) Deque or Double Ended Queue
-  - Implementations
-    - Doubly Linked List
-    - Circular Array
-***** (6) [READ AGAIN]Implementation of Deque using Circular Array
-start: 5:15
-end: 6:21
-#+BEGIN_SRC ruby
-class DequeCircularArray
-  attr_accessor :arr, :front, :rear, :capacity
-  def initialize(capacity)
-    self.capacity = capacity
-    self.arr = Array.new(self.capacity, nil)
-    self.front = 0
-    self.rear = 0
-  end
-
-  def insert_front(ele)
-    return if is_full?
-    if is_empty?
-      self.arr[self.front] = ele
-    else
-      self.front = (self.front - 1) % self.capacity
-      self.arr[self.front] = ele
-    end
-  end
-
-  def insert_rear(ele)
-    return if is_full?
-    if is_empty?
-      self.front = self.rear = 0
-      self.arr[self.front] = ele
-    else
-      self.rear = (self.rear + 1) % self.capacity
-      self.arr[self.rear] = ele
-    end
-  end
-
-  def delete_front
-    return if is_empty?
-    self.arr[self.front] = nil
-    if self.front == self.rear
-      self.front = (self.front + 1) % self.capacity
-      self.rear = self.front
-    else
-      self.front = (self.front + 1) % self.capacity
-    end
-  end
-
-  def delete_rear
-    return if is_empty?
-    self.arr[self.rear] = nil
-    if self.rear == self.front
-      self.rear = (self.rear - 1) % self.capacity
-      self.front = self.rear
-    else
-      self.rear = (self.rear - 1) % self.capacity
-    end
-  end
-
-  def get_front
-    return if is_empty?
-    self.arr[self.front]
-  end
-
-  def get_rear
-    return if is_empty?
-    self.arr[self.rear]
-  end
-
-  def is_empty?
-    self.arr[self.front].nil? && self.arr[self.rear].nil?
-  end
-
-  def is_full?
-    (self.front - 1) % self.capacity == self.rear
-  end
-end
-#+END_SRC
-***** (7) [READ AGAIN]Implement Queue Using Stacks
-start: 8:22
-end: 8:29
-#+BEGIN_SRC ruby
-class QueueStacks
-  attr_accessor :front_stack, :rear_stack
-  def initialize
-    self.front_stack = []
-    self.rear_stack = []
-  end
-
-  def enqueue(ele)
-    if self.front_stack.empty? && self.rear_stack.empty?
-      self.front_stack.push ele
-    else
-      self.rear_stack.push ele
-    end
-  end
-
-  def dequeue
-    if !self.front_stack.empty?
-      ele = self.front_stack.pop
-    else
-      while !self.rear_stack.empty?
-        self.front_stack.push self.rear_stack.pop
-      end
-      ele = self.front_stack.pop
-    end
-    ele
-  end
-end
-#+END_SRC
-***** (8) [READ AGAIN]Check whether a binary tree is complete or not
-start: 6:03
-end: 7:45
-#+BEGIN_SRC ruby
-#HINT: I used the concept of levels, but that complicated things *a lot*
-#Using the concept of Full Node(right && left != null) simplifies everything!
-class MyNode
-  attr_accessor :data, :left, :right
-  def initialize(data, left=nil, right=nil)
-    self.data = data
-    self.left = left
-    self.right = right
-  end
-end
-
-def is_complete?(binary_tree)
-  queue = []
-  current_level = 0
-  next_level = nil
-  queue.push [binary_tree, 0]
-  current_total = 0
-  complete = true
-  more_children_allowed = true
-  while !queue.empty? do
-    expected_total = 2**current_level
-    current_total = 0
-    next_level = current_level + 1
-    while !queue.empty? && queue[0][1] != next_level do
-      current_total = current_total + 1
-      ele, current_level = queue.shift
-      puts "#{!ele.right.nil?}, #{ele.left.nil?}"
-      if !ele.right.nil? && ele.left.nil?
-        complete = false
-        break
-      end
-      if current_total == 1 && ele.left.nil?
-        more_children_allowed = false
-      end
-      if (ele.right || ele.left) && !more_children_allowed
-        complete = false
-        break
-      end
-      queue.push [ele.left, next_level] if ele.left
-      queue.push [ele.right, next_level] if ele.right
-    end
-    current_level = next_level
-    break if complete == false
-    if current_total != expected_total && more_children_allowed == true
-      complete = false
-      break
-    end
-  end
-  complete
-end
-#+END_SRC
-***** (10) [IMPLEMENT IT AGAIN]Find the first circular tour that visits all petrol pumps
-runtime complexity: O(n)
-extra space: O(n);;it should be posible O(1)
-#+BEGIN_SRC ruby
-class PetrolPump
-  attr_accessor :petrol, :distance
-  def initialize(petrol, distance)
-    self.petrol = petrol
-    self.distance = distance
-  end
-end
-
-def circular_tour(pumps)
-  good_pumps = []
-  bad_pumps = []
-  gas = 0
-  current = 0
-  while current < pumps.size
-    if gas + pumps[current].petrol - pumps[current].distance > 0
-      good_pumps.append current
-      gas = gas + pumps[current].petrol - pumps[current].distance
-    else
-      while !good_pumps.empty?
-        bad_pumps.append good_pumps.shift
-      end
-      bad_pumps.append current
-    end
-    current = current + 1
-  end
-  found = true
-  while !bad_pumps.empty?
-    current = bad_pumps.shift
-    if gas + pumps[current].petrol - pumps[current].distance > 0
-      good_pumps.append current
-      gas = gas + pumps[current].petrol - pumps[current].distance
-    else
-      found = false
-      break
-    end
-  end
-  if found
-    good_pumps[0]
-  else
-    -1
-  end
-end
-#+END_SRC
-***** (11) Sliding Window Maximum (Maximum of all subarrays of size k)
-#+BEGIN_SRC ruby
-def sliding_window_maximum(arr, k)
-  deque = []
-  (0..k-1).each do |index|
-    while !deque.empty? && arr[index] > deque[-1]
-      deque.pop
-    end
-    deque.push(index)
-  end
-  index = k
-  while index != arr.size
-    puts arr[deque[0]]
-    while !deque.empty? && deque[0] <= index - k
-      deque.shift
-    end
-    while !deque.empty? && arr[index] > arr[deque[-1]]
-      deque.pop
-    end
-    deque.append(index)
-    index = index + 1
-  end
-  puts arr[deque[0]]
-end
-#+END_SRC
-
+*** Dequeue
+  - Data can be added from two ends
+  - Data can be deleted from two ends
+  - Behaves as a stack and a queue
+**** Implementation
+  - Array: Circular Array
+  - Linked List:
 ** Tree Based
 *** Binary Search Tree
 **** Structure
@@ -1949,7 +1117,8 @@ class LinkedList
     second_current = self.head
     index = 0
     while index != mid
-      index = index + 1
+      index
+= index + 1
       second_current = second_current.next
     end
     palindrome = true
@@ -2287,6 +1456,876 @@ end
 *** 29
 *** 15
 *** 60
+
+** Stack
+*** (3) Evaluate a postfix expresion
+#+BEGIN_SRC ruby
+#2 3 1 * + 9 -
+def eval_postfix(postfix_str)
+  stack = []
+  postfix_str.split(" ").each do |char|
+     if char =~ /[0-9]+/
+       stack.push char.to_i
+     else
+       second = stack.pop
+       first = stack.pop
+       stack.push first.public_send(char, second)
+     end
+  end
+  stack.pop
+end
+#+END_SRC
+*** (4) Reverse a string
+#+BEGIN_SRC ruby
+def reverse(str)
+  stack = []
+  str.split("").each do |char|
+    stack.push char
+  end
+  acc = ""
+  while !stack.empty?
+    acc = acc + stack.pop
+  end
+  acc
+end
+#+END_SRC
+*** (5) Implement Two stacks in an Array
+start: 7:00
+end: 7:22
+#+BEGIN_SRC ruby
+class TwoStacks
+  attr_accessor :arr, :indexes, :max_size
+  def initialize(max_size=50)
+    self.arr = Array.new(max_size)
+    self.indexes = [-1, max_size]
+    self.max_size = max_size
+  end
+
+  def _push(ele, left, right, op1, op2)
+    return if self.indexes[left] == self.indexes[right].send(op1, 1)
+    self.indexes[left] = self.indexes[left].send(op2, 1)
+    self.arr[self.indexes[left]] = ele
+  end
+
+  def push1(ele)
+    _push(ele, 0, 1, '-', '+')
+  end
+
+  def push2(ele)
+    _push(ele, 1, 0, '+', '-')
+  end
+
+  def _pop(index, lower_boundary)
+    return if self.indexes[index] == lower_boundary
+    ele = self.arr[self.indexes[index]]
+    self.arr[self.indexes[index]] = nil
+    self.indexes[index] = self.indexes[index] - 1
+    ele
+  end
+
+  def pop1
+    _pop(0, -1)
+  end
+
+  def pop2
+    _pop(1, self.max_size)
+  end
+end
+#+END_SRC
+*** (6) Balanced Parentheses
+start: 7:47
+end: 7:54
+#+BEGIN_SRC ruby
+def balanced_parentheses?(str)
+  stack = []
+  str.split("").each do |char|
+    case char
+      when "]"
+        top = stack.pop
+        break if top != "["
+      when ")"
+        top = stack.pop
+        break if top != "("
+      when "}"
+        top = stack.pop
+        break if top != "{"
+      else
+        stack.push(char)
+    end
+  end
+  stack.empty?
+end
+#+END_SRC
+*** (7) Next Greater Element
+start: 7:55
+end: 9:32
+#+BEGIN_SRC ruby
+def next_greater2(numbers)
+  stack = []
+  numbers.each do |number|
+    if stack.empty?
+      stack.push [number, -1]
+    else
+      top_ele, top_greater = stack[-1]
+      if number > top_ele
+        aux_stack = []
+        loop do
+          ele, greater = stack[-1]
+          break if greater != -1 or ele > number
+          ele, greater = stack.pop
+          aux_stack.push [ele, number]
+        end
+        while !aux_stack.empty?
+          stack.push aux_stack.pop
+        end
+      end
+      stack.push [number, -1]
+    end
+  end
+  while !stack.empty?
+    ele, greater = stack.pop
+    puts "#{ele}, #{greater}"
+  end
+end
+#+END_SRC
+*** (8) Reverse a stack using recursion
+start: 4:38 5:02
+end: 
+#+BEGIN_SRC ruby
+def reverse_stack(stack, result=[])
+  if stack.empty?
+    return result
+  end
+  result.push stack.pop
+  reverse_stack(stack, result)
+end
+#+END_SRC
+*** (9) Sort a stack using recursion
+start: 5:03
+end: 5:30
+#+BEGIN_SRC ruby
+def main(stack)
+  repeat(stack.size, 0, stack)
+end
+
+def repeat(times, index, sorted_stack)
+  return sorted_stack if times == index
+  sorted_stack = sort_stack_recursion(sorted_stack)
+  repeat(times, index+1, sorted_stack)
+end
+
+def sort_stack_recursion(stack)
+  return stack if stack.size == 1
+  tmp = stack.pop
+  sorted_stack = sort_stack_recursion(stack)
+  if tmp < sorted_stack[-1]
+    ele = sorted_stack.pop
+    sorted_stack.push tmp
+    sorted_stack.push ele
+  else
+    sorted_stack.push tmp
+  end
+  sorted_stack
+end
+#+END_SRC
+*** (10) Stock Span Problem
+start: 5:32
+end: 5:46
+https://www.youtube.com/watch?v=LvQzYMXEANs
+#+BEGIN_SRC ruby
+def WRONG_stock_span(prices)
+  stack = [prices.first]
+  results = [1]
+  index = 1
+  prices[1..-1].each do |price|
+    tmp_stack = []
+    counter = 1
+    while !stack.empty?
+      ele = stack.pop
+      if price >= ele
+        counter = counter + 1
+      end
+      tmp_stack.push ele
+    end
+    while !tmp_stack.empty?
+      stack.push tmp_stack.pop
+    end
+    results[index] = counter
+    index = index + 1
+    stack.push price
+  end
+  results
+end
+
+def stock_span(prices)
+  stack = [0]
+  spans = [1]
+  index = 1
+  max = prices.size
+  while index != max
+    while !stack.empty? && prices[index] > prices[stack[-1]]
+      stack.pop
+    end
+    if stack.empty?
+      h = -1
+    else
+      h = stack[-1]
+    end
+    spans[index] = index - h
+    stack.push index
+    index = index + 1
+  end
+  spans
+end
+#+END_SRC
+*** (11) Design and Implement Special Stack
+start: 7:11
+end: 7:29
+#+BEGIN_SRC ruby
+class SpecialStack
+  attr_accessor :elements, :mins, :capacity, :current_size
+  def initialize(capacity)
+    self.elements = []
+    self.mins = []
+    self.capacity = capacity
+    self.current_size = 0
+  end
+
+  def push(ele)
+    return if isFull
+    self.elements.push ele
+    if self.mins.empty?
+      self.mins.push ele
+    elsif ele < self.mins[-1]
+      self.mins.push ele
+    end
+    self.current_size += 1
+  end
+
+  def pop
+    return if isEmpty
+    ele = self.elements.pop
+    if ele == self.mins[-1]
+      self.mins.pop
+    end
+    ele
+  end
+
+  def isEmpty
+    self.current_size == 0
+  end
+
+  def isFull
+   self.capacity == self.current_size
+  end
+
+  def getMin
+    self.mins[-1]
+  end
+end
+#+END_SRC
+*** (12) Implement a Stack by using queue
+start: 7:30
+end:
+#+BEGIN_SRC ruby
+class MyStack
+  attr_accessor :front, :bottom
+  def initialize
+    self.front = Queue.new
+    self.bottom = Queue.new
+  end
+
+  def push(ele)
+    if self.front.empty?
+      self.front.enq ele
+    else
+      front = self.front.pop
+      self.bottom.enq front
+      self.front.enq ele
+    end
+  end
+
+  def pop
+    if self.front.size == 1
+      self.front.pop
+    elsif self.front.empty?
+      while self.bottom.size > 1
+        self.front.enq self.bottom.pop
+      end
+      self.bottom.pop
+    end
+  end
+end
+#+END_SRC
+*** (13) Stack with operations in the middle
+start: 5:20
+end: 5:54
+start_2: 8:40
+end_2: 9:37
+#+BEGIN_SRC ruby
+#array cannot be used
+class WRONG_ArrayStackMiddle
+  attr_accessor :array, :size
+  def initialize
+    self.array = []
+    self.size = 0
+  end
+
+  def push(ele)
+    self.array.push ele
+    self.size = self.size + 1
+  end
+
+  def pop()
+    if !self.array.empty?
+      while self.array[-1] ! nil
+        self.array.pop
+      end
+      self.size = self.size - 1
+      self.array.pop
+    end
+  end
+
+  def middle()
+    (self.size / 2.to_f).floor
+  end
+
+  def find_middle()
+    self.array[self.middle]
+  end
+
+  def delete_middle()
+    self.array[self.middle] = nil
+  end
+end
+
+class Node
+  attr_accessor :data, :next, :prev
+  def initialize(data)
+    self.data = data
+  end
+end
+
+class DoublyLinkedListStack
+  attr_accessor :head, :middle_node, :size, :middle_index
+  def initialize
+    self.head = self.middle_node = nil
+    self.size = self.middle_index = 0
+  end
+
+  def push(ele)
+    node = Node.new(ele)
+    self.size = self.size + 1
+    if !self.head.nil?
+      node.next = self.head
+      self.head.prev = node
+    end
+    self.head = node
+    #START: move middle
+    if self.head.next.nil?
+      self.middle_node = self.head
+      self.middle_index = self.size
+    else
+      new_middle_index = (self.size / 2.to_f).ceil
+      return if self.middle_index == new_middle_index
+      if new_middle_index > self.middle_index
+        self.middle_index = new_middle_index
+        self.middle_node = self.middle_node.prev
+      end
+    end
+    #END: move middle
+  end
+
+  def pop()
+    return if self.head.nil?
+
+    data = self.head.data
+    new_head = self.head.next
+    new_head.prev = nil if new_head
+    self.head.next = nil
+    self.head = new_head
+    self.size = self.size - 1
+    #START: move middle
+    new_middle_index = (self.size / 2.to_f).ceil
+    if self.middle_index == new_middle_index
+      self.middle_node = self.middle_node.prev
+    elsif new_middle_index < self.middle_index
+      self.middle_index = new_middle_index
+      self.middle_node = self.middle_node.next
+    end
+    #END: move middle
+    data
+  end
+
+  def find_middle()
+    self.middle_node.data if self.middle_node
+  end
+
+  def delete_middle()
+    return if self.middle_node.nil?
+    self.size = self.size - 1
+    if self.middle_node.prev
+      self.middle_node.prev.next = self.middle_node.next
+    end
+    if self.middle_node.next
+      self.middle_node.next.prev = self.middle_node.prev
+    end
+
+    return if self.head.nil?
+    #START: move middle
+    new_middle_index = (self.size / 2.to_f).ceil
+    if self.middle_index == new_middle_index
+      self.middle_node = self.middle_node.prev
+    elsif new_middle_index < self.middle_index
+      self.middle_index = new_middle_index
+      self.middle_node = self.middle_node.next
+    end
+    #END: move middle
+  end
+end
+#+END_SRC
+*** (14) How to efficiently implement k stacks in a single array
+start: 3:30
+end: 4:30
+
+top always refers to two positions:
+  - arr; if top points to 8, then arr[8] contains the element
+  - next; if top points to 8, then next[8] contains the *index* to the next node.
+
+#+BEGIN_SRC ruby
+class KArrayStack
+  attr_accessor :arr, :top_arr, :next_arr, :free
+  def initialize(k, capacity = 6)
+    self.arr = Array.new(capacity)
+    self.top_arr = Array.new(k, -1)
+    self.next_arr = Array.new(capacity, -1)
+    (0..capacity-2).each do |index|
+      self.next_arr[index] = index + 1
+    end
+    self.free = 0
+  end
+
+  def push(ele, k)
+    return if self.free == -1
+    i = self.free
+    self.free = self.next_arr[i]
+    self.next_arr[i] = self.top_arr[k]
+    self.top_arr[k] = i
+    self.arr[i] = ele
+  end
+
+  def pop(k)
+    return if self.top_arr[k] == -1
+
+    ele = self.arr[self.top_arr[k]]
+    self.arr[self.top_arr[k]] = nil
+    i = self.free
+    self.free = self.top_arr[k]
+    self.top_arr[k] = self.next_arr[self.free]
+    self.next_arr[self.free] = i
+    ele
+  end
+end
+#+END_SRC
+*** (16) Length of the longest valid substring
+start: 4:38
+end: 4:47
+#+BEGIN_SRC ruby
+#HINT: Discuss this with Manoj
+def length_longest_substring(str)
+  stack = []
+  counter = 0
+  str.split("").each do |char|
+    if char == ')' && stack[-1] == '('
+      counter = counter + 2
+      stack.pop
+    else
+      stack.push char
+    end
+  end
+  counter
+end
+#+END_SRC
+*** (17) Find maximum of minimum for every window size in a given array
+start: 6:26
+end: 7:12
+#+BEGIN_SRC ruby
+def max_of_the_min_window_o_n3(numbers)
+  size = 1
+  super_group = []
+  while size != numbers.size + 1
+    groups = []
+    index = 0
+    while index != numbers.size
+      sub_index = index
+      group = []
+      while group.size != size && sub_index != numbers.size
+        group << numbers[sub_index]
+        sub_index = sub_index + 1
+      end
+      groups << group if group.size == size
+      index = index + 1
+    end
+    super_group << groups.map{|group| group.min}.max
+    size = size + 1
+  end
+  super_group
+end
+
+def max_of_the_min_window(numbers)
+  groups = []
+  index = 0
+  while index != numbers.size
+    groups << []
+    index = index + 1
+  end
+  index = 0
+  while index != numbers.size
+    sub_index = 0
+    while sub_index != index + 1
+      groups[sub_index] << numbers[(index - sub_index)..index]
+      sub_index = sub_index + 1
+    end
+    index = index + 1
+  end
+  groups.map{|group| group.map{|sub| sub.min}.max}
+end
+
+numbers = [10, 20, 30, 50, 10, 70, 30] * 10000;1
+Benchmark.bm do |x|
+  x.report { max_of_the_min_window numbers }
+  x.report { max_of_the_min_window_o_n3 numbers }
+end
+#+END_SRC
+
+** Queue
+*** (1) Implement a Queue by using an Array
+start: 7:25
+end: 7:51
+#+BEGIN_SRC ruby
+class ArrayQueue
+  attr_accessor :arr, :top, :free, :capacity
+  def initialize(capacity = 50)
+    self.arr = Array.new(capacity, nil)
+    self.top = -1
+    self.free = 0
+    self.capacity = capacity
+  end
+
+  def front
+    return if self.top == -1
+    self.arr[self.top]
+  end
+
+  def enqueue(ele)
+    return if self.top == self.free
+
+    self.arr[self.free] = ele
+    if self.top == -1
+      self.top = self.free
+    end
+    self.free = (self.free + 1) % self.capacity
+  end
+
+  def dequeue
+    return if self.top == -1
+
+    ele = self.arr[self.top]
+    self.arr[self.top] = nil
+    self.top = (self.top + 1) % self.capacity
+    if self.top == self.free
+      self.top = -1
+    end
+    ele
+  end
+end
+#+END_SRC
+*** (2) Implement a Queue by using a LinkedList
+start: 7:54
+end: 8:06
+#+BEGIN_SRC ruby
+class Node
+  attr_accessor :data, :next
+  def initialize(data, next_node=nil)
+    self.data = data
+    self.next = next_node
+  end
+end
+
+class LinkedListQueue
+  attr_accessor :front, :rear
+  def initialize
+    self.front = self.rear = nil
+  end
+
+  def enqueue(ele)
+    node = Node.new(ele)
+    if self.front.nil?
+      self.front = node
+      self.rear = node
+    else
+      self.rear.next = node
+      self.rear = node
+    end
+  end
+
+  def dequeue
+    return if self.front.nil?
+    node = self.front
+    self.front = self.front.next
+    data = node.data
+    node = nil
+    data
+  end
+end
+#+END_SRC
+*** (3) Applications of Queue Data Structure
+No exercises
+*** (4) Priority Queue Implementation
+  - Every item has a priority
+  - Element with high priority is dequeued before an element with low priority
+  - If two elements have the same priority, they are served according to their order in the queue
+  - Applications
+    - CPU Scheduling
+    - All queue applications where priority is involved
+*** (5) Deque or Double Ended Queue
+  - Implementations
+    - Doubly Linked List
+    - Circular Array
+*** (6) [READ AGAIN]Implementation of Deque using Circular Array
+start: 5:15
+end: 6:21
+#+BEGIN_SRC ruby
+class DequeCircularArray
+  attr_accessor :arr, :front, :rear, :capacity
+  def initialize(capacity)
+    self.capacity = capacity
+    self.arr = Array.new(self.capacity, nil)
+    self.front = 0
+    self.rear = 0
+  end
+
+  def insert_front(ele)
+    return if is_full?
+    if is_empty?
+      self.arr[self.front] = ele
+    else
+      self.front = (self.front - 1) % self.capacity
+      self.arr[self.front] = ele
+    end
+  end
+
+  def insert_rear(ele)
+    return if is_full?
+    if is_empty?
+      self.front = self.rear = 0
+      self.arr[self.front] = ele
+    else
+      self.rear = (self.rear + 1) % self.capacity
+      self.arr[self.rear] = ele
+    end
+  end
+
+  def delete_front
+    return if is_empty?
+    self.arr[self.front] = nil
+    if self.front == self.rear
+      self.front = (self.front + 1) % self.capacity
+      self.rear = self.front
+    else
+      self.front = (self.front + 1) % self.capacity
+    end
+  end
+
+  def delete_rear
+    return if is_empty?
+    self.arr[self.rear] = nil
+    if self.rear == self.front
+      self.rear = (self.rear - 1) % self.capacity
+      self.front = self.rear
+    else
+      self.rear = (self.rear - 1) % self.capacity
+    end
+  end
+
+  def get_front
+    return if is_empty?
+    self.arr[self.front]
+  end
+
+  def get_rear
+    return if is_empty?
+    self.arr[self.rear]
+  end
+
+  def is_empty?
+    self.arr[self.front].nil? && self.arr[self.rear].nil?
+  end
+
+  def is_full?
+    (self.front - 1) % self.capacity == self.rear
+  end
+end
+#+END_SRC
+*** (7) [READ AGAIN]Implement Queue Using Stacks
+start: 8:22
+end: 8:29
+#+BEGIN_SRC ruby
+class QueueStacks
+  attr_accessor :front_stack, :rear_stack
+  def initialize
+    self.front_stack = []
+    self.rear_stack = []
+  end
+
+  def enqueue(ele)
+    if self.front_stack.empty? && self.rear_stack.empty?
+      self.front_stack.push ele
+    else
+      self.rear_stack.push ele
+    end
+  end
+
+  def dequeue
+    if !self.front_stack.empty?
+      ele = self.front_stack.pop
+    else
+      while !self.rear_stack.empty?
+        self.front_stack.push self.rear_stack.pop
+      end
+      ele = self.front_stack.pop
+    end
+    ele
+  end
+end
+#+END_SRC
+*** (8) [READ AGAIN]Check whether a binary tree is complete or not
+start: 6:03
+end: 7:45
+#+BEGIN_SRC ruby
+#HINT: I used the concept of levels, but that complicated things *a lot*
+#Using the concept of Full Node(right && left != null) simplifies everything!
+class MyNode
+  attr_accessor :data, :left, :right
+  def initialize(data, left=nil, right=nil)
+    self.data = data
+    self.left = left
+    self.right = right
+  end
+end
+
+def is_complete?(binary_tree)
+  queue = []
+  current_level = 0
+  next_level = nil
+  queue.push [binary_tree, 0]
+  current_total = 0
+  complete = true
+  more_children_allowed = true
+  while !queue.empty? do
+    expected_total = 2**current_level
+    current_total = 0
+    next_level = current_level + 1
+    while !queue.empty? && queue[0][1] != next_level do
+      current_total = current_total + 1
+      ele, current_level = queue.shift
+      puts "#{!ele.right.nil?}, #{ele.left.nil?}"
+      if !ele.right.nil? && ele.left.nil?
+        complete = false
+        break
+      end
+      if current_total == 1 && ele.left.nil?
+        more_children_allowed = false
+      end
+      if (ele.right || ele.left) && !more_children_allowed
+        complete = false
+        break
+      end
+      queue.push [ele.left, next_level] if ele.left
+      queue.push [ele.right, next_level] if ele.right
+    end
+    current_level = next_level
+    break if complete == false
+    if current_total != expected_total && more_children_allowed == true
+      complete = false
+      break
+    end
+  end
+  complete
+end
+#+END_SRC
+*** (10) [IMPLEMENT IT AGAIN]Find the first circular tour that visits all petrol pumps
+runtime complexity: O(n)
+extra space: O(n);;it should be posible O(1)
+#+BEGIN_SRC ruby
+class PetrolPump
+  attr_accessor :petrol, :distance
+  def initialize(petrol, distance)
+    self.petrol = petrol
+    self.distance = distance
+  end
+end
+
+def circular_tour(pumps)
+  good_pumps = []
+  bad_pumps = []
+  gas = 0
+  current = 0
+  while current < pumps.size
+    if gas + pumps[current].petrol - pumps[current].distance > 0
+      good_pumps.append current
+      gas = gas + pumps[current].petrol - pumps[current].distance
+    else
+      while !good_pumps.empty?
+        bad_pumps.append good_pumps.shift
+      end
+      bad_pumps.append current
+    end
+    current = current + 1
+  end
+  found = true
+  while !bad_pumps.empty?
+    current = bad_pumps.shift
+    if gas + pumps[current].petrol - pumps[current].distance > 0
+      good_pumps.append current
+      gas = gas + pumps[current].petrol - pumps[current].distance
+    else
+      found = false
+      break
+    end
+  end
+  if found
+    good_pumps[0]
+  else
+    -1
+  end
+end
+#+END_SRC
+*** (11) Sliding Window Maximum (Maximum of all subarrays of size k)
+#+BEGIN_SRC ruby
+def sliding_window_maximum(arr, k)
+  deque = []
+  (0..k-1).each do |index|
+    while !deque.empty? && arr[index] > deque[-1]
+      deque.pop
+    end
+    deque.push(index)
+  end
+  index = k
+  while index != arr.size
+    puts arr[deque[0]]
+    while !deque.empty? && deque[0] <= index - k
+      deque.shift
+    end
+    while !deque.empty? && arr[index] > arr[deque[-1]]
+      deque.pop
+    end
+    deque.append(index)
+    index = index + 1
+  end
+  puts arr[deque[0]]
+end
+#+END_SRC
 
 ** Exercises [8/9]
   - [X] *Is Unique*: Implement an algorithm to determine if a string has
