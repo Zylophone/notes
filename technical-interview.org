@@ -562,9 +562,12 @@ nil <- 1 -> 2
   - Descendants
   - Subtree
   - Tree Level
+#+BEGIN_SRC ruby
   0 -->       (A)
   1 -->   (B)     (C)
   2 --> (D) (E) (F) (G)
+#+END_SRC
+
 *** Binary Search Tree
 **** Structure
 #+BEGIN_SRC r
