@@ -597,10 +597,147 @@ nil <- 1 -> 2
     (sub dir)    (file)  (file)   (file)
  (file)  (file)
 #+END_SRC
+**** Binary Tree
+  - left child  -> first
+  - right child -> second
+**** Full Binary Tree
+  - 2^(h+1) - 1  == Total Nodes
+  - log(n+1) - 1 == Height
+#+BEGIN_SRC ruby
+        (0)
+   (0)      (0)
+(0)  (0)  (0) (0)
+#+END_SRC
+**** Complete Binary Tree
+  - Left most position is filled
+  - All nodes up to level h-1 are present
+  - This is a valid complete binary tree
+#+BEGIN_SRC ruby
+        (0)
+   (0)      (0)
+(0)  (0)
+#+END_SRC
+  - This is *not* a valid complete binary tree
+#+BEGIN_SRC ruby
+        (0)
+   (0)      (0)
+     (0)  (0) (0)
+#+END_SRC
+**** Ordered Search Trees
+  - Duplicate keys are not allowed
+#+BEGIN_SRC ruby
+       (X)
+  (≤ X)  ( > X)
+#+END_SRC
+**** Expression Trees
+  - A + B
+    #+BEGIN_SRC ruby
+       (+)
+    (A)   (B)
+    #+END_SRC
+  - B + A
+    #+BEGIN_SRC ruby
+       (+)
+    (B)   (A)
+    #+END_SRC
+**** Heap
+  - Data value in any node is greater than all values held in the left and right subtree
+#+BEGIN_SRC ruby
+         (80)
+     (50)    (60)
+  (45) (42)
+#+END_SRC
+  - Represents a Priority Queue
+  - Can be used in Searching Algorithms
+**** Binary Decision Trees
+  - Represents a sequence of if-then-else conditions and resulting actions
+  - Applications in Artificial Intelligence and Expert Systems
+#+BEGIN_SRC ruby
+                (condition 1)
+     (condition 2)          (action 1)
+ (action 2)  (action 3)
+#+END_SRC
+**** Implementation
+  - Linear Representation (array)
+    - Skewed tree will result in waste of space
+    - Three Arrays
+      - value
+      - left
+      - right
+  - Link Representation (nodes)
+    - Storage space is allocated dynamically
+**** Traversal
+  - Each node is visited only once
+  - Preorder  -> root, preorder(left) and preorder(right)
+  - Inorder   -> inorder(left), root, inorder(right)
+  - Postorder -> postorder(left), postorder(right), root
+#+BEGIN_SRC ruby
+  0 -->       (A)
+  1 -->   (B)     (C)
+  2 --> (D)         (E)
+#+END_SRC
+
+  - preorder:  A->B->D->C->E
+  - inorder:   D->B->A->C->E
+  - postorder: D->B->E->C->A
+***** Preorder
+****** Functional
+#+BEGIN_SRC ruby
+def preorder(node = root)
+  print node->data
+  preorder(node->left)
+  preorder(node->right)
+end
+#+END_SRC
+****** Stack Based Preorder
+  - Elements that are at the right always go to the stack; the one on the left are process immediately
+  - Until left is null; if so, pop from the stack and keep going
+***** inorder
+****** Functional
+#+BEGIN_SRC ruby
+def Inorder(node = root)
+  inorder(node->left)
+  print node->data
+  inorder(node->right)
+end
+#+END_SRC
+****** Stack Based Inorder
+  - current = root
+  - repeat steps 3 through 4 until current is not null
+  - proceed down the left most subtree rooted at current, pushing onto the stack addresses of node on the way. keep until leaf node is reached
+  - pop off the stack and process the popped node. if stack.empty?. if popped node has a right child assign current pointer to the right child and go to.
+***** Postorder
+****** Functional
+#+BEGIN_SRC ruby
+def postorder(node = root)
+  postorder(node->left)
+  postorder(node->right)
+  print node->data
+end
+#+END_SRC
+****** Stack Based Postorder
+  - Uses a special character '$'
+  - Assign a current pointer current to the root node, then repeat step 2 to 3 until the stack is empty
+  - Traverse down the left-most path of the three root at current. At each node push the address onto the stack. If there is a right child, push its address to the stack by flagging with '$'. Continue until leaf node is reached.
+  - Pop and process all nodes which do not have the flag '$'. If the stack is empty, exit. If a node with '$' flag is popped, remove the flag and assign current pointer to the right child. Perform 2.
 *** Binary Search Tree
+  - data is considered as "key"
+  - types:
+    - skewed left --> linked list
+    - skewed right -> linked list
+    - full tree
+    - complete tree
+    - incomplete tree
+  - Searching for the minimum key --> go all the way to the left
+  - Searching for the maximum key --> go all the way to the right
+  - Performance: search is proportional to the height of the binary tree
+    - H = lg(n+1) - 1
+    - Runtime Performance is O(lg n)
+    - With huge amount of data the height of the tree should be kept to the barest minimum
+      - complete or full.
+  - inorder traversal produces sorted order.
 **** Structure
-#+BEGIN_SRC r
-uby
+#+BEGIN_SRC ruby
 class Node
   attr_accessor :data, :left, :right
   def initialize(data, left=nil, right=nil)
@@ -786,6 +923,64 @@ end
 **** Application
 - Heap Sort
 - Priority Queue
+*** Graph
+  - Crossing a bridge without repeating a path once (Euler)
+  - Collection of vertices and edges
+  - Store some kind of data in the vertex
+  - Edge represents a connection between a pair of vertices
+  - G = (V, E)
+  - V = {v1, v2, v,3}
+  - E = {(v1, v2), (v1,v3)}
+**** Types
+  - Undirected: no direction, 1:1 relationship; N(N-1)/2 edges
+  - Directed: there is direction, <U,V> (U points to V); diagraph || network
+  - Weighted: edges have weight; cost of transportation; distance of cities
+  - MultiGraph: generalization of directed graphs; multiple edges between the same vertices
+**** Graph Paths
+  - A sequence of edges that connect two vertices: <A, B, D, E>
+  - Length: number of edges; when == 1 vertices are neighbors or adjacents
+  - Reachable: if a path exists
+**** Loops and Cycles
+  - Loop: An edge that start and terminates at the same vertex
+  - Cycle: It's a path that originates and terminates on the same vertex, *but* includes more than one edge
+  - Undirected graph
+    - Cycles have a different meaning
+    - At least 3 vertices need to be linked together to form a cycle A -- B is not a cycle!
+**** Breadth-first search and its uses
+  - Exploring a Graph
+  - Route Finding || path search
+    - The parent of a node will change depending on the type of search that's performed
+  - For packman the subject cannot move diagonally
+  - Find shortest path from a given source vertex in terms of the number of edges in the path
+  - This algorithm always visite "neighbor" first
+    - To do so, a Queue is used
+    - Some people like to think about this traversal as a ripple
+  - The vertex of the graph can be states or whatever you want
+***** Applications
+  - Web Crawling --> visit neighboors and not descendants
+  - Social Networking (levels of separations -- layers -- ripple effect)
+  - Network Broadcast
+  - Garbage Collection --> "unreachable variables"
+  - Model Checking --> test if states are reachable
+  - Checking Mathematical conjecture
+  - Solving Puzzles & games
+    - Always start at the solved state and then move to the other possible states
+    - The height of the resulting graph is called the *diameter* of the graph
+  - O(|V| + |E|)
+    - An Array of Vertices
+    - Each position of the array will contain a pointer to a linked list that has the edges
+    - A vertex is visited just once
+***** Traversal
+#+BEGIN_SRC ruby
+  0 -->       (A)
+  1 -->   (B)     (C)
+  2 --> (D) (E) (F) (G)
+  result: (A), (B), (C), (D), (E), (F), (G)
+#+END_SRC
+  - Visit all nodes reachable from give s belongs to V
+  - O(V+E) time
+  - Look at nodes reachable in 0 moves, 1 move, 2 moves, ....
+  - Avoid visiting twice a given vertex.
 * Exercises
 ** Array and String
 *** Is Unique
@@ -1639,7 +1834,8 @@ start: 5:11
 end: 5:39
 #+BEGIN_SRC ruby
 class LinkedList
-  def mid_node(first, last)
+  de
+f mid_node(first, last)
     slower = first
     faster = first
     while faster != last and faster.next != last
@@ -1739,7 +1935,6 @@ end
 *** 29
 *** 15
 *** 60
-
 ** Stack
 *** (3) Evaluate a postfix expresion
 #+BEGIN_SRC ruby
@@ -2800,6 +2995,36 @@ m.value(:ivania)
   > r.breadth
   a-b-c-d-e-f-
   #+END_SRC
+
+** Number of Islands
+#+BEGIN_SRC ruby
+class Matrix
+  def []=(i, j, x)
+    @rows[i][j] = x
+  end
+end
+
+def number_of_islands(matrix)
+  islands = 0
+  matrix.each_with_index do |element, row_index, column_index|
+    if element == 'X'
+      islands = islands + 1
+      flood_fill(matrix, row_index, column_index, '0')
+    end
+  end
+  islands
+end
+
+def flood_fill(matrix, row_index, column_index, replacement)
+  return if row_index < 0 || column_index < 0 || row_index >= matrix.row_size || column_index >= matrix.column_size || matrix.element(row_index, column_index) == replacement
+  matrix[row_index, column_index] = replacement
+  flood_fill(matrix, row_index - 1, column_index, replacement) #north
+  flood_fill(matrix, row_index + 1, column_index, replacement) #south
+  flood_fill(matrix, row_index, column_index - 1, replacement) #west
+  flood_fill(matrix, row_index, column_index + 1, replacement) #east
+end
+
+#+END_SRC
 * Learnings
   - Use paper and pencil or whiteboard
   - Make sure to have an example of expected input and output
@@ -2821,6 +3046,7 @@ m.value(:ivania)
   - Check what happen with the Data Structure after performing an operation. Work with real life examples.
   - When calculating the middle keep in mind even and odd results
   - Circular indexes can go negative or around an array
+  - When solving problems with circular arrays, you can traverse the array twice if you want.
 * Resources
 Big O notation: 36:02
 https://www.youtube.com/watch?v=YWnBbNj_G-U
