@@ -946,7 +946,7 @@ end
   - Undirected graph
     - Cycles have a different meaning
     - At least 3 vertices need to be linked together to form a cycle A -- B is not a cycle!
-**** Breadth-first search and its uses
+**** Breadth-First search and its uses
   - Exploring a Graph
   - Route Finding || path search
     - The parent of a node will change depending on the type of search that's performed
@@ -981,6 +981,61 @@ end
   - O(V+E) time
   - Look at nodes reachable in 0 moves, 1 move, 2 moves, ....
   - Avoid visiting twice a given vertex.
+**** Depth-First search and topological search
+  - It goes as deeply as it can before "backtracking"
+  - Recursively explore graph, backtracking as necessary
+  - The visit of a given node is done with all the descendants has been traversed
+    - The following property is observed
+#+BEGIN_SRC ruby
+Parenthesis Theorem For all u, v, exactly one of the following holds:
+1. d[u] < f[u] < d[v] < f[v] or d[v] < f[v] < d[u] < f[u] and neither of u and v is a descendant of the other.
+
+d[u] < d[v] < f[v] < f[u] and v is a descendant of u.
+d[v] < d[u] < f[u] < f[v] and u is a descendant of v.
+So, d[u] < d[v] < f[u] < f[v] cannot happen.
+Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) are not OK.]
+#+END_SRC
+  - Be careful of not visiting a vertex twice
+  - Disconnected Graph --> need to traverse all the vertices
+    - Top Level procedure traverse the list of the vertices
+      - Recursive Procedure
+  - O(V+E) linear time
+***** Edge Classification (Directed Graph)
+  - Tree Edges (parent pointers)
+    - Visit a new vertex via an edge
+  - Forward Edges
+    - Points to one of its descendants in the three
+  - Backward Edges
+    - Points to one of its ancestors in the three
+  - Cross Edges
+    - Any other edge.
+***** Edge Classification (Undirected Graph)
+  - Tree and Backward edges
+  - Forward and Cross edges are not possible because they will be visited before.
+***** Applications
+  - Cycle detection
+    - If there is a backward edge in DFS, then there is a cycle in the graph
+    - Proof: G has a cycle <=> DFS has a backward edge
+      - "<=" (left-hand side proof)
+        - ()-->()-->()-->()
+        - ^              |
+        - |--------------|
+        - the proof is evident
+      - "=>" (right-hand side proof)
+        - Uses the fact that (v_k, v_0) exists because v_0 is still being process when v_k is process
+        - this is called parenthesis balanced (...(..)...)
+        - DFS will keep chugging until there are no more descendants.
+  - Topological sort (Job Scheduling)
+    - Given a directed acyclic graph (DAG) order vertices so that all edges point from lower order to higher order
+    - Correctness of DAG
+      - For any edge e = (u, v), v finishes before u finishes
+      - Case 1: u starts before v
+        - (u)-->(v) ;;we know this is true because v is a descendant of u
+      - Case 2: v start before v
+        - (u)-->(v)
+        -  ^     |
+        -  |-----|
+        - But we know this is a contradiction because there are not backward edges in a DAG
 * Exercises
 ** Array and String
 *** Is Unique
