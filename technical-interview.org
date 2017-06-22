@@ -940,12 +940,62 @@ end
   - A sequence of edges that connect two vertices: <A, B, D, E>
   - Length: number of edges; when == 1 vertices are neighbors or adjacents
   - Reachable: if a path exists
+  - Simple Path: a path that contains non repeated edges
+  - Elementary Path: If a vertex is repeated
+**** Graph Connectedness
+  - Connected: if all vertices are reachable
+    - simple for undirected graphs (no direction)
+  - Weakly connected
+    - if one or more of the vertices are not reachable: (A) is not reachable
+    - (A)-->(B)
+    - |     ^
+    - ->(C)-|
+  - Unilaterally connected
+    - (A)-->(B) B is reachable from A, but A is not reachable from B
+  - Strongly connected
+    - One vertex is reachable from any other vertex
 **** Loops and Cycles
   - Loop: An edge that start and terminates at the same vertex
   - Cycle: It's a path that originates and terminates on the same vertex, *but* includes more than one edge
   - Undirected graph
     - Cycles have a different meaning
     - At least 3 vertices need to be linked together to form a cycle A -- B is not a cycle!
+**** Degree of Vertex
+  - out-degree: number of edges that "originate" from the vertex
+  - in-degree: number of edges that "terminate" in the vertex
+**** Applications of Graphs
+  - We use graphs to represent relationships between elements
+  - Computer networks
+  - Molecules structures
+  - Databases
+  - Find optimal paths
+  - Identify what tasks can be executed in parallel (assembly line)
+**** Operations on Graphs
+  - Reachability of a vertex
+  - Find paths of different lengths between a pair
+  - Shortest path between a pair of designated vertices
+  - Traversing a graph
+**** Matrix Representation of Graphs
+  - Adjacency Matrix || Bit Matrix || Weight Matrix
+  - Degree calculation is easy: out-deg(row); in-deg(column)
+  - Drawbacks:
+    - insertion/deletion are complicated because it will require to modify row/column dynamically
+    - waste of space for sparse graphs
+  - Implementation
+    - A two-dimensional array -> edges
+    - A one-dimensional array -> vertices
+**** Path Lengths in a graph
+  - Matrix gives an efficient way to check if there is a path from one vertex to another
+  - Square of adjacency matrix gives path of length Pi,j = Sum(i=1, n){ Aj,k * Ak,j}
+  - A^n -> represents the number of paths of length n
+**** Path Matrix
+  - A would be reachable from B if there exists a path of any length
+  - Does not contain any zeros --> strongly connected
+  - Warshall's Algorithm for Path Matrix
+    - Pi,j = Pi,j OR Pi,k AND Pk,j
+**** Linked List Representation of Graphs
+  - An Array that contains the vertices
+  - A linked list per vertex that contains all the edges
 **** Breadth-First search and its uses
   - Exploring a Graph
   - Route Finding || path search
@@ -987,6 +1037,11 @@ end
   - The visit of a given node is done with all the descendants has been traversed
     - The following property is observed
 #+BEGIN_SRC ruby
+In a DFS traversal, nodes are finished once all their children are finished. If you mark the discover and finish times for each node during traversal, then you can check to see if a node is a descendant by comparing start and end times. In fact any DFS traversal will partition its edges according to the following rule.
+
+Let d[node] be the discover time of node, likewise let f[node] be the finish time.
+
+
 Parenthesis Theorem For all u, v, exactly one of the following holds:
 1. d[u] < f[u] < d[v] < f[v] or d[v] < f[v] < d[u] < f[u] and neither of u and v is a descendant of the other.
 
@@ -1036,6 +1091,17 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
         -  ^     |
         -  |-----|
         - But we know this is a contradiction because there are not backward edges in a DAG
+**** Spanning Trees
+  - N^(N-2) spanning trees
+  - no cycles
+  - depth-first search is used to create a spanning tree
+  - breadth-first search is used to create a spanning tree
+  - Minimum Spanning Trees
+    - Lower travel cost
+    - Minimum amount of cable
+    - Kruskal's and Prim's Algorithm
+  - Dijkstra's Algorithm
+    - Trace of shortest path
 * Exercises
 ** Array and String
 *** Is Unique
@@ -3079,6 +3145,19 @@ def flood_fill(matrix, row_index, column_index, replacement)
   flood_fill(matrix, row_index, column_index + 1, replacement) #east
 end
 
+#+END_SRC
+** Make Change with Coins
+#+BEGIN_SRC ruby
+coins = [1, 2, 5]
+total = 7
+amounts = [99999] * (total+1)
+amounts[0] = 0
+(1..total).each do |amount|
+  coins.each do |coin|
+    next if coin > amount
+    amounts[amount] = [amounts[amount-coin] + 1, amounts[amount]].min
+  end
+end
 #+END_SRC
 * Learnings
   - Use paper and pencil or whiteboard
