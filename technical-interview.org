@@ -1102,6 +1102,55 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
     - Kruskal's and Prim's Algorithm
   - Dijkstra's Algorithm
     - Trace of shortest path
+* Sorting
+  - Organizing data items in ascending or descending order
+  - Numerals are arranged according to their magnitude
+  - Characters are arranged according to the Character Set: ASCII or UNICODE
+** Benefits
+  - Facilitates the search of a given elements
+  - sorting/indexing is vital in databases
+  - helps in identifying trends
+** Types
+  - internal sorting --> main memory (faster)
+  - external sorting --> disk, magnetic tape (slower)
+** Analysis of sorting algorithms
+  - Accessing
+  - Comparing
+  - Swapping
+  - Assigning
+** Elementary Methods
+  - They use iterative methods consisting of nested loops
+  - Their efficiency is determine by the number of the loops
+    - O(n^2)
+  - Bubble sort, Insertion sort, Selection sort
+** Advanced Methods
+  - divide and conquer
+  - recursive procedures
+  - Quick sort, Heap sort, Merge sort
+    - O(n * lg n)
+  - Sometimes the efficiency of an algorithm also depends on the existing order of the data
+    - Reversed order
+    - Partial order
+    - Randomly order
+** Sort Passes
+  - An array of "n" elements can be arranged in *n!* possible ways
+** Methods
+*** Bubble Sort
+  - Compare adjacent data items and swap them if out of order
+  - In each pass, the sub-array is reduced by one
+**** Implementation
+#+BEGIN_SRC ruby
+(0..10).each do |i|
+  (0..i).each do |j|
+  end
+end
+#+END_SRC
+**** Analysis
+  - During Pass 1 --> N - 1
+  - During Pass 2 --> N - 2
+  - During Pass 3 --> N - 3
+  - ............. --> N^2/2 - N/2 == O(n^2)
+There is an improved version and it's O(n) when array is sorted
 * Exercises
 ** Array and String
 *** Is Unique
@@ -2597,6 +2646,54 @@ Benchmark.bm do |x|
 end
 #+END_SRC
 
+*** String to Integer (atoi)
+https://leetcode.com/problems/string-to-integer-atoi/#/description
+#+BEGIN_SRC ruby
+def my_atoi(str)
+    #1.- Discard as many whitespaces as possible
+    str.strip!
+    return 0 if str.empty?
+    #2.- checks for the sign
+    sign = +1
+    index = 0
+    case str[index].ord
+    when 43
+        sign = +1
+        index = 1
+    when 45
+        sign = -1
+        index = 1
+    else
+        index = 0
+    end
+    zero = 48
+    nine = 57
+    stack = []
+    while index < str.size
+        ascii_index = str[index].ord
+        if ascii_index >= zero and ascii_index <= nine
+            stack.push(ascii_index - zero)
+            index = index + 1
+        else
+            break
+        end
+    end
+    exponent = 0
+    total = 0
+    while !stack.empty?
+        total = total + stack.pop * 10**exponent
+        exponent = exponent + 1
+    end
+    total = total * sign
+    if total > 2147483647
+        2147483647
+    elsif total < -2147483648
+        -2147483648
+    else
+        total
+    end
+end
+#+END_SRC
 ** Queue
 *** (1) Implement a Queue by using an Array
 start: 7:25
@@ -3156,6 +3253,68 @@ amounts[0] = 0
   coins.each do |coin|
     next if coin > amount
     amounts[amount] = [amounts[amount-coin] + 1, amounts[amount]].min
+  end
+end
+#+END_SRC
+** Permutations
+   - Permutations are for lists; order matters
+   - Think about "locks": 1 2 3 4 --> only one *permutation* will open the lock
+   - How many ways can we award 1st, 2nd, 3rd place prize among 3 people?
+     - for gold medal, we have 8 choices
+     - after choosing the gold medal, we have 7 choices for silver medal
+     - after choosing the silver medal, we have 6 choices for bronce medal
+     - Thus, 8*7*6 = 336
+       - We know that 8! = 8*7*6*5*4*3*2*1, but we want to stop at "5"
+       - 5! == 8!/5! == 8!/(8 - 3)! == n!/(n - k)!
+     - n!/(n - k)! --> we have n items and we want to pick "k" of them in different order
+
+   - There are two ways of think about of generating permutations:
+     - We can think of having a function that already knows how to generate permutations, and then we want
+       to add a new element. Then the element needs to be added in each position of each element of the resulting set
+       - The implementation of this is a recursive algorithm.
+       #+BEGIN_SRC ruby
+def insert(element, array)
+  result = []
+  index = 0
+  while index < array.size + 1
+    arr = array.dup
+    tmp = arr[index]
+    arr[index] = element
+    arr.insert(index + 1, tmp) if tmp
+    result << arr
+    index = index + 1
+  end
+  result
+end
+
+def permutation(array)
+  return [array] if array.size == 1
+  result = []
+  permutation(array[1..-1]).each do |partial_permutation|
+    result << insert(array[0], partial_permutation)
+  end
+  result.flatten(1)
+end
+#+END_SRC
+     - We can think of generating the permutation by swapping elements in each level.
+       #+BEGIN_SRC ruby
+#swapping elements in each level
+def swap(array, i, j)
+  tmp = array[i]
+  array[i] = array[j]
+  array[j] = tmp
+end
+
+def permutation(array, start, stop, result)
+  if start == stop
+    return result << array.dup
+  end
+  index = start
+  while index <= stop
+    swap(array, start, index)
+    permutation(array, start + 1, stop, result)
+    swap(array, start, index) #backtracking, this move the element back to its original position
+    index = index + 1
   end
 end
 #+END_SRC
