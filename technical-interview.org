@@ -543,6 +543,12 @@ nil <- 1 -> 2
 **** Implementation
   - Array: Circular Array
   - Linked List:
+*** Hash Table
+  - Good Hash Function
+    - Makes use of all info provided by key
+    - Use fast operations
+    - Uniformly distributes output across table
+    - Maps similar keys to very different hash values
 ** Tree Based
 *** Tree
   - Hierarchical Relationship
@@ -1031,30 +1037,159 @@ end
   - O(V+E) time
   - Look at nodes reachable in 0 moves, 1 move, 2 moves, ....
   - Avoid visiting twice a given vertex.
-**** Depth-First search and topological search
+**** Depth-First search
   - It goes as deeply as it can before "backtracking"
   - Recursively explore graph, backtracking as necessary
   - The visit of a given node is done with all the descendants has been traversed
-    - The following property is observed
-#+BEGIN_SRC ruby
-In a DFS traversal, nodes are finished once all their children are finished. If you mark the discover and finish times for each node during traversal, then you can check to see if a node is a descendant by comparing start and end times. In fact any DFS traversal will partition its edges according to the following rule.
-
-Let d[node] be the discover time of node, likewise let f[node] be the finish time.
-
-
-Parenthesis Theorem For all u, v, exactly one of the following holds:
-1. d[u] < f[u] < d[v] < f[v] or d[v] < f[v] < d[u] < f[u] and neither of u and v is a descendant of the other.
-
-d[u] < d[v] < f[v] < f[u] and v is a descendant of u.
-d[v] < d[u] < f[u] < f[v] and u is a descendant of v.
-So, d[u] < d[v] < f[u] < f[v] cannot happen.
-Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) are not OK.]
-#+END_SRC
   - Be careful of not visiting a vertex twice
   - Disconnected Graph --> need to traverse all the vertices
     - Top Level procedure traverse the list of the vertices
       - Recursive Procedure
   - O(V+E) linear time
+***** Implementation
+#+BEGIN_SRC ruby
+class Vertex
+  attr_accessor :label, :vertices
+  def initialize(label)
+    self.label = label
+    self.vertices = []
+  end
+end
+
+def buildAdjecencyList(vertex_labels, edges)
+  vertices = vertex_labels.map{|label| Vertex.new(label)}
+  edges.each do |from, to|
+    vertices[from].vertices << to
+  end
+  vertices
+end
+
+def dfs_impl(current, adjecency_list, visited)
+  return if visited[current.label]
+  #init of traversal
+  puts "****** starting #{current.label} ******"
+  visited[current.label] = true
+  current.vertices.each do |vertex|
+    dfs_impl(adjecency_list[vertex], adjecency_list, visited)
+  end
+  puts "****** finishing #{current.label} ******"
+end
+
+def dfs(init, vertex_labels, edges)
+  adjecency_list = buildAdjecencyList(vertex_labels, edges)
+  visited = Array.new(adjecency_list.size, false)
+  dfs_impl(adjecency_list[init], adjecency_list, visited)
+end
+
+def dfs_all(init, vertex_labels, edges)
+  adjecency_list = buildAdjecencyList(vertex_labels, edges)
+  visited = Array.new(adjecency_list.size, false)
+  ([adjecency_list[init]] + adjecency_list).each do |vertex|
+    next if visited[vertex.label]
+    dfs_impl(vertex, adjecency_list, visited)
+  end
+end
+#+END_SRC
+
+***** Does it have a cycle
+  - The logic here is to use an auxilary array to mark whether a node is being processed or not
+  - The following is the recursive solution
+#+BEGIN_SRC ruby
+class Vertex
+  attr_accessor :label, :vertices
+  def initialize(label)
+    self.label = label
+    self.vertices = []
+  end
+end
+
+def buildAdjecencyList(vertex_labels, edges)
+  vertices = vertex_labels.map{|label| Vertex.new(label)}
+  edges.each do |from, to|
+    vertices[from].vertices << to
+  end
+  vertices
+end
+
+def dfs_impl(current, adjecency_list, visited, being_processed, flag)
+  return true if being_processed[current.label]
+  return false if visited[current.label]
+  #init of traversal
+  visited[current.label] = true
+  being_processed[current.label] = true
+  current.vertices.each do |vertex|
+    flag = dfs_impl(adjecency_list[vertex], adjecency_list, visited, being_processed, flag)
+    break
+  end
+  being_processed[current.label] = false
+  flag
+end
+
+def is_dag?(init, vertex_labels, edges)
+  adjecency_list = buildAdjecencyList(vertex_labels, edges)
+  visited = Array.new(adjecency_list.size, false)
+  being_processed = Array.new(adjecency_list.size, false)
+  flag = false
+  dfs_impl(adjecency_list[init], adjecency_list, visited, being_processed, flag)
+end
+#+END_SRC
+  - An Iterative solution can be provided by using stack
+    - The implementation is a bit more involved in the sense that:
+      - the stack might contain elements of different types
+      - the stack will contain vertices, but also
+      - the stack will contain a special operation to mark a vertex as *not* being processed
+    - In the iterative solution there is no natural way to know the begining *and* the end processing window of an element.
+#+BEGIN_SRC ruby
+class Vertex
+  attr_accessor :label, :vertices
+  def initialize(label)
+    self.label = label
+    self.vertices = []
+  end
+end
+
+def buildAdjecencyList(vertex_labels, edges)
+  vertices = vertex_labels.map{|label| Vertex.new(label)}
+  edges.each do |from, to|
+    vertices[from].vertices << to
+  end
+  vertices
+end
+
+def dfs_stack_impl(start_vertex, adjecency_list, visited, being_processed)
+  stack = [[:process, start_vertex.label]]
+  flag = false
+  while !stack.empty?
+    operation, current_label = stack.pop
+    current = adjecency_list[current_label]
+    case operation
+    when :process
+      if being_processed[current_label]
+        flag = true
+        break
+      end
+      next if visited[current_label]
+
+      visited[current_label] = true
+      being_processed[current_label] = true
+      stack.push [:unprocess, current_label]
+      current.vertices.each do |vertex|
+        stack.push [:process, vertex]
+      end
+    when :unprocess
+      being_processed[current_label] = false
+    end
+  end
+  flag
+end
+
+def is_dag?(init, vertex_labels, edges)
+  adjecency_list = buildAdjecencyList(vertex_labels, edges)
+  visited = Array.new(adjecency_list.size, false)
+  being_processed = Array.new(adjecency_list.size, false)
+  dfs_stack_impl(adjecency_list[init], adjecency_list, visited, being_processed)
+end
+#+END_SRC
 ***** Edge Classification (Directed Graph)
   - Tree Edges (parent pointers)
     - Visit a new vertex via an edge
@@ -1080,7 +1215,9 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
         - Uses the fact that (v_k, v_0) exists because v_0 is still being process when v_k is process
         - this is called parenthesis balanced (...(..)...)
         - DFS will keep chugging until there are no more descendants.
-  - Topological sort (Job Scheduling)
+  - Topological Sort
+**** Topological Sort
+  - Job Scheduling
     - Given a directed acyclic graph (DAG) order vertices so that all edges point from lower order to higher order
     - Correctness of DAG
       - For any edge e = (u, v), v finishes before u finishes
@@ -1091,6 +1228,22 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
         -  ^     |
         -  |-----|
         - But we know this is a contradiction because there are not backward edges in a DAG
+
+**** Parenthesis Theorem
+#+BEGIN_SRC ruby
+In a DFS traversal, nodes are finished once all their children are finished. If you mark the discover and finish times for each node during traversal, then you can check to see if a node is a descendant by comparing start and end times. In fact any DFS traversal will partition its edges according to the following rule.
+
+Let d[node] be the discover time of node, likewise let f[node] be the finish time.
+
+Parenthesis Theorem For all u, v, exactly one of the following holds:
+1. d[u] < f[u] < d[v] < f[v] or d[v] < f[v] < d[u] < f[u] and neither of u and v is a descendant of the other.
+
+d[u] < d[v] < f[v] < f[u] and v is a descendant of u.
+d[v] < d[u] < f[u] < f[v] and u is a descendant of v.
+So, d[u] < d[v] < f[u] < f[v] cannot happen.
+Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) are not OK.]
+#+END_SRC
+
 **** Spanning Trees
   - N^(N-2) spanning trees
   - no cycles
@@ -1151,6 +1304,113 @@ end
   - During Pass 3 --> N - 3
   - ............. --> N^2/2 - N/2 == O(n^2)
 There is an improved version and it's O(n) when array is sorted
+*** Selection Sort
+  - Find the largest element
+  - Exchange it with the last element
+  - Decrease the range of sort by 1; so the last element becomes n - 1
+**** Implementation
+  - Holds the biggest elements
+    - tmp data
+    - tmp index
+**** Analysis
+  - O(n^2); two nested for loops
+  - why number of exchanges are 3(n-1) and no 2n?
+
+*** Insertion Sort
+  - There exist two regions: sorted and unsorted
+  - Elements have to be shifted to the right
+**** Analysis
+  - Two nested loops
+  - n-1 passes
+    - worst case n-1 == n(n-1)/2
+  - 2(n-1) data moves
+  - O(n^2 + n-2) operations
+  - It performs better than bubble and selection sort
+*** Shell Sort
+  - Extension of the insertion sort
+  - It compares elements that are distant apart == it's called increment
+  - 4-sort, 2-sort, 1-sort ==> phases
+**** Analysis
+  - Increment set impacts the performance
+  - 1,3,7,15 => O(n^(3/2))
+  - Moderately large data set
+*** QuickSort
+  - 1960 C.A.R Hoare
+  - Recursive procedure (divide and conquer)
+  - Partition into two sub arrays, using a pivot
+  - All elements, are moved so they are left than the pivot and greater to the pivot
+  - Same thing is done recursively
+**** Selection of Quicksort Pivot
+  - This impacts performance
+  - Random selection
+    - safest choice but increases the running time
+  - median-of-three
+    - increases up to 5%~10% performance
+    - (lower left + upper right)/2
+**** Analysis
+  - Partitioning array into two
+    - An array of size 'n' can be split on lg(n+1) partitions
+  - Comparisons of data elements
+    - n comparisions
+  - Swapping of out-of-order elements
+    - n exchanges
+  - 2*n*lg(n+1) => nlg(n)
+**** Worst Case Scenario
+  - O(n^2) when array is sorted
+    - because bad pivot can cause n(n-1)/2 partition
+  - Another drawback is that QuickSort is massively recursive
+  - Small machines might have problems
+*** Heap Sort
+  - Special kind of binary tree
+    - Complete tree
+    - Each node is greater than both its right and left children
+**** Analysis
+  - Heapify: a binary tree of size n has lg(n) levels
+    - O(4n lg n) ==> O(n lg n)
+    - Slower than QuickSort
+**** Advantages over QuickSort
+  - It's not recursive, thus does not need stack memory (extra space)
+  - More robust --> performance does not depend on the type of the data
+  - Ideal for realtime situations where the order of data cannot be predicted
+*** Merge Sort
+  - Used to store data on magnetic tape files
+  - It can be implemented as recursive or iterative
+**** Analysis
+  - Each pass the size is doubled => 1,2,4,8,.. this describes lg(n)
+  - O(n lg n) -> because n comparisions are performed in each level
+  - Faster than Heap Sort but slower than QuickSort
+*** Radix Sort
+  - H.H. Seward 1954
+  - Least significant element of data type
+    - Integer: 0-9
+    - Chars: 0-26
+    - Bits: 0-1
+  - Creates buckets for each element
+  - O(S*R*N) => O(N)
+    - S = Maximum Size
+    - R = Range or Radix
+    - N = Size of data
+  - Worst case O(n^2)
+  - Space wise not efficient
+*** External Sort
+  - Records are read in blocks from external storage into main memory
+  - Each block is sorted internally and written block to secondary storage
+  - The resulting smaller set of files are merged into a single sorted file
+  - Uses index files
+  - Main File --> Index file for Id
+              --> Index file for Name
+  - Using Pointers
+  - Original data is not touched
+  - insertion/deletion of data can be done efficiently because only index files need to be touched
+* Searching
+  - Locating a given item in a data collection
+  - Breadth-First Search
+  - Depth-First Search
+  - Binary Search
+    - Sorted Arrays
+    - Trees
+  - Linear Search
+    - Most specific order
 * Exercises
 ** Array and String
 *** Is Unique
@@ -1383,6 +1643,28 @@ zero_matrix([[1, 2], [3, 4], [5, 0]], 3, 2) == [[1, 0], [3, 0], [0, 0]]
     is_rotation("waterbottle", "erbottlewat") == true
     #+END_SRC
 
+*** Reverse a string
+#+BEGIN_SRC ruby
+def reverse(str, i, j)
+  while j > i
+    tmp
+ = str[i]
+    str[i] = str[j]
+    str[j] = tmp
+    i = i + 1
+    j = j - 1
+  end
+  str
+end
+#+END_SRC
+*** Reverse words
+#+BEGIN_SRC ruby
+def reverse_words(str)
+  reverse(str, 0, str.size - 1).split(" ").map do |word|
+    reverse(word, 0, word.size - 1)
+  end.join(" ")
+end
+#+END_SRC
 ** Linked List
 *** Length
 #+BEGIN_SRC ruby
@@ -3258,6 +3540,7 @@ end
 #+END_SRC
 ** Permutations
    - Permutations are for lists; order matters
+   - permutation(1,2,3) -> [1,2,3], [3,2,1], [2,1,3]..
    - Think about "locks": 1 2 3 4 --> only one *permutation* will open the lock
    - How many ways can we award 1st, 2nd, 3rd place prize among 3 people?
      - for gold medal, we have 8 choices
@@ -3317,6 +3600,105 @@ def permutation(array, start, stop, result)
     index = index + 1
   end
 end
+#+END_SRC
+** Combinations
+  - It's for groups (order does not matter)
+  - combination([1,2,3]) --> [1,2,3]
+  - To generate a combination of numbers a group size is needed
+    - combination([1,2,3], 2)
+      - [1,2], [1,3], [2,3]
+      - 3!/(3-2)!*2! == 6/2 == 3 (how many new sets need to be generated)
+#+BEGIN_SRC ruby
+def combination_util(index, array, template, result, group)
+  array[index..-1].each_with_index do |ele, ind|
+    if template.size == group - 1
+      result << template + [ele]
+    else
+      foo(index + ind + 1, array, template + [ele], result, group)
+    end
+  end
+end
+
+def combination(array, group_size)
+  result = []
+  #I want each element of array 'array' to be the header
+  #of the template array. Template array is used to compute a valid
+  #array once group size is reached. the resulting array is stored in result
+  array.each_with_index do |element, index|
+    combination_util(index + 1, array, [element], result, group_size)
+  end
+  result
+end
+#+END_SRC
+** Dynamic Programming
+*** Minimum Number of Jumps to reach end
+#+BEGIN_SRC ruby
+def max_index(arr, start_index, size)
+  index = 0
+  max = -1
+  index_max = -1
+  while index < size && index + start_index < arr.size
+    if arr[start_index + index] > max
+      max = arr[start_index + index]
+      index_max = index
+    end
+    index = index + 1
+  end
+  index_max + 1
+end
+
+def min_jumps(arr)
+  steps = 0
+  index = 0
+  while index < arr.size
+    if arr[index] == 0
+      steps = -1
+      break
+    end
+    steps = steps + 1
+    break if index + arr[index] >= arr.size
+    max = max_index(arr, index + 1, arr[index])
+    index = index + max
+  end
+  steps
+end
+#+END_SRC
+*** Minimum Number of Coins
+#+BEGIN_SRC ruby
+def min_coins(amount, coins)
+  dp = Array.new(amount + 1, 0)
+  # 1 + min of coins each {|coin| dp[amount - coin] if (amount - coin) >= 0 }
+  (1..amount).each do |current_amount|
+    coins.each do |coin|
+      break if (current_amount - coin) < 0
+      dp[current_amount] = 1 + dp[current_amount - coin]
+    end
+  end
+  dp[amount]
+end
+
+def give_change(amount, coins)
+  dp_amount = Array.new(amount + 1, 0)
+  dp_change = Matrix.build(amount + 1, coins.size){|_row, _column| 0}
+  (1..amount).each do |current_amount|
+    selected_coin_index = -1
+    selected_coin = -1
+    coins.each_with_index do |coin, index|
+      break if (current_amount - coin) < 0
+      dp_amount[current_amount] = 1 + dp_amount[current_amount - coin]
+      selected_coin_index = index
+      selected_coin = coin
+    end
+    prev = dp_change.send(:rows)[current_amount - selected_coin].dup
+    prev[selected_coin_index] += 1
+    dp_change.send(:rows)[current_amount] = prev
+  end
+  {
+    number_of_coins: dp_amount[amount],
+    coins: dp_change.send(:rows)[amount]
+   }
+end
+
 #+END_SRC
 * Learnings
   - Use paper and pencil or whiteboard
