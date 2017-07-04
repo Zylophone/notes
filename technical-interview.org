@@ -1225,10 +1225,52 @@ end
         - (u)-->(v) ;;we know this is true because v is a descendant of u
       - Case 2: v start before v
         - (u)-->(v)
-        -  ^     |
-        -  |-----|
+        - ^     |
+        - |-----|
         - But we know this is a contradiction because there are not backward edges in a DAG
+  - An easy way to implement this is to use recursive dfs.
+    - each element is push onto the stack when is done being process (after calling dfs on its children)
+    - the reason behin tht is that the current element is fully processed or solved when all its children are solved.
+    - this algorithm makes the assumption that the grap is DAG.
+#+BEGIN_SRC ruby
+class Vertex
+  attr_accessor :label, :vertices
+  def initialize(label)
+    self.label = label
+    self.vertices = []
+  end
+end
 
+def buildAdjecencyList(vertex_labels, edges)
+  vertices = vertex_labels.map{|label| Vertex.new(label)}
+  edges.each do |from, to|
+    vertices[from].vertices << to
+  end
+  vertices
+end
+
+def dfs_impl(current, adjecency_list, visited, stack)
+  return if visited[current.label]
+  #init of traversal
+  visited[current.label] = true
+  current.vertices.each do |vertex|
+    dfs_impl(adjecency_list[vertex], adjecency_list, visited, stack)
+  end
+  stack.push current.label
+  stack
+end
+
+def topological_sort(init, vertex_labels, edges)
+  adjecency_list = buildAdjecencyList(vertex_labels, edges)
+  visited = Array.new(adjecency_list.size, false)
+  stack = []
+  ([adjecency_list[init]] + adjecency_list).each do |vertex|
+    next if visited[vertex.label]
+    dfs_impl(vertex, adjecency_list, visited, stack)
+  end
+  stack
+end
+#+END_SRC
 **** Parenthesis Theorem
 #+BEGIN_SRC ruby
 In a DFS traversal, nodes are finished once all their children are finished. If you mark the discover and finish times for each node during traversal, then you can check to see if a node is a descendant by comparing start and end times. In fact any DFS traversal will partition its edges according to the following rule.
@@ -1411,6 +1453,96 @@ There is an improved version and it's O(n) when array is sorted
     - Trees
   - Linear Search
     - Most specific order
+* Dynamic Pragramming
+  - Design Technique
+  - Optimization --> bring exponential problems into polinomial runtimes
+  - Minimum/Maximum of something --> Optimization
+  - Exhaustive Search
+    - It's bad because is exponential time; applying dp the time is polinomial
+  - "careful brute force"
+  - subproblems + reuse + guessing
+  - Memomized dynamic programming
+    - Saves the result of a computation into an auxiliary data structure.
+    - "memo pad"
+  - time = #subproblems * time/subproblem
+    - time/subproblem --> it's usually Ø(1)
+  - 5 "easy" steps
+    - define subproblems : #subproblems
+    - guess (part of the solution)
+      - example: there exist a vertex before v -> number of choices for the guess
+    - relate subproblems solutions
+      - with recursion
+      - recurring equation/relation
+      - time/subproblems
+    - recurre & memoize
+      - or build a dp table bottom-up
+        - DAG to check the dependencies to avoid cycles
+    - Solve the original problem: goal.
+** Fibonacci numbers
+  - recursion relation:
+    - F1 = F2 = 1
+    - Fn= F(n-1) + F(n-2)
+  - goal: compute Fn
+*** naive
+#+BEGIN_SRC ruby
+def fib(n)
+  return 1 [1,2].include?(n)
+  fib(n-1) + fib(n-2)
+#+END_SRC
+**** Runtime
+  - O(2^n)
+    - I understand thi is exponential because at each level the computations are doubled. The function that describes that is exponential
+  - Exponential: T(n) = T(n-1) + T(n-2) + O(1)
+  - Ø(2^(n/2)) --> why?
+
+*** memoized dp
+#+BEGIN_SRC ruby
+def memo_fib(n, dp)
+  return dp[n] if dp[n]
+  dp[n] = memo_fib(n-1) + memo_fib(n-2)
+end
+
+                (Fn)
+       (Fn-1)         (Fn-2)
+   (Fn-2) (Fn-3)  (Fn-3) (Fn-4)
+#+END_SRC
+  - memo_fib will have already calculated Fn-2 for the right subtree
+  - memo_fib(k) only recurses the first time it's called, for all K
+  - memoized calls cost O(1)
+  - non-memoized calls are "n"
+    - fib(1), fib(2), fib(3),....,fib(n)
+  - non recursive work is O(1) --> O(n)
+** Bottom-up Strategy
+  - Exactly same computations
+  - Topological sort of subproblem (left to right), dependency DAG
+  - Can often save space
+** Shortest Path
+  - Guessing: don't know the answer but I'll guess and take the best one
+  - Guest the last vertex --> solution state or goal
+  - Recurring relationship
+    - ƒ(s,v) = min { ƒ(s, u) + w(u, v) }; u belongs to the indegree of v
+    - ƒ(s,s) = 0
+  - subproblem dependencies should be "acyclic"
+** Text Justification
+  - goal: split text into "good" lines
+  - text = list of words
+  - badness(i,j):
+    - (page width - total width)^3 -> discourage big gaps in the lines
+    - infinity if don't fit
+  - 5 "easy" steps
+    - define subproblems: suffices words
+    - guess: where to start 2nd line
+      - #choices <= n - i == O(n)
+    - recursion:
+      - dp(i) = min { dp(j) + badness(i,j) for j in range(i+1, n+1) }
+      - dp(n) = 0; base case
+    - topological order: i = n,n-1,n-2,..,0
+    - total time = n * n = O(n^2)
+    - original problem or goal: dp(0)
+** Parent Pointers
+  - Remember which guess was best
+  - Parent of i <- min/max of the value
+  - 0 -> parent[0] -> parent[parent[0]] -> parent[parent[parent[0]]] -> ...
 * Exercises
 ** Array and String
 *** Is Unique
@@ -3722,6 +3854,21 @@ end
   - When calculating the middle keep in mind even and odd results
   - Circular indexes can go negative or around an array
   - When solving problems with circular arrays, you can traverse the array twice if you want.
+  - When solving recursive problems using a stack you have to be aware that's harder to any "backtracking" operations
+    - mark a node as being processed and after processing all its children unmark it.
 * Resources
-Big O notation: 36:02
-https://www.youtube.com/watch?v=YWnBbNj_G-U
+  - Data Structures
+    - https://www.youtube.com/watch?v=YWnBbNj_G-U
+    - Big O notation: 36:02
+  - Dynamic Programming
+    - https://www.topcoder.com/community/data-science/data-science-tutorials/dynamic-programming-from-novice-to-advanced/
+* TODOs [0/4]
+  - [ ] Dynamic Programming
+    - http://www.geeksforgeeks.org/?p=12635
+  - [ ] Dijkstra's Shortest Path
+    - http://www.geeksforgeeks.org/?p=27697
+  - [ ] Solve coin change problem by using "5 'easy' steps"
+  - [ ] Solve min replacement problem
+    - https://leetcode.com/problems/edit-distance/#/description
+    - remember to use a matrix: a-b-c; x-y-z;
+    - solve it by using "5 'easy' steps"
