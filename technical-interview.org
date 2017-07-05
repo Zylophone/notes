@@ -3876,3 +3876,64 @@ end
     - https://leetcode.com/problems/edit-distance/#/description
     - remember to use a matrix: a-b-c; x-y-z;
     - solve it by using "5 'easy' steps"
+* Cracking the Coding Interview
+** 7 Steps to Solve Algorithm Problems
+  1. Listen
+     1. make sure you use every detail of the problem description when finding a solution
+  2. Example
+     1. Large examples
+     2. Avoid special cases
+  3. Brute Force
+     1. It's better to have a brute force solution than nothing at all
+     2. State the algorithm
+     3. State the runtime
+     4. *but* do not code it
+     5. Optimize!
+  4. Optimize
+     1. A big portion of the interview will be spent here.
+  5. Walk through your algorithm
+     1. What variables & data structures
+     2. How, When + Why do they change?
+     3. What's the structure of your code
+  6. Code
+     1. Whiteboard
+        1. write straight
+        2. use space wisely
+           1. erase what you don't need
+           2. okay to use arrows
+           3. write in the top-left corner
+     2. Whiteboard-or-Computer
+        1. coding style matters
+           1. consistent braces
+           2. consistent variable naming
+           3. consistent spaces
+           4. descriptive variable names
+              1. ask your interviewer if you can shorten the name after you used it.
+        2. Modularize
+           1. do this *before* and not *after
+           #+BEGIN_SRC ruby
+           def doSomething(a, b){
+           r = processString(a)
+           s = processString(b)
+           compareResults(r, s)
+           }
+           #+END_SRC
+  7. Test
+     1. Walk through the *code* and make sure that each line is doing what's suppose to do
+     2. Use small test cases
+     3. Edge cases
+     4. Big test cases!! if you have time
+     5. Make sure you are testing the code --> route your code
+     6. If you find a bug don't panic! understand why it's failing
+** 3 Algorithm Strategies
+  1. B.U.D.
+     1. B -> Bottleneck; walk through brute force solution
+     2. U -> Unnecessary Work; see what's causing the runtime complexity to go up
+     3. D -> Duplicated Work; how can I avoid doing things over and over again
+        1. Store partial results in an additional data structure
+  2. Space/Time tradeoffs
+     1. Try hash tables first!!
+  3. D.I.Y
+     1. Do It Yourself
+     2. Come up with a big example without edge cases
+        1. This will help your brain to come up with a solution
