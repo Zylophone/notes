@@ -544,11 +544,19 @@ nil <- 1 -> 2
   - Array: Circular Array
   - Linked List:
 *** Hash Table
+  - Try to use it as the first data structure solution!!
+  - Key => Value lookup
   - Good Hash Function
     - Makes use of all info provided by key
     - Use fast operations
     - Uniformly distributes output across table
     - Maps similar keys to very different hash values
+    - input is a string the output is a hash code and then an index is output
+  - get/set is O(1) in theory
+  - If hash function is bad then O(n)
+**** Collisions
+  - Chaining
+    - store the value with the key in a linked list
 ** Tree Based
 *** Tree
   - Hierarchical Relationship
@@ -3876,6 +3884,12 @@ end
     - https://leetcode.com/problems/edit-distance/#/description
     - remember to use a matrix: a-b-c; x-y-z;
     - solve it by using "5 'easy' steps"
+  - [ ] Minimum Height Trees
+    - https://leetcode.com/problems/minimum-height-trees/#/description
+  - [ ] https://leetcode.com/problems/binary-tree-postorder-traversal/#/description
+  - [ ] https://leetcode.com/problems/the-skyline-problem/#/description
+  - [ ] https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/#/description
+  - [ ] https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/#/description
 * Cracking the Coding Interview
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
@@ -3937,3 +3951,27 @@ end
      1. Do It Yourself
      2. Come up with a big example without edge cases
         1. This will help your brain to come up with a solution
+** Behavioral Questions
+  - Headline: I'm a software engineer at ""
+  - Beginning of career: I hold a master and a bachelor in computer science.
+  - Go through forward chronologically: do this quickly
+  - Quick show of success
+    - a feature you built
+    - promotion
+    - award
+  - Key stories
+    - Drive recruiter in the direction you want
+  - Hobbies
+    - Technical --> erlang, projects
+    - non-technical --> try to make them relevant
+  - Pick Projects
+    - Biggest challenges
+    - Architecture
+    - Technologies
+    - Soft skills
+      - Team work dynamics
+      - how you do differently
+  - Be open to talk about your failures!!
+  - Communicate your thought process! -> technical interviews
+** Hash Table
+** Graph Search (DFS and BFS)
