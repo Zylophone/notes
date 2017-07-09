@@ -1551,6 +1551,118 @@ end
   - Remember which guess was best
   - Parent of i <- min/max of the value
   - 0 -> parent[0] -> parent[parent[0]] -> parent[parent[parent[0]]] -> ...
+* Bit Manipulation
+  - Operations over bits (bytes)
+** How to represent numbers in a given base
+  - 012 = 1*10^1 + 2*10^0
+  - 101 = 1*2^2 + 0*2^1 + 1*2^0
+** Addition
+  - It's parallel to what's done for base 10, always carry the remainder of the base overflow
+  - 0101 (5)
+  - 0001 (1)
+  - ====
+  - 0110 (6)
+** Multiplication
+  - same to what's done for base 10.
+  - if a number is multiplied by 2, just add a 0 at the end.
+  - this happens whenever a number is multiplied by another number that represents its base
+      - base (2)  10 * 10 = 100
+      - base (10) 40 * 10 = 400
+** Negative numbers
+  - the most significant bit is left to represent the sign of the number: 0 (+), 1 (-)
+*** one's complement
+  - compute the complement of the number: 100 --> 011
+  - it has the problem of adding the number with different signs
+  - example:
+        - 0011 (3)
+        - 1100 (-2)
+        - ====
+        - 1111 (-1)
+*** two's complement
+      - compute the complement of the number and adds 1 to the resulting number
+      - adding 1 is needed to move the negative number to the correct place
+      - example:
+        - 0011 (3)
+        - 1101 (-3)
+        - ====
+        - 0000 (0)
+** Shifting Bits
+  - The operation shift bits in a given direction (right, left)
+*** (Logical|Arithmetic) Left Shift (<<)
+    - 0110 << 1 results in 1100
+    - shifting to the left is equivalent to multiplying the number by powers of 2.
+      - 0110 << 1 == 0110 * 2^1
+      - 0110 << 3 == 0110 * 2^3
+  - This shifting is non-circular. This means that whatever value that was at the leftmost position would be lost:
+    - 110 << 1 == 100
+*** Logical Right Shift (>>>)
+  - it's the converse to the left shift
+    - It moves bits to the right
+    - 001100 >>> 1 == 00011
+  - Shifting to the right is equivalent to dividing by powers of 2
+*** Arithmetic Right Shift (>>)
+  - Same behavior that right shift, but instead of padding with zeros, it pads with the most significant bit
+  - This is because the most significant bit is the sign bit (+ or -)
+    - 1011 >> 2 = 1110
+  - The sign is being preserved by using arithmetic right shift
+*** Lost bits are gone
+  - Shifting cannot reclaim "lost" bits
+  - (1100 << 1) >>> 1 == 0100 != 1100
+** BitMask and Mask
+  - An integer can be used to store states:
+    - 0101 -> first and third var are true, second and fourth are false.
+  - This is a very efficient way of storing data
+*** Bit Mask
+  - It allows the following operations
+    - Editing particular bits in a byte
+    - Toggling particular bits in a byte
+    - Checking if a particular bit values are present or not.
+  - A bit mask is applied to our state "0101" and the resulting number indicates the bits of interest
+    - AND -> extracts a subset of the bits in the state
+    - OR  -> sets a subset of the bits in the state
+    - XOR -> toggles a subset of the bits in the state.
+  - Examples
+    - mask:  1000
+    - value: 0101
+    - AND -> 0000
+    - OR  -> 1101
+    - XOR -> 1101
+**** Addition
+  - Add the jth object to the subset -> set the jth bit from 0 to 1
+  - Use the bitwise OR operation
+    - A = A | (1 << j)
+  - Example
+    - A =            100010 (34)
+    - j = 3; 1 << 3  001000
+    - OR             ======
+    -                101010
+**** Remove
+  - Remove the jth object from the subset -> set the jth bit from 1 to 0
+  - Use the bitwise AND operation
+    - A = A & ~(1 << j)
+  - Example
+    - A =               101010
+    - j = 1; ~(1 << 1)  111101
+    - AND               ======
+    -                   101000
+**** Check
+  - Check the jth object is in the subset
+  - Use the bitwise AND operation
+    - T = A & (1 << j)
+  - Example
+    - A =            101010
+    - j = 3; 1 << 3  001000
+    - AND            ======
+    - T =            001000
+    - T is not zero, thus the 3rd element is on.
+**** Toggle
+  - Check the jth object of the set
+  - Use the bitwise XOR operation
+    - A = A ^ (1 << j)
+  - A =            101000
+  - j = 2; 1 << 2  000100
+  - XOR            ======
+  -                101100
 * Exercises
 ** Array and String
 *** Is Unique
@@ -3874,6 +3986,11 @@ end
     - https://medium.freecodecamp.org/how-not-to-bomb-your-offer-negotiation-c46bb9bc7dea
   - Cracking the Coding Interviews Video
     - https://www.youtube.com/watch?v=GKgAVjJxh9w&list=PLX6IKgS15Ue02WDPRCmYKuZicQHit9kFt&index=1
+  - Bit Manipulation
+    - https://stackoverflow.com/questions/141525/what-are-bitwise-shift-bit-shift-operators-and-how-do-they-work
+    - https://stackoverflow.com/questions/31575691/what-is-a-bitmask-and-a-mask
+    - http://www.vipan.com/htdocs/bitwisehelp.html
+    - http://codeforces.com/blog/entry/18169
 * TODOs [0/4]
   - [ ] Dynamic Programming
     - http://www.geeksforgeeks.org/?p=12635
@@ -3975,3 +4092,11 @@ end
   - Communicate your thought process! -> technical interviews
 ** Hash Table
 ** Graph Search (DFS and BFS)
+** Anagram Problem Solution
+  - Anagram is a permutation of a word
+  - same letters, same counts, different order!
+  - hello vs billion => 6 deletions are needed to find an anagram
+  - the solution is to create a hash table for each word. each key will represent a char and the value of it will be a counter of the occurrences of that char in the string
+    - do this for both strings
+    - compute the difference between each char and sum them all. The result is how many deletions are needed.
+** Bit Manipulation
