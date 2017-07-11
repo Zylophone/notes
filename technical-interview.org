@@ -3951,7 +3951,7 @@ def combination_util(index, array, template, result, group)
     if template.size == group - 1
       result << template + [ele]
     else
-      foo(index + ind + 1, array, template + [ele], result, group)
+      combination_util(index + ind + 1, array, template + [ele], result, group)
     end
   end
 end
@@ -4097,6 +4097,9 @@ end
   - [ ] https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/#/description
   - [ ] https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/#/description
   - [ ] https://leetcode.com/problems/contains-duplicate-ii/#/description
+  - [ ] https://leetcode.com/problems/binary-watch/#/description
+  - [ ] https://www.cs.umd.edu/class/sum2003/cmsc311/Notes/BitOp/xor.html
+  - [ ] https://leetcode.com/problems/total-hamming-distance/#/description
 * Cracking the Coding Interview
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
