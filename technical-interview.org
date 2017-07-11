@@ -1305,6 +1305,85 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
     - Kruskal's and Prim's Algorithm
   - Dijkstra's Algorithm
     - Trace of shortest path
+*** Tries
+**** Implementation
+#+BEGIN_SRC ruby
+class TrieNode
+  attr_accessor :hash, :endOfWord
+  def initialize()
+    self.hash = {}
+    self.endOfWord = false
+  end
+
+  def addNode(char)
+    newNode = TrieNode.new
+    self.hash[char] = newNode
+    newNode
+  end
+
+  def getNodeBy(char)
+    self.hash[char]
+  end
+
+  def contains?(char)
+    self.hash.include?(char)
+  end
+
+  def leaf?
+    self.hash.empty?
+  end
+end
+
+class Trie
+  attr_accessor :root
+  def initialize()
+    self.root = TrieNode.new
+  end
+
+  def insert(word)
+    current = self.root
+    word.split("").each do |char|
+      if current.contains?(char)
+        current = current.getNodeBy(char)
+      else
+        current = current.addNode(char)
+      end
+    end
+    current.endOfWord = true
+  end
+
+  def search(word)
+    current = self.root
+    word.split("").each do |char|
+      break if !current.contains?(char)
+      current = current.getNodeBy(char)
+    end
+    current.endOfWord
+  end
+
+  def delete(word)
+    current = self.root
+    stack = []
+    word.split("").each do |char|
+      break if !current.contains?(char)
+      stack.push [char, current]
+      current = current.getNodeBy(char)
+    end
+    return false if !current.endOfWord
+
+    if current.leaf?
+      current = nil #free the current node
+      while !stack.empty? || current.hash.length >= 1
+        char, current = stack.pop
+        current.hash.delete(char)
+      end
+    else
+      current.endOfWord = false
+    end
+    true
+  end
+end
+#+END_SRC
 * Sorting
   - Organizing data items in ascending or descending order
   - Numerals are arranged according to their magnitude
@@ -1663,6 +1742,12 @@ end
   - j = 2; 1 << 2  000100
   - XOR            ======
   -                101100
+** Remove the least significant 1
+ - n & (n - 1)
+** XOR same number
+ - 8 ^ 8 == 0
+** XOR number with 0
+ - 3 ^ 0 == 3
 * Exercises
 ** Array and String
 *** Is Unique
@@ -3991,7 +4076,11 @@ end
     - https://stackoverflow.com/questions/31575691/what-is-a-bitmask-and-a-mask
     - http://www.vipan.com/htdocs/bitwisehelp.html
     - http://codeforces.com/blog/entry/18169
-* TODOs [0/4]
+  - Tech Interview Mindset
+    - https://hackernoon.com/tech-interview-mindset-7485856ddfcf
+  - How not to bomb your offer negotiation
+    - https://medium.freecodecamp.org/how-not-to-bomb-your-offer-negotiation-c46bb9bc7dea
+* TODOs [0/10]
   - [ ] Dynamic Programming
     - http://www.geeksforgeeks.org/?p=12635
   - [ ] Dijkstra's Shortest Path
@@ -4007,6 +4096,7 @@ end
   - [ ] https://leetcode.com/problems/the-skyline-problem/#/description
   - [ ] https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/#/description
   - [ ] https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/#/description
+  - [ ] https://leetcode.com/problems/contains-duplicate-ii/#/description
 * Cracking the Coding Interview
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
