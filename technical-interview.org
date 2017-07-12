@@ -1306,6 +1306,35 @@ Like parentheses: ( ) [], ( [ ] ), and [ ( ) ] are OK but ( [ ) ] and [ ( ] ) ar
   - Dijkstra's Algorithm
     - Trace of shortest path
 *** Tries
+  - Tree-like Data Structure
+  - Efficient information retrieval data structure
+  - Stores mainly characters
+    - it can store numbers as well
+  - A path represents a word or a part of a word
+  - Key must be unique!!
+    - Never have to deal with collisions
+  - Fast lookup, fast insertion, fast deletion
+  - Data is used as a road map
+  - Prefix lookups
+  - Great for word validation
+    - Does this word belongs to the dictionary?
+  - Find all the words
+  - For multiple calls, the state can be stored in a given node.
+**** Operations
+  - search
+    - prefix; whole word
+  - insertion
+  - deletion
+    - whole word
+      - delete node if it is a leaf; recurse to the parent
+      - toggle flag of node if it's not a leaf; stop
+    - prefix
+**** Performance
+  - search -> O(M); M being the length of the string
+    - the penalty is in the storage
+  - Insertion -> O(K) where K is the length of the string
+  - Memory Requirements
+    - O(alphabet_size * K * N)
 **** Implementation
 #+BEGIN_SRC ruby
 class TrieNode
@@ -1434,19 +1463,7 @@ class Trie
     self.root = self.node_class.new
   end
 
-  def search(contact_name)
-    current = self.root
-    contact_name.split("").each do |char|
-      node = current.getNodeBy(char)
-      break if node.nil?
-      current = node
-    end
-    current.endOfWord
-  end
-
   def add(contact_name)
-    return if search(contact_name)
-
     current = self.root
     contact_name.split("").each do |char|
       node = current.getNodeBy(char)
@@ -1464,13 +1481,12 @@ class Trie
     current = self.root
     prefix.split("").each do |char|
       node = current.getNodeBy(char)
-      break if node.nil?
       current = node
+      break if current.nil?
     end
-    current.count
+    current.nil? ? 0 : current.count
   end
 end
-
 #+END_SRC
 * Sorting
   - Organizing data items in ascending or descending order
@@ -1864,6 +1880,66 @@ resp = 1
     - 0000 --> send this 5th byte across the wire and use it as the checksum
 ** XOR is not available
   - x ^ y == (~x & y) | (x & ~y)
+* Databases
+** Denormalized vs Normalized Databases
+  - normalized databases are designed to minimize redundancy
+  - denormalized databases are designed to make read operations faster.
+** Small Database Design
+*** Step 1: Handle Ambiguity
+  - Keep asking questions until the requirements are clear
+  - Be sure that you have covered a couple of edge cases
+*** Step 2: Define the core objects
+  - This will lead to define entities (tables)
+*** Step 3: Analyze Relationships
+  - How do the entities interact with each other
+  - This is time to start defining fk's in the tables
+  - You will define more tables in this process!! (n to m relationships)
+*** Step 4: Investigate Actions
+  - Walk through the common actions that will be taken and understand how to store and retrieve the relevant data.
+** Large Database Design
+  - joins are your enemy! (most of the time)
+  - Denormalize the data somehow to improve performance (i.e.: reduce latency)
+    - duplicate data in tables: increase redundancy
+    - create new tables if necessary.
+** Exercises
+*** 14.1 Multiple Apartments
+#+BEGIN_SRC sql
+SELECT t.id, t.name
+FROM tenants t
+     INNER JOIN aptTenants at ON (at.tenantID = t.id)
+GROUP BY t.id, t.name
+HAVING COUNT(1) > 1
+#+END_SRC
+
+*** 14.2 Open Requests
+#+BEGIN_SRC sql
+SELECT b.name, COUNT(1)
+FROM buildings b
+     INNER JOIN apartments a ON (a.b_id = b.id)
+     LEFT JOIN requests r ON (r.a_id = a.id)
+WHERE
+     r.status = 'open'
+GROUP BY b.id, b.name
+#+END_SRC
+
+*** 14.3 Close All Requests
+#+BEGIN_SRC sql
+UPDATE requests r
+SET r.status = 'close'
+FROM buildings b
+     INNER JOIN apartments a ON (a.b_id = b.id)
+     INNER JOIN requests r ON (r.a_id = a.id)
+WHERE
+     r.status = 'open'
+     AND b.id = 11
+#+END_SRC
+
+*** 14.4 Joins
+  - natural join: uses columns that are equal to restrict the cartesian product
+  - inner join: uses a given number of columns to restrict the cartesian product
+  - left join: keep left rows in the resulting set even if there is no match for them
+  - right join: keep right rows in the resulting set even if there is no match for them
+  - full join: keep left and right rows in the resulting set even if there is no match form them
 * Exercises
 ** Array and String
 *** Is Unique
@@ -4224,7 +4300,7 @@ end
   - [ ] https://leetcode.com/problems/total-hamming-distance/#/description
   - [ ] Extreme Cleverness: Functional Data Structures in Scala
     - https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala
-* Cracking the Coding Interview
+* Cracking the Coding Interview Videos
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
      1. make sure you use every detail of the problem description when finding a solution
@@ -4317,3 +4393,4 @@ end
     - do this for both strings
     - compute the difference between each char and sum them all. The result is how many deletions are needed.
 ** Bit Manipulation
+** Solution for the Contacts problem
