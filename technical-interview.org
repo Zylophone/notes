@@ -2051,6 +2051,59 @@ FROM grade g
 GROUP BY s.id
 ORDER BY avg DESC
 #+END_SRC
+* Threads and Locks
+  - Understanding of dead locks is important.
+** Threads in Java
+  - An object of the class java.lang.Thread controls every thread
+  - Standalone app is run in a user thread. The main method is executed in the context of this thread.
+  - Threads can be implemented in two ways:
+    - An implementation of the java.lang.Runnable interface
+    - A subclass of the java.lang.Thread class
+  - InterruptedException is defined to stop thread execution
+    - it handles signals/interrupts
+*** Extending vs Implementing
+  - Implementing Runnable is preferable to extending because:
+    - Class can only inherit from one class (multi-inheritance is not supported)
+    - Class might only be Runnable and it will be forced to be a subclass of Thread
+** Synchronization and Locks
+  - Threads within a given process share the same memory space
+  - Issues when two threads modify the same resource
+  - Java provides synchronization methods in order to control access to share resources
+    - synchronized
+    - lock
+*** Synchronization
+  - This is used to control method executions
+    #+BEGIN_SRC java
+    public class Account{
+      public synchronized int withdraw(int money){
+        ..
+      }
+    }
+    #+END_SRC
+  - Two threads holding the same instance of Account cannot call withdraw concurrently
+  - Two threads holding two different instances of Account can call withdraw concurrently
+  - The thread acquires the lock at the object level.
+**** Static Synchronization
+  - The thread acquires the lock at the class level.
+  - Two different threads cannot run 2 different static synchronized methods of the same class concurrently
+**** Synchronized Blocks
+  #+BEGIN_SRC java
+  synchronized(this || Class.getClass()){
+    ..
+  }
+  #+END_SRC
+  - Same idea of thread acquiring a lock at the instance or class level
+** Locks (monitors)
+  - Used to lock the access to a share resource. This happens when multiple threads want to access a resource.
+
+** Deadlocks and Deadlocks Prevention
+ - one thread is waiting for an object lock that another thread holds, and this second thread is waiting for an object lock that the first thread holds.
+ - Conditions for a deadlock to occur:
+   - mutual exclusion: only one process can access a resource of a given time. A deadlock could also occur if a resource has limited quantity.
+   - hold and wait: Processes already holding a resource can request additional resources without relinquishing their current resources.
+   - no preemption: One process cannot forcibly remove another process' resource.
+   - Circular wait: two or more processes form a circular chain where each process is waiting on another resource in the chain
+     - this can be avoid by running a deadlock prevention algorithm.
 * Exercises
 ** Array and String
 *** Is Unique
