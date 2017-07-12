@@ -1940,6 +1940,19 @@ WHERE
   - left join: keep left rows in the resulting set even if there is no match for them
   - right join: keep right rows in the resulting set even if there is no match for them
   - full join: keep left and right rows in the resulting set even if there is no match form them
+*** 14.5 Denormalization
+  - It's the process of adding redundant information into different tables.
+  - Pro: read operations are faster because joins are less used
+  - Cons: Data is duplicated. If some data change in the "source" table, then a process to keep the duplicated values in sync is needed.
+*** 14.7 Design a grade database
+  - |student|-1-N-|grade|
+#+BEGIN_SRC sql
+SELECT TOP 10 PERCENT s.id, AVG(g.grade) avg
+FROM grade g
+     INNER JOIN student s ON (g.s_id = s.id)
+GROUP BY s.id
+ORDER BY avg DESC
+#+END_SRC
 * Exercises
 ** Array and String
 *** Is Unique
