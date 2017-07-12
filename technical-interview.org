@@ -1880,6 +1880,104 @@ resp = 1
     - 0000 --> send this 5th byte across the wire and use it as the checksum
 ** XOR is not available
   - x ^ y == (~x & y) | (x & ~y)
+* System Design and Scalability
+** how to approach questions
+ - go broad first
+   - do not focus too much on something in particular
+ - use the whiteboard
+ - acknowledge interviewer concerns
+   - validate them --> write them down on the whiteboard
+ - be careful about assumptions
+ - state your assumptions explicitly!!
+ - estimate when necessary
+   - if you don't know the size of the data -> estimate
+ - drive!
+   - these questions are largely about the process rather than the ultimate design
+** Design: step-by-step
+*** Step 1: Scope the problem
+  - Do not stop asking questions until you are clear about the problem you are trying to solve
+  - Restate the requirements to the interviewer to confirm that requirements are correct
+*** Step 2: Make Reasonable Assumptions
+  - Infinite memory or 100 users per day are *unreasonable* assumptions
+  - Guessing that the system will handle 1000 thousand of new URL is reasonable
+  - Always confirm with your interviewer
+*** Step 3: Draw the Major Components
+  - Get up and go to the whiteboard
+  - Draw major components (logical design?)
+  - Verify the data flow
+    - a user enters a new URL. Then what?
+*** Step 4: Identify the Key Issues
+  - Identify bottlenecks
+  - What if a tinyURL becomes popular?
+  - Go through some edge cases here
+  - The interviewer might provide some guidance, use it!
+*** Step 5: Redesign for the Key Issues
+  - Change your design accordingly
+  - Be open about any limitations in your design and acknowledge them.
+
+** Algorithms that Scale: step-by-step
+*** Step 1: Ask Questions
+  - Do not stop asking question until you feel confident about it!
+*** Step 2: Make Believe
+  - Pretend that the data can all fit on one machine
+  - Brute force it!
+*** Step 3: Get Real
+  - How much data can fit on one machine
+  - can the data be split up?
+*** Step 4: Solve Issues
+  - solve issues you identified in step 2
+  - issues might be eliminated by actually removing a particular problem entirely
+  - or you can mitigate the issue
+  - apply an iterative solution (revisit issues again)
+** Key Concepts
+*** Horizontal vs Vertical Scaling
+  - Vertical scaling means increasing the resources of a specific node
+    - Adding more memory
+    - Adding more disk
+  - Horizontal scaling means increasing the number of nodes
+  - Vertical is easier than horizontal scaling, but it's limited.
+*** Load Balancer
+  - Allows the system to distribute the load uniformly across different boxes. This requires to have clone nodes that are running the same code.
+  - This is also useful when deploying new code. The system does not become unavailable.
+*** Database Denormalization and NoSQL
+  - Joins in a relational system are expensive when the data grows bigger. For this reason, they are avoided.
+  - Denormalization means adding redundant data into a table to speed up reads.
+  - NoSQL by design do not support joins so that might force to redesign the data model
+*** Database Partitioning (Sharding)
+  - Splitting the data across multiple machines while ensuring there is a way to retrieve the data
+**** Vertical Partitioning
+  - This partitions by feature or "domain"
+  - tables related to profiles, then the ones related to messages
+**** Key-Based (hash-based) Partitioning
+  - This uses some part of the data (the ID) to do the partitioning. Allocate N servers and then the hashing function could do mod(id,n).
+    - the problem with this strategy is that fails when more servers are added
+**** Directory-Based Partitioning
+  - A table is maintained to keep info where the data is stored
+    - the problem with this strategy are:
+      - single point of failure
+      - constant access to this table impacts performance.
+*** Caching
+  - Typically sits between your application layer and your data store.
+  - Query and its results are cached.
+*** Asynchronous Processing & Queues
+  - Slow operations should be computed ideally asynchronously
+  - Pre-compute part of the website and refresh the cache
+*** Networking Metrics
+  - Bandwidth: maximum amount of data that can be transferred per unit of time
+  - Throughput: Actual amount of data transported/transferred
+  - Latency: How long it takes data to from end to end
+*** MapReduce
+  - It's use to process large amount of data
+  - Maps: emits <key, value>
+  - Reduce: receives <key, value> and emits <key, value2>
+  - This allows to process data in parallel
+** Considerations
+  - Failures: any part of the system can fail. Need to plan for them (cut the wire)
+  - Availability: is a function of the percentage of time the system is operational
+  - Reliability: is a function of the probability that the system is operational for a certain unit of time
+  - Read-Heavy: you might want to cache
+  - Write-Heavy: you might want to queue writes
+  - Security
 * Databases
 ** Denormalized vs Normalized Databases
   - normalized databases are designed to minimize redundancy
