@@ -4417,7 +4417,7 @@ end
   - When solving problems with circular arrays, you can traverse the array twice if you want.
   - When solving recursive problems using a stack you have to be aware that's harder to any "backtracking" operations
     - mark a node as being processed and after processing all its children unmark it.
-* Resources [0/4]
+* Resources [1/4]
   - Data Structures
     - https://www.youtube.com/watch?v=YWnBbNj_G-U
     - Big O notation: 36:02
@@ -4437,8 +4437,16 @@ end
     - https://medium.freecodecamp.org/how-not-to-bomb-your-offer-negotiation-c46bb9bc7dea
   - [ ] Purely Functional Data Structures
     - https://www.cs.cmu.edu/~rwh/theses/okasaki.pdf
-  - [ ] The Value of Values with Rich Hickey
+  - [X] The Value of Values with Rich Hickey
     - https://www.youtube.com/watch?v=-6BsiVyC1kM
+    - Information -> a fact -> a value not a place!
+    - Objects are abstractions of a place in memory
+    - Place-Oriented Programming
+      - new information replaces old
+    - Memory is an associative system
+    - A fact is something that happened
+    - You cannot update a fact
+    - new facts will require new places!
   - [ ] Understand the CAP theorem
   - [ ] Make sure you're familiar with databases that select different letters in CAP
     - https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
