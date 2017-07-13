@@ -1644,7 +1644,7 @@ There is an improved version and it's O(n) when array is sorted
     - Trees
   - Linear Search
     - Most specific order
-* Dynamic Pragramming
+* Dynamic Programming
   - Design Technique
   - Optimization --> bring exponential problems into polinomial runtimes
   - Minimum/Maximum of something --> Optimization
@@ -1818,9 +1818,9 @@ end
     - A = A | (1 << j)
   - Example
     - A =            100010 (34)
-    - j = 3; 1 << 3  001000
+    - j = 3; 1 << 3  000100 (4)
     - OR             ======
-    -                101010
+    -                100110
 **** Remove
   - Remove the jth object from the subset -> set the jth bit from 1 to 0
   - Use the bitwise AND operation
@@ -2104,6 +2104,65 @@ ORDER BY avg DESC
    - no preemption: One process cannot forcibly remove another process' resource.
    - Circular wait: two or more processes form a circular chain where each process is waiting on another resource in the chain
      - this can be avoid by running a deadlock prevention algorithm.
+* CAP Theorem
+  - Any distributed system has the following core attributes:
+    - Consistency
+    - Availability
+    - Partition Tolerance
+  - This theorem states that a distributed system can only have 2 core attributes:
+    - CA: Consistency and Available; this should be dismissed because it does not account for failures (P)
+    - CP: Consistency and Partition Tolerance
+    - AP: Available and Partition Tolerance
+  - Factors like latency or throughput can influence which letter to use: "A" or "C"
+** Consistency
+  - All the nodes see the same information at a given point of time after performing an update.
+  - An update is "committed" after all the nodes agreed on it.
+** Availability
+  - The system is able to reply a given query. If I don't get a response then the system is not available.
+  - There is a catch here. This does not apply if a node is dead (if a node is dead, then it cannot give wrong results)
+** Partition Tolerance
+  - System can keep on working (and contain useful info) even when parts of it can no longer communicate together
+** Example (http://learnyousomeerlang.com/distribunomicon#my-other-cap-is-a-theorem)
+  - Two groups
+    - Chainsaw: Bill, Zoey
+    - Crossbow: Rick, Daryl
+  - Bill and Zoey will meet Rick and Daryl on Friday before dawn
+  - A dense flag cut the communications between Chainsaw and Crossbow camps
+  - Bill and Zoey got delayed and they requested to its camp (Chainsaw) to change the time of the meeting to later in the day
+  - Chainsaw cannot communicate this due to a dense fog.
+*** Camps Operating Under CP
+  - Setting a new meeting is rejected.
+  - CP is all about stopping *modifications* to the data so it remains consistent.
+  - Survivors can still read from the system.
+*** Camps Operating Under AP
+  - Setting a new meeting is accepted.
+  - Each camp now have different versions of the data
+  - Meeting of Friday
+    - Chainsaw -> Friday Night
+    - Crossbow -> Friday before dawn
+** Strategies for Resolving Conflicts
+  - The split is gone (fog) and the systems can communicate now.
+*** CP Approach
+  - Nothing to do. Data was not changed at all
+*** AP Approach
+  - Since this approach is more flexible, different strategies can be employed:
+    - Last Write Wins: whatever last update is the one that's kept
+    - A Winner can be picked randomly
+    - Relative clocks: Lamport clocks or Vector clocks
+    - The application is in charge of solving the conflicts (similar to what happen with GIT, SVN)
+** Quorum Systems
+  - This type of systems can be used to be more flexible regarding Consistency and Availability
+  - Suppose there are "n" nodes and the system require "n" of them to agree on changing some data
+  - A system with low consistency requirement can allow 15% of the nodes to agree on changing data
+  - A system with higher consistency requirement can allow 75% of the nodes to agree on changing data
+  - By changing m to n then the system is fully consistent: CP
+  - By changing m to 1 then the system is fully available: AP
+  - The strategy can be mixed depending upon the type of operations:
+    - user logging (m = 1)
+    - withdraw money (m = 75)
+** Resources
+ - http://learnyousomeerlang.com/distribunomicon#my-other-cap-is-a-theorem
+ - https://codahale.com/you-cant-sacrifice-partition-tolerance/
 * Exercises
 ** Array and String
 *** Is Unique
