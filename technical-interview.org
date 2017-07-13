@@ -2115,6 +2115,8 @@ ORDER BY avg DESC
     - AP: Available and Partition Tolerance
   - Factors like latency or throughput can influence which letter to use: "A" or "C"
 ** Consistency
+  - A system is consistent if an update is applied to all relevant nodes at the some logical time
+    - A standard database replication is not strongly consistent.
   - All the nodes see the same information at a given point of time after performing an update.
   - An update is "committed" after all the nodes agreed on it.
 ** Availability
@@ -2122,6 +2124,7 @@ ORDER BY avg DESC
   - There is a catch here. This does not apply if a node is dead (if a node is dead, then it cannot give wrong results)
 ** Partition Tolerance
   - System can keep on working (and contain useful info) even when parts of it can no longer communicate together
+  - A network partitions aren't limited to dropped packets. A crashed server can be thought of as a network partition.
 ** Example (http://learnyousomeerlang.com/distribunomicon#my-other-cap-is-a-theorem)
   - Two groups
     - Chainsaw: Bill, Zoey
@@ -2160,6 +2163,9 @@ ORDER BY avg DESC
   - The strategy can be mixed depending upon the type of operations:
     - user logging (m = 1)
     - withdraw money (m = 75)
+** Yield and Harvest
+  - yield: percent of requests answered successfully.
+  - harvest: percent of required data actually included in the responses.
 ** Resources
  - http://learnyousomeerlang.com/distribunomicon#my-other-cap-is-a-theorem
  - https://codahale.com/you-cant-sacrifice-partition-tolerance/
