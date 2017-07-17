@@ -2169,6 +2169,11 @@ ORDER BY avg DESC
 ** Resources
  - http://learnyousomeerlang.com/distribunomicon#my-other-cap-is-a-theorem
  - https://codahale.com/you-cant-sacrifice-partition-tolerance/
+* Greedy Algorithms
+** Resources
+  - https://www.youtube.com/watch?v=EcT-Jt5WStw
+  - 
+  - https://www.youtube.com/watch?v=-QcPo_DWJk4
 * Exercises
 ** Array and String
 *** Is Unique
@@ -4515,7 +4520,7 @@ end
   - [ ] Understand the CAP theorem
   - [ ] Make sure you're familiar with databases that select different letters in CAP
     - https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
-* TODOs [0/14]
+* TODOs [0/16]
   - [ ] Dynamic Programming
     - http://www.geeksforgeeks.org/?p=12635
   - [ ] Dijkstra's Shortest Path
@@ -4537,6 +4542,8 @@ end
   - [ ] https://leetcode.com/problems/total-hamming-distance/#/description
   - [ ] Extreme Cleverness: Functional Data Structures in Scala
     - https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala
+  - [ ] https://leetcode.com/problems/house-robber/#/description
+  - [ ] https://leetcode.com/problems/house-robber-iii/#/description
 * Cracking the Coding Interview Videos
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
