@@ -1,0 +1,39 @@
+* Chapter 5 - Perpetual Learnings
+  - Software development is composed of two primary activities:
+    - Learning
+    - Communication
+  - Core theme is *learning*
+  - Dominant trait of a successful apprentice is a demonstration of her learning abilities
+  - Learn how to learn
+  - Learning is a perpetual activity for those on the long road to mastery
+** Expand Your Bandwidth
+  - Stop drinking from a straw and drink from the fire hose!
+  - Read software development blogs
+  - Follow software luminaries on Twitter
+  - After you read a book, contact the author with a note of appreciation and a question
+  - Sign up for online courses
+  - When to "expand your bandwidth"
+    - This is a mean to an end
+    - This pattern will accelerate your learning, however it will slow down your development velocity (diminishing returns if applied for more than a few months)
+  - Action
+    - Contact the author of a book you read
+** Practice, Practice, Practice
+  - We need practice sessions
+  - We should split the practice from the profession
+  - Short feedback loops need to be incorporated into your practice sessions
+  - Practice makes permanent!!
+    - Be careful what you practice!
+  - Action
+    - Find an exercise and make sure it's a little bit harder to solve. Solve it!! Solve it from scratch once a week for month and see how your solution evolves
+** Breakable Toys
+  - Experience is built upon "failure" as much as (if not more than) success.
+  - Budget for failure by designing and building toy systems that are similar in toolset, but not in scope to the system you use
+  - Action
+    - Build a wiki, a calendar, or an address book or whatever helps you to learn about the skills you are learning
+** Use the Source
+  - Read good exemplars of good practice and emulate them.
+  - Understand why the code was organized that way
+  - How they modularized the code
+  - Let every line of code be your teacher
+  - Action
+    - Study an algorithmically sophisticated open source project such as Git. Note down algorithms and data structures and design ideas new to you. Write a blog post about your understanding of them.
