@@ -4520,7 +4520,7 @@ end
   - [ ] Understand the CAP theorem
   - [ ] Make sure you're familiar with databases that select different letters in CAP
     - https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
-* TODOs [0/16]
+* TODOs [2/18]
   - [ ] Dynamic Programming
     - http://www.geeksforgeeks.org/?p=12635
   - [ ] Dijkstra's Shortest Path
@@ -4544,6 +4544,8 @@ end
     - https://www.infoq.com/presentations/Functional-Data-Structures-in-Scala
   - [ ] https://leetcode.com/problems/house-robber/#/description
   - [ ] https://leetcode.com/problems/house-robber-iii/#/description
+  - [X] https://leetcode.com/problems/binary-tree-level-order-traversal-ii
+  - [X] https://leetcode.com/problems/find-bottom-left-tree-value
 * Cracking the Coding Interview Videos
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
