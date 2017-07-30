@@ -2172,7 +2172,6 @@ ORDER BY avg DESC
 * Greedy Algorithms
 ** Resources
   - https://www.youtube.com/watch?v=EcT-Jt5WStw
-  - 
   - https://www.youtube.com/watch?v=-QcPo_DWJk4
 * Exercises
 ** Array and String
@@ -4068,6 +4067,56 @@ def sliding_window_maximum(arr, k)
 end
 #+END_SRC
 
+** Tree
+*** 116. Populating Next Right Pointers in Each Node
+#+BEGIN_SRC ruby
+class TreeLinkNode
+  attr_accessor :val, :left, :right, :next
+  def initialize(val, left=nil, right=nil)
+    self.val = val
+    self.left = left
+    self.right = right
+    self.next = nil
+  end
+end
+
+def connect(root)
+  marker = TreeLinkNode.new("#")
+  queue = [root, marker]
+  while !queue.empty?
+    current = queue.shift
+    case current.val
+    when "#"
+      queue << marker if !queue.empty?
+    else
+      current.next = queue[0] if queue[0] != marker
+      queue << current.left if current.left
+      queue << current.right if current.right
+    end
+  end
+end
+
+def connect_2(root)
+  connect_internal(root)
+  connect_external(root.left, root.right)
+end
+
+def connect_internal(current)
+  return if current.left.nil? || current.right.nil?
+
+  current.left.next = current.right
+  connect_internal(current.left)
+  connect_internal(current.right)
+end
+
+def connect_external(left, right)
+  while !left.nil? && !right.nil?
+    left.next = right
+    left = left.right
+    right = right.left
+  end
+end
+#+END_SRC
 ** Exercises [8/9]
 ** Implementations
 *** Hash Table
@@ -4463,6 +4512,71 @@ def give_change(amount, coins)
 end
 
 #+END_SRC
+** Web Crawler
+#+BEGIN_SRC ruby
+class URLStore
+  attr_accessor :hash, :lock
+  def initialize
+    self.hash = {}
+    self.lock = Mutex.new
+  end
+
+  def add(url_str)
+    self.lock.synchronize do
+      if !self.hash.has_key?(url_str)
+        self.hash[url_str] = URL.new(url_str)
+      end
+      self.hash[url_str]
+    end
+  end
+
+  def get(url_str)
+    self.hash[url_str]
+  end
+end
+
+class URL
+  attr_accessor :url, :lock, :visited
+
+  def initialize(url)
+    self.url = url
+    self.lock = Mutex.new
+  end
+end
+
+def give_me_more_urls(url)
+  []
+end
+
+def process(url_str, store)
+  if !current_url = store.get(url_str)
+    current_url = store.add(url_str)
+  end
+
+  current_url.lock.synchronize do
+    return if current_url.visited
+    current_url.visited = true
+  end
+  url_strs = give_me_more_urls(url)
+  threads = url_strs.map do |url_str|
+    Thread.new { process(url_str, store) }
+  end
+  threads.map(&:join)
+end
+
+def main(root_url_str)
+  process(root_url_str, URLStore.new)
+end
+#+END_SRC
+** Greedy Algorithms
+*** Grid Challenge
+  - https://www.hackerrank.com/challenges/grid-challenge/problem
+#+BEGIN_SRC ruby
+matrix = [[],[],[]]
+1.- sort matrix by row
+2.- check that columns are sorted in lexicagraphical order
+3.- if yes, output yes, output no otherwise
+#+END_SRC
 * Learnings
   - Use paper and pencil or whiteboard
   - Make sure to have an example of expected input and output
@@ -4520,7 +4634,7 @@ end
   - [ ] Understand the CAP theorem
   - [ ] Make sure you're familiar with databases that select different letters in CAP
     - https://martin.kleppmann.com/2015/05/11/please-stop-calling-databases-cp-or-ap.html
-* TODOs [2/19]
+* TODOs [3/20]
   - [ ] Dynamic Programming
     - http://www.geeksforgeeks.org/?p=12635
   - [ ] Dijkstra's Shortest Path
@@ -4530,7 +4644,7 @@ end
     - https://leetcode.com/problems/edit-distance/#/description
     - remember to use a matrix: a-b-c; x-y-z;
     - solve it by using "5 'easy' steps"
-  - [ ] Minimum Height Trees
+  - [X] Minimum Height Trees
     - https://leetcode.com/problems/minimum-height-trees/#/description
   - [ ] https://leetcode.com/problems/binary-tree-postorder-traversal/#/description
   - [ ] https://leetcode.com/problems/the-skyline-problem/#/description
@@ -4548,6 +4662,8 @@ end
   - [X] https://leetcode.com/problems/find-bottom-left-tree-value
   - [ ] Performance issues
     - https://leetcode.com/problems/01-matrix/#/description
+  - [ ] https://leetcode.com/problems/perfect-squares/#/discuss
+    - read the discussion!!!
 * Cracking the Coding Interview Videos
 ** 7 Steps to Solve Algorithm Problems
   1. Listen
