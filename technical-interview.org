@@ -1995,6 +1995,10 @@ resp = 1
     - 2*8 = 16 % 3 = 1 :(
     - 1*8 = 8 % 3 = 2 :(
     - If binary stream is not of the given length, then 0s are added so the downstream process can continue without worrying about this edge case
+  - Overhead factor
+    - the overhead ratio is 4:3
+      - 4 bytes as output, 3 bytes as input
+      - 3 bytes are divided by 6 bits and the resulting chars are 4 and they need to be stored by using 4 bytes.
 * Databases
 ** Denormalized vs Normalized Databases
   - normalized databases are designed to minimize redundancy
