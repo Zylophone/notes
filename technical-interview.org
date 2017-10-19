@@ -1978,6 +1978,23 @@ resp = 1
   - Read-Heavy: you might want to cache
   - Write-Heavy: you might want to queue writes
   - Security
+** Generate a short and unique key for a given URL
+- Hash function (md5, sha1, sha2)
+- Encode the value with an encoding function:
+  - base 64, base 32, hexadecimal?
+  - transform value from original representation (binary) to target representation (characters)
+- Final key would be 6 or 8 chars long
+  - 64**6 || 64**8 possible different strings
+- Base 64
+  - Each character can take 64 different values
+  - If I use base 10, then I would need two integers to represent each char.
+    - 2 bytes = 16 bits
+  - If I use base 2, then I would need log2(64) = 6 bits of data
+  - why the encoding process group 3 bytes to perform the encoding?
+    - 3*8 = 24 % 3 = 0 :)
+    - 2*8 = 16 % 3 = 1 :(
+    - 1*8 = 8 % 3 = 2 :(
+    - If binary stream is not of the given length, then 0s are added so the downstream process can continue without worrying about this edge case
 * Databases
 ** Denormalized vs Normalized Databases
   - normalized databases are designed to minimize redundancy
