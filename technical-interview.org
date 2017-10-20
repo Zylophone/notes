@@ -1999,6 +1999,21 @@ resp = 1
     - the overhead ratio is 4:3
       - 4 bytes as output, 3 bytes as input
       - 3 bytes are divided by 6 bits and the resulting chars are 4 and they need to be stored by using 4 bytes.
+** Capacity Estimation ($)
+- ratio between reads and writes
+  - this helps to determine whether the system is read or write intensive
+  - always put the higher number first (4:3)
+- traffic
+  - network input
+  - network output
+- disk storage
+  - should we keep records for ever?
+  - can we delete/reuse them?
+  - calculate this per second and times the total years
+- memory storage (cache)
+  - 80%, 20% Pareto's law
+    - 80% of the traffic come from 20% of the urls
+  - calculate this per day
 * Databases
 ** Denormalized vs Normalized Databases
   - normalized databases are designed to minimize redundancy
@@ -4862,3 +4877,22 @@ end
     - https://leetcode.com/problems/01-matrix/#/description
   - [ ] https://leetcode.com/problems/perfect-squares/#/discuss
     - read the discussion!!!
+* Feedback
+** October, 19th
+*** Problem
+- Find the inorder succesor
+    9
+4      20
+  6   11
+ 5 8     12
+  7
+*** Negative
+- I made assumptions about duplication
+- I missed that O(log n) is only when BST is balanced
+- I couldn't come with meaningful examples
+- What does it mean to have access to the root
+- Visualize it more
+- Too specific -> try to be more generic in the solution
+*** Positive
++ brute force solution didn't impress the interviewer
++ clarificatinos about the imput
