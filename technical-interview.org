@@ -1893,6 +1893,15 @@ resp = 1
    - if you don't know the size of the data -> estimate
  - drive!
    - these questions are largely about the process rather than the ultimate design
+** how to approach questions 2.0
+- Problem Definition
+- Functional Requirements
+- Non-functional Requirements
+- Capacity Estimation
+- System APIs
+- Database Design
+- Basic System Design and Algorithm
+  - First Diagram of the system
 ** Design: step-by-step
 *** Step 1: Scope the problem
   - Do not stop asking questions until you are clear about the problem you are trying to solve
@@ -4790,6 +4799,38 @@ class ElevatorRequestHandler
   end
 end
 #+END_SRC
+*** Key Generation Service
+- Generates Key Off-line.
+- Give a Unique Non Used Key to a Client.
+- 64**6 different keys
+  - 64**6 * 6 bytes ~= 412GB of storage
+- Storage
+  - SQL
+    - Postgres supports table size up until 32TB [[https://www.postgresql.org/about/][(Size Documentation)]]
+    - Master / Slave setup for redundancy
+    - Key Generation (write) interacts with master instance
+      - There are no problems with uniqueness
+    - Take Key (write) interact with master instance
+      - Lock mechanism needed to guartantee that each request gets a unique url
+        - Explicit Locking [[https://www.postgresql.org/docs/current/static/explicit-locking.html][(More Info)]]
+        - FOR UPDATE SKIP LOCKED [[https://dba.stackexchange.com/questions/69471/postgres-update-limit-1][(More Info)
+]]    - No partition or sharding needed
+  - NoSQL
+    - Dynamo or Cassandra
+    - Sharding is needed
+    - Key Generation (write) will pass the newly generated key to a hash function to determine which DB node will hold the value
+      - What would happen with uniqueness if hosts are added/lost. Will consistent hash help us?
+      - Sequential lookup needed in order to ensure there is no duplication?
+        - what would happen when a host that had a key is not available but it become available afterwards?
+        - sharing keys might help?
+      - should we have different process enqueueing generated keys and only one process writing to the DB?
+    - Take Key (write) will interact with a loadbalancer (assigns shard in a round robin fashion)
+      - I don't see a way to assign a particular shard to the request other than a random access (round robin?)
+      - Optimist Locking
+        - Client has to read first in order to get a version of the record
+          - This read has to go throught the load balancer
+        - Then update it [[http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html][(Optimist Locking)]] [[http://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_UpdateItem.html][(Update)]]
+          - This write has to go throught the hash function to pick the correct DB node that holds the record
 * Learnings
   - Use paper and pencil or whiteboard
   - Make sure to have an example of expected input and output
