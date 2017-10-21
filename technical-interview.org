@@ -4813,8 +4813,8 @@ end
     - Take Key (write) interact with master instance
       - Lock mechanism needed to guartantee that each request gets a unique url
         - Explicit Locking [[https://www.postgresql.org/docs/current/static/explicit-locking.html][(More Info)]]
-        - FOR UPDATE SKIP LOCKED [[https://dba.stackexchange.com/questions/69471/postgres-update-limit-1][(More Info)
-]]    - No partition or sharding needed
+        - FOR UPDATE SKIP LOCKED [[https://dba.stackexchange.com/questions/69471/postgres-update-limit-1][(More Info)]]
+        - No partition or sharding needed
   - NoSQL
     - Dynamo or Cassandra
     - Sharding is needed
