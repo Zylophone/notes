@@ -1,0 +1,25 @@
+* Install Links
+- https://thecustomizewindows.com/2013/08/links-cli-based-browser-with-graphics-os-x-build/
+* Install Evince
+- brew install evince
+* Config sshd_config
+- Install XQuartz in both Server and Client
+** Server
+*** Install XQuartz
+ - brew install Caskroom/cask/xquartz
+*** Edit /etc/ssh/sshd_config
+X11Forwarding yes
+X11DisplayOffset 10
+X11UseLocalhost no
+
+** Client
+*** Install XQuartz
+ - brew install Caskroom/cask/xquartz
+*** Modify cat ~/.ssh/config
+Host *
+  ForwardAgent yes
+  ForwardX11 yes
+* Configuring tmux and emacs copy paste
+- https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+* Install xpdf
+- brew install xpdf
